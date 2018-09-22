@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: TestBT.xml-->
+<behavior name="TestBT" agenttype="TestAgent" version="5">
+  <node class="Action" id="0">
+    <property Method="Self.PW_BaseAgent::LogTest(&quot;This is a test！&quot;)" />
+    <property ResultOption="BT_SUCCESS" />
+  </node>
+</behavior>
