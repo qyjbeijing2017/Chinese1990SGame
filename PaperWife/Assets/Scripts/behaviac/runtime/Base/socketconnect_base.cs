@@ -1080,7 +1080,6 @@ namespace behaviac
         private void ThreadFunc()
         {
             Log("behaviac: Socket Thread Starting\n");
-
             try
             {
                 this.ReserveThreadPacketBuffer();

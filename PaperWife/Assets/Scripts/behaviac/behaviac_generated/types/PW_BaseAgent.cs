@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+
 ///<<< BEGIN WRITING YOUR CODE FILE_INIT
 
 ///<<< END WRITING YOUR CODE
@@ -45,7 +46,18 @@ public class PW_BaseAgent : behaviac.Agent
         get
         {
             string relativePath = "/Resources/behaviac/exported";
-            return "Assets" + relativePath;
+            if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsEditor)
+            {
+                return UnityEngine.Application.dataPath + relativePath;
+            }
+            else if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsPlayer)
+            {
+                return UnityEngine.Application.dataPath + relativePath;
+            }
+            else
+            {
+                return "Assets" + relativePath;
+            }
         }
     }
 
