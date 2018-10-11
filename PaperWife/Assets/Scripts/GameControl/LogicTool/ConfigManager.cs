@@ -23,7 +23,6 @@ namespace DaemonTools
             {
                 if (lineText[i] != string.Empty)
                 {
-                    string[] attributeText
                 }
             }
 

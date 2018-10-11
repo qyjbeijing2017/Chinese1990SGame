@@ -18,7 +18,7 @@ public class TestStart : MonoBehaviour {
 		
 	}
 	void OnStartGameClick(){
-        DaemonTools.LoadSceneManager.Instance.LoadSceneAsync("GameStage1", ()=> { Debug.Log("end"); },()=> { Debug.Log("before"); });
+        DaemonTools.LoadSceneManager.Instance.LoadSceneAsync("GameStage1");
         //SceneManager.LoadScene("GameStage1");
 	}
 }
