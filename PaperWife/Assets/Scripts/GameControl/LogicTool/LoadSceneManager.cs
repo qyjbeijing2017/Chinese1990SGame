@@ -21,6 +21,24 @@ namespace DaemonTools
         }
 
         /// <summary>
+        /// 加载场景
+        /// </summary>
+        /// <param name="sceneName">场景名称</param>
+        public void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+
+        /// <summary>
+        /// 加载场景
+        /// </summary>
+        /// <param name="sceneId">场景Index</param>
+        public void LoadScene(int sceneId)
+        {
+            SceneManager.LoadScene(sceneId);
+        }
+
+        /// <summary>
         /// 异步加载场景
         /// </summary>
         /// <param name="sceneName">场景名称</param>
