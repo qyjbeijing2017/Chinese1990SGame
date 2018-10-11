@@ -6,27 +6,20 @@ namespace DaemonTools
 {
     public class ConfigManager : Singleton<ConfigManager>
     {
+        //声明配置表名
+        const string TestConfigName = "test";
+        
+        //声明配置表存储
+        public Dictionary<int, TestConfig> TestConfigData;
 
-        public void Start()
+        //实例化配置表
+        public void InitConfigManager()
         {
-            List<List<string>> Array;
-            //读取csv二进制文件
-            TextAsset binAsset = Resources.Load("Configs/test", typeof(TextAsset)) as TextAsset;
-
-            string allText = binAsset.text;
-
-            allText = allText.Replace("\n", string.Empty);
-            string[] lineText = allText.Split("\r"[0]);
-
-
-            for (int i = 0; i < lineText.Length; i++)
-            {
-                if (lineText[i] != string.Empty)
-                {
-                }
-            }
-
+            TestConfigData = ConfigFactory<TestConfig>.InitConfigs(TestConfigName);
         }
+
     }
+
+
 
 }

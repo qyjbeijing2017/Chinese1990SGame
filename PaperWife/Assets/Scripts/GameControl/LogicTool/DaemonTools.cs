@@ -41,6 +41,8 @@ namespace DaemonTools
         protected void Awake()
         {
             m_instance = this as T;
+            gameObject.name = typeof(T).Name;
+            DontDestroyOnLoad(gameObject);
         }
 
     }
