@@ -27,7 +27,7 @@ public class TestStart : MonoBehaviour
         {
             Debug.Log("end");
             Debug.Log(ConfigManager.Instance.TestConfigData[1].ID);
-            Debug.Log(ConfigManager.Instance.Test10_11ConfigData[6].Fortest1);
+//            Debug.Log(ConfigManager.Instance.Test10_11ConfigData[6].Fortest1);
         }, () =>
         {
             ConfigManager.Instance.InitConfigManager();
