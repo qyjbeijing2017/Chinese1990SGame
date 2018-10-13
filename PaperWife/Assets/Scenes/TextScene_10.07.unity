@@ -514,13 +514,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986dbdb6e74915542a13bc721de56720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 5
-  m_Movement: {x: 0, y: 0, z: 0}
-  m_PlayerRigidbody: {fileID: 0}
-  isJump: 0
-  isOnGround: 0
-  m_JumpForce: 5
-  _playerCamera: {fileID: 1365770459}
+  m_speed: 5
+  m_movement: {x: 0, y: 0, z: 0}
+  m_playerRigidbody: {fileID: 0}
+  m_isJump: 0
+  m_isOnGround: 0
+  m_jumpForce: 5
 --- !u!54 &1011008035
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -667,15 +666,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a4b8b113c2d994e83cca849dc4ff19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensitivityX: 15
-  m_SensitivityY: -15
-  m_MinimumX: -360
-  m_MaximumX: 360
-  m_MinimumY: -60
-  m_MaximumY: 60
-  m_Axes: 0
-  m_RotationY: 0
-  m_Player: {fileID: 1011008040}
+  m_sensitivityX: 15
+  m_sensitivityY: -15
+  m_minimumX: -360
+  m_maximumX: 360
+  m_minimumY: -60
+  m_maximumY: 60
+  m_axes: 0
+  m_rotationY: 0
+  m_player: {fileID: 1011008040}
 --- !u!81 &1365770461
 AudioListener:
   m_ObjectHideFlags: 0
