@@ -1,0 +1,4 @@
+﻿NameId,Path
+string,string
+StartPanel,UI/StartPanel/StartPanel
+AboutPanel,UI/AboutPanel/AboutPanel

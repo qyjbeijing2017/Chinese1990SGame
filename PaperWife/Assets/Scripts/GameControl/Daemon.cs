@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Daemon : MonoSingleton<Daemon>
 {
-    [SerializeField] Canvas m_canvasMain;
+
     new void Awake()
     {
         base.Awake();
@@ -15,9 +15,9 @@ public class Daemon : MonoSingleton<Daemon>
         UIManager.Instance.Init();
     }
 
-    private void Start() {
-        Instantiate(new Canvas());
 
+    private void Start() {
+        UIManager.Instance.Open("StartPanel");
     }
 
 }
