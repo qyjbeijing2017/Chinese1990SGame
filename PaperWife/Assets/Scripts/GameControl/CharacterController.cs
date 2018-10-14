@@ -1,54 +1,61 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-
-// [AddComponentMenu("Control Script/FPS Input")]
-// public class CharacterController : MonoBehaviour {
-// 	/*  [SerializeField]private float m_Speed = 6.0f;
-// 	[SerializeField]private float m_Gravity = 0;
-// 	private CharacterController m_CharacterController;
-// 	private void Start() {
-// 		m_CharacterController = GetComponent<CharacterController>();
-// 	}
-// 	private void FixedUpdate() {
-// 		float h = Input.GetAxis("Horizontal") * m_Speed;
-// 		float v = Input.GetAxis("Vertical") * m_Speed;
-// 		Vector3 m_Movement = new Vector3(h , 0 , v);
-// 		m_Movement = Vector3.ClampMagnitude(m_Movement, m_Speed);
-// 		m_Movement.y = m_Gravity;
-// 		m_Movement *= Time.deltaTime;
-// 		m_Movement = transform.TransformDirection(m_Movement);
-// 		CharacterController.Move(m_Movement);
-// 	}*/
-// 	void FixedUpdate()
-//     {
-//         float h = Input.GetAxisRaw("Horizontal");//获取水平方向移动
-//         float v = Input.GetAxisRaw("Vertical");//获取垂直方向移动
-//         Move(h, v);//角色移动
-//         Turning();//角色转向
-//     }
-//    void Move(float h,float v)
-//     {
-//         movement.Set(h, 0f, v); //vector3向量
-//         movement = movement.normalized * speed * Time.deltaTime; //movement.normalized使向量单位化，结果等于每帧角色移动的距离
-//         playerRigidbody.MovePosition(transform.position + movement);//设置刚体移动位置
-//     }
-//     void Turning()
-//     {
-//         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);//定义射线检测鼠标位置
-//         RaycastHit floorHit; //光线投射碰撞
-//         if (Physics.Raycast(camRay,out floorHit, camRayLength, floorMask))
-//             光线投射，计算在指定层上是否存在碰撞，返回bool
-//         {
-//             Vector3 playerToMouse = floorHit.point - transform.position;//计算差值
-//             playerToMouse.y = transform.position.y;//不改变y轴方向
-//             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-//             四元数用于表示旋转，创建一个旋转，沿着forward（z轴）并且头部沿着upwards（y轴）的约束注视
-//             playerRigidbody.MoveRotation(newRotation);
-//         }
-//     }
-
+public class CharacterController : MonoBehaviour {
 
 	
-// }
+	private void Start () {
+		m_targetMask = LayerMask.GetMask ("Target");
+
+	}
+	private void Update () {
+		Pick ();
+	}
+
+	#region pick实现
+
+	void onpickcolliderEnter (Collision other) {
+		m_target.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+		m_target.transform.SetParent (null);
+		PickObj pickObj = m_target.GetComponent<PickObj> ();
+		pickObj.IOnCollisionEnter -= onpickcolliderEnter;
+		Destroy (pickObj);
+		m_target = null;
+		m_isPicked = false;
+	}
+
+	int m_targetMask;
+	private GameObject m_target;
+	[SerializeField] private Camera _playerCamera;
+	private bool m_isPicked = false;
+
+	void Pick () {
+		if (!m_isPicked) {
+			Ray m_ray = _playerCamera.ScreenPointToRay (new Vector2 (Screen.width / 2, Screen.height / 2));
+			RaycastHit m_hit;
+			if (Physics.Raycast (m_ray, out m_hit, 100f, m_targetMask)) {
+				if (Input.GetKeyDown (KeyCode.E)) {
+					m_target = m_hit.transform.gameObject;
+					PickObj pickObj = m_target.AddComponent<PickObj> ();
+					pickObj.IOnCollisionEnter += onpickcolliderEnter;
+					m_target.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
+					m_target.transform.SetParent (_playerCamera.transform);
+					m_isPicked = true;
+				}
+
+			}
+		} else {
+			if (Input.GetKeyDown (KeyCode.E)) {
+				m_target.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+				m_target.transform.SetParent (null);
+				PickObj pickObj = m_target.GetComponent<PickObj> ();
+				pickObj.IOnCollisionEnter -= onpickcolliderEnter;
+				Destroy (pickObj);
+				m_target = null;
+				m_isPicked = false;
+			}
+		}
+	}
+	#endregion
+}
