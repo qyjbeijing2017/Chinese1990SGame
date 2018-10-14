@@ -9,7 +9,7 @@ public class TestConfig : BaseConfig
     public float Test1;
     public string Test2;
     public int Test3;
-    public override void InitConfig(List<string> m_data)
+    public void InitConfig(List<string> m_data)
     {
         int.TryParse(m_data[0], out ID);
         float.TryParse(m_data[1], out Test1);

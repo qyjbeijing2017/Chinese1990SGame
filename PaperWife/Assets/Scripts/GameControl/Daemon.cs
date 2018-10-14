@@ -18,6 +18,7 @@ public class Daemon : MonoSingleton<Daemon>
 
     private void Start() {
         UIManager.Instance.Open("StartPanel");
+        
     }
 
 }

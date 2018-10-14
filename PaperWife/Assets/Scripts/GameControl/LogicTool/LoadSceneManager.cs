@@ -24,49 +24,53 @@ namespace DaemonTools
         /// 加载场景
         /// </summary>
         /// <param name="sceneName">场景名称</param>
-        public void LoadScene(string sceneName)
+        /// <param name="loadSceneMode">加载模式</param>
+        public void LoadScene(string sceneName,LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(sceneName,loadSceneMode);
         }
 
         /// <summary>
         /// 加载场景
         /// </summary>
         /// <param name="sceneId">场景Index</param>
-        public void LoadScene(int sceneId)
+        /// <param name="loadSceneMode">加载模式</param>
+        public void LoadScene(int sceneId, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            SceneManager.LoadScene(sceneId);
+            SceneManager.LoadScene(sceneId, loadSceneMode);
         }
 
         /// <summary>
         /// 异步加载场景
         /// </summary>
-        /// <param name="sceneName">场景名称</param>
-        /// <param name="callBack">完成回调函数</param>
-        /// <param name="loadBefore">加载场景前加载配置</param>
-        public void LoadSceneAsync(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null)
+        /// <param name="sceneName">场景</param>
+        /// <param name="callBack">回调</param>
+        /// <param name="loadBefore">加载之前</param>
+        /// <param name="loadSceneMode">加载模式</param>
+        public void LoadSceneAsync(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             SceneManager.LoadScene("LoadingScene");
-            Daemon.Instance.StartCoroutine(LoadScene(sceneName, callBack, loadBefore));
+            Daemon.Instance.StartCoroutine(LoadScene(sceneName, callBack, loadBefore, loadSceneMode));
         }
 
         /// <summary>
         /// 异步加载场景
         /// </summary>
-        /// <param name="sceneId">场景名称</param>
-        /// <param name="callBack">完成回调函数</param>
-        /// <param name="loadBefore">加载场景前加载配置</param>
-        public void LoadSceneAsync(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null)
+        /// <param name="sceneId">场景index</param>
+        /// <param name="callBack">回调</param>
+        /// <param name="loadBefore">加载之前</param>
+        /// <param name="loadSceneMode">加载模式</param>
+        public void LoadSceneAsync(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             SceneManager.LoadScene("LoadingScene");
-            Daemon.Instance.StartCoroutine(LoadScene(sceneId, callBack, loadBefore));
+            Daemon.Instance.StartCoroutine(LoadScene(sceneId, callBack, loadBefore, loadSceneMode));
         }
 
-        IEnumerator LoadScene(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null)
+        IEnumerator LoadScene(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             yield return null;
             yield return Daemon.Instance.StartCoroutine(LoadSceneBefore(loadBefore));
-            AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneId);
+            AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneId, loadSceneMode);
             while (!asyncOperationScene.isDone)
             {
                 m_loadProgress = (int)(asyncOperationScene.progress * 100.0f + 1.0f);
@@ -84,11 +88,11 @@ namespace DaemonTools
 
         }
 
-        IEnumerator LoadScene(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null)
+        IEnumerator LoadScene(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             yield return null;
             yield return Daemon.Instance.StartCoroutine(LoadSceneBefore(loadBefore));
-            AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneName);
+            AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
             while (!asyncOperationScene.isDone)
             {
                 m_loadProgress = (int)(asyncOperationScene.progress * 100.0f + 1.0f);

@@ -81,15 +81,13 @@ namespace DaemonTools {
 
 }
 
-public abstract class BaseConfig {
-    public BaseConfig () {
+public interface BaseConfig {
 
-    }
     /// <summary>
     /// 用于解析文本
     /// </summary>
     /// <param name="m_data"></param>
-    public abstract void InitConfig (List<string> m_data);
+    void InitConfig (List<string> m_data);
 }
 
 // public class YourConfig : BaseConfig{
