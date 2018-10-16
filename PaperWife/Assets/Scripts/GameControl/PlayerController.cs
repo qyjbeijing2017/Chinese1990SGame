@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour {
 		m_isJump = Input.GetKeyDown (KeyCode.Space);
 		if (m_isJump) {
 			Jump ();
-			m_isJump = false;
 		}
 
 		
@@ -60,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 
 	}
 	void Move (float h, float v) {
-		m_movement = m_player.transform.forward * v + transform.right * h;
+		m_movement = m_player.transform.forward * v + m_player.transform.right * h;
 		m_movement = m_movement.normalized * m_speed * Time.deltaTime;
 		m_playerRigidbody.MovePosition (m_player.transform.position + m_movement);
 	}
