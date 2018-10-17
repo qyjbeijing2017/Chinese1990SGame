@@ -69,9 +69,6 @@ public class PlayerController : MonoBehaviour {
 	void FPSCamera(){
 		Cursor.visible = false;
 		float m_RotationX = m_player.transform.localEulerAngles.y + Input.GetAxis ("Mouse X") * m_sensitivityX * Time.fixedTime;
-		Debug.Log(m_player.transform.localEulerAngles.y);
-
-
 		m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
 		m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
 

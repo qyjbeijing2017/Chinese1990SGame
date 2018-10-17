@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.PostProcessing;
 public class CharacterController : MonoBehaviour {
 	public GameObject m_now;
 	public GameObject m_before;
-
+	public string m_moveToBefore;
+	public string m_moveToNow;
+	public PostProcessingBehaviour m_postProcessingBehaviour;
+	public PostProcessingProfile m_postProcessingProfileBefore;
+	public PostProcessingProfile m_postProcessingProfileNow;
 	private void Start () {
 		m_targetMask = LayerMask.GetMask ("Target");
 		m_now.SetActive (true);
@@ -46,9 +50,17 @@ public class CharacterController : MonoBehaviour {
 					m_target.transform.SetParent (_playerCamera.transform);
 					m_target.transform.localPosition = m_target.transform.localPosition * 0.9f;
 					m_isPicked = true;
-					 m_now.SetActive (false);
-					m_before.SetActive (true);
-					
+					if (m_target.name == m_moveToBefore) {
+						m_now.SetActive (false);
+						m_before.SetActive (true);
+						m_postProcessingBehaviour.profile = m_postProcessingProfileBefore;
+					} else {
+						m_now.SetActive (true);
+						m_before.SetActive (false);
+						m_postProcessingBehaviour.profile = m_postProcessingProfileNow;
+
+					}
+
 				}
 
 			}
@@ -60,8 +72,6 @@ public class CharacterController : MonoBehaviour {
 				pickObj.IOnCollisionEnter -= onpickcolliderEnter;
 				Destroy (pickObj);
 				m_target = null;
-				m_now.SetActive (true);
-				m_before.SetActive (false);
 				m_isPicked = false;
 			}
 		}
