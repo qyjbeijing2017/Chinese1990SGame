@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: tt.xml-->
+<behavior name="tt" agenttype="TestAgent" version="5">
+  <node class="SelectorProbability" id="0">
+    <node class="DecoratorWeight" id="1">
+      <property DecorateWhenChildEnds="false" />
+      <property Weight="const int 1" />
+      <node class="Action" id="2">
+        <property Method="Self.PW_BaseAgent::LogTest(&quot;wayout1&quot;)" />
+        <property ResultOption="BT_SUCCESS" />
+      </node>
+    </node>
+    <node class="DecoratorWeight" id="3">
+      <property DecorateWhenChildEnds="false" />
+      <property Weight="const int 1" />
+      <node class="Action" id="4">
+        <property Method="Self.PW_BaseAgent::LogTest(&quot;wayout2&quot;)" />
+        <property ResultOption="BT_SUCCESS" />
+      </node>
+    </node>
+    <node class="DecoratorWeight" id="5">
+      <property DecorateWhenChildEnds="false" />
+      <property Weight="const int 1" />
+      <node class="Action" id="6">
+        <property Method="Self.PW_BaseAgent::LogTest(&quot;wayout3&quot;)" />
+        <property ResultOption="BT_SUCCESS" />
+      </node>
+    </node>
+  </node>
+</behavior>
