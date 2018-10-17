@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 		//PlayerFollowCamera();
 		float h = Input.GetAxisRaw ("Horizontal");
 		float v = Input.GetAxisRaw ("Vertical");
+
+
 		Move (h, v);
 
 		m_isJump = Input.GetKeyDown (KeyCode.Space);
@@ -48,14 +50,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		
-		
-		float m_RotationX = m_player.transform.localEulerAngles.y + Input.GetAxis ("Mouse X") * m_sensitivityX * Time.fixedTime;
-
-		m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
-		m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
-
-		m_playerCamera.transform.localEulerAngles = new Vector3 (-m_rotationY, 0, 0);
-		m_player.transform.localEulerAngles = new Vector3 (0, m_RotationX, 0);
+		FPSCamera();
 
 	}
 	void Move (float h, float v) {
@@ -70,6 +65,19 @@ public class PlayerController : MonoBehaviour {
 			m_isOnGround = false;
 		}
 
+	}
+	void FPSCamera(){
+		Cursor.visible = false;
+		float m_RotationX = m_player.transform.localEulerAngles.y + Input.GetAxis ("Mouse X") * m_sensitivityX * Time.fixedTime;
+		Debug.Log(m_player.transform.localEulerAngles.y);
+
+
+		m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
+		m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
+
+		m_playerCamera.transform.localEulerAngles = new Vector3 (-m_rotationY, 0, 0);
+		//m_player.transform.localEulerAngles = new Vector3 (0, m_RotationX, 0);
+		m_player.transform.localEulerAngles += new Vector3(0,Input.GetAxis ("Mouse X") * m_sensitivityX * Time.fixedTime,0);
 	}
 	private void OnCollisionEnter (Collision m_Ground) {
 		m_isOnGround = true;

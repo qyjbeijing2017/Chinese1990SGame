@@ -44,9 +44,11 @@ public class CharacterController : MonoBehaviour {
 					pickObj.IOnCollisionEnter += onpickcolliderEnter;
 					m_target.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
 					m_target.transform.SetParent (_playerCamera.transform);
+					m_target.transform.localPosition = m_target.transform.localPosition * 0.9f;
 					m_isPicked = true;
-					m_now.SetActive (false);
+					 m_now.SetActive (false);
 					m_before.SetActive (true);
+					
 				}
 
 			}
