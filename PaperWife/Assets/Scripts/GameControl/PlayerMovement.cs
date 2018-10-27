@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] private bool m_isJump;
 	[SerializeField] private bool m_isOnGround;
 	[SerializeField] private float m_jumpForce = 5f;
+	
 	private void Awake () {
 		m_playerRigidbody = GetComponent<Rigidbody> ();
 

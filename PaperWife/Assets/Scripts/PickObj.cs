@@ -7,6 +7,7 @@ public class PickObj : MonoBehaviour {
 
 	public delegate void OnCollisionEnterHandler(Collision other);
 	public event OnCollisionEnterHandler IOnCollisionEnter;
+
 	
 	// Use this for initialization
 	void Start () {
