@@ -2,36 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* public enum RotationAxes {
-    MouseXAndY = 0,
-    MouseX = 1,
-    MouseY = 2,
-}
 public class PlayerCamera : MonoBehaviour {
+	[Range(0,5)] public float NoFollowCircledR;
+	[Range(0,100)] public float EdgeUp;
+	[Range(0,-100)] public float EdgeBottom;
+	[Range(0,100)] public float EdgeRight;
+	[Range(0,-100)] public float EdgeLeft;
+	[SerializeField,Range(0,4)] private float m_followSpeed;
 
+	public Transform Player;
+	public Vector3 FollowPosition;
+	public Vector3 Follow2Camera;
 
-    public float m_sensitivityX = 15f;
-    public float m_sensitivityY = -15f;
-    [SerializeField] private float m_minimumX = -360f;
-    [SerializeField] private float m_maximumX = 360f;
-    [SerializeField] private float m_minimumY = -60f;
-    [SerializeField] private float m_maximumY = 60f;
-    [SerializeField] private RotationAxes m_axes = RotationAxes.MouseXAndY;
-    [SerializeField] private float m_rotationY = 0F;
-    [SerializeField] Transform m_player;
+	public bool IsFollow = true;
 
-
-
-    private void FixedUpdate () {
-
-        float m_RotationX = m_player.localEulerAngles.y + Input.GetAxis ("Mouse X") * m_sensitivityX * Time.fixedTime;
-
-        m_rotationY += Input.GetAxis ("Mouse Y") * m_sensitivityY;
-        m_rotationY = Mathf.Clamp (m_rotationY, m_minimumY, m_maximumY);
-
-        transform.localEulerAngles = new Vector3 (-m_rotationY, 0, 0);
-        m_player.localEulerAngles = new Vector3 (0, m_RotationX, 0);
-
-    }
-
-}*/
+	// Use this for initialization
+	void Start () {
+		FollowPosition = Player.position;
+		Follow2Camera = transform.position - FollowPosition;
+	}
+	
+	// Update is called once per frame
+	private void FixedUpdate() {
+		CameraFollow();
+	}
+	void CameraFollow(){
+		if ((Player.position - FollowPosition).magnitude > NoFollowCircledR)
+		{
+			float dic = (Player.position - FollowPosition).magnitude - NoFollowCircledR;
+			float followSpeed = m_followSpeed * dic * Time.fixedDeltaTime;
+			Vector3 followdic = (Player.position - FollowPosition).normalized;
+			FollowPosition += followdic * followSpeed;
+			
+			if(FollowPosition.z > EdgeUp){
+				FollowPosition = new Vector3(FollowPosition.x, FollowPosition.y, EdgeUp);
+			}else if(FollowPosition.z < EdgeBottom)
+			{
+				FollowPosition = new Vector3(FollowPosition.x, FollowPosition.y, EdgeBottom);
+			}
+			if(FollowPosition.x > EdgeRight){
+				FollowPosition = new Vector3(EdgeRight, FollowPosition.y, FollowPosition.z);
+			}else if (FollowPosition.x < EdgeLeft){
+				FollowPosition = new Vector3(EdgeLeft, FollowPosition.y, FollowPosition.z);
+			}
+		}
+		transform.position = FollowPosition + Follow2Camera;
+	}
+}
