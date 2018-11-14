@@ -9,13 +9,19 @@ public class PlayerCamera : MonoBehaviour {
 	[Range(0,100)] public float EdgeRight;
 	[Range(0,-100)] public float EdgeLeft;
 	[SerializeField,Range(0,4)] private float m_followSpeed;
+	
+	
 
 	public Transform Player;
-	public Vector3 FollowPosition;
-	public Vector3 Follow2Camera;
+	[HideInInspector]public Vector3 FollowPosition;
+	[HideInInspector]public Vector3 Follow2Camera;
+
+
 
 	public bool IsFollow = true;
 
+	[SerializeField] private bool m_isDebug = true;
+	[SerializeField] Color m_debugColor;
 	// Use this for initialization
 	void Start () {
 		FollowPosition = Player.position;
@@ -23,6 +29,9 @@ public class PlayerCamera : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	void Update() {
+		DebugLine();
+	}
 	private void FixedUpdate() {
 		CameraFollow();
 	}
@@ -47,5 +56,30 @@ public class PlayerCamera : MonoBehaviour {
 			}
 		}
 		transform.position = FollowPosition + Follow2Camera;
+	}
+	void DebugLine(){
+		Debug.DrawLine(new Vector3(EdgeLeft, 0.3f, EdgeUp), new Vector3(EdgeRight, 0.3f, EdgeUp), m_debugColor);
+		Debug.DrawLine(new Vector3(EdgeRight, 0.3f,EdgeUp), new Vector3(EdgeRight, 0.3f, EdgeBottom), m_debugColor); 
+		Debug.DrawLine(new Vector3(EdgeRight, 0.3f, EdgeUp), new Vector3(EdgeLeft, 0.3f, EdgeUp), m_debugColor);
+		Debug.DrawLine(new Vector3(EdgeLeft, 0.3f, EdgeBottom), new Vector3(EdgeRight, 0.3f, EdgeBottom), m_debugColor);
+	}
+	void DebugCircle(Vector3 center, Vector3 normal, float radius){
+		int i = 0;
+		float a = 20.0f;
+		Vector3 startVec = new Vector3(1, 0, 0);
+		List<Vector3> dots = new List<Vector3>();
+		float angle = 360.0f / a;
+		if (normal.normalized != new Vector3(0, 1, 0) && normal.normalized != new Vector3(0, -1, 0)){
+			startVec = Vector3.Cross(normal, new Vector3(0, 1, 0)).normalized;
+		}
+		while(i<a){
+			Vector3 dot = Quaternion.AngleAxis(i * angle, normal ) * startVec * radius + center;
+			dots.Add(dot);
+			i++;
+		}
+		for (int j = 1; j < dots.Count; j++){
+			Debug.DrawLine(dots[j - 1], dots[j], m_debugColor);
+		}
+		Debug.DrawLine(dots[dots.Count - 1], dots[0], m_debugColor);
 	}
 }
