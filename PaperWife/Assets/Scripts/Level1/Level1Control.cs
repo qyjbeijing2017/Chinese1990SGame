@@ -15,7 +15,7 @@ public class Level1Control : MonoSingleton<Level1Control> {
 	void Start () {
         for (int i = 0; i < Seats.Count; i++)
         {
-            IsSeatEmpty.Add(false);
+            IsSeatEmpty.Add(true);
         }
 	}
 	
