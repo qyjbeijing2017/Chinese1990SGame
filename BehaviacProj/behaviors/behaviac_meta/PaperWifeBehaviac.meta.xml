@@ -30,7 +30,11 @@
         <Param Name="messsage" Type="const string" TypeFullName="System.String" IsConst="true" DisplayName="messsage" Desc="messsage" />
       </Method>
     </agent>
-    <agent classfullname="TestAgent" base="PW_BaseAgent" DisplayName="TestAgent" Desc="TestAgent" IsRefType="true" IsCustomized="true" />
+    <agent classfullname="TestAgent" base="PW_BaseAgent" DisplayName="TestAgent" Desc="TestAgent" IsRefType="true" IsCustomized="true">
+      <Method Name="AIArriveAt" DisplayName="AIArriveAt" Desc="AIArriveAt" Class="TestAgent" ReturnType="void" ReturnTypeFullName="System.Void" Static="false" Public="true" istask="true">
+        <Param Name="AiId" Type="int" TypeFullName="System.Int32" DisplayName="AiId" Desc="" />
+      </Method>
+    </agent>
   </agents>
   <instances />
 </meta>
