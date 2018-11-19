@@ -1,0 +1,2 @@
+print('hello world Xlua')
+CS.UnityEngine.Debug.Log('hello world Xlua Cs')
