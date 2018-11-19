@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Level1AI : MonoBehaviour
 {
+    public int ID;
+
     public enum AIState
     {
         Wait = 0,
@@ -60,6 +62,12 @@ public class Level1AI : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private void OnDestroy()
+    {
+        //释放AIList
+        Level1Control.Instance.level1AIs.RemoveAt(ID);
     }
 
 
