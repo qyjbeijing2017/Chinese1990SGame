@@ -714,7 +714,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400150, guid: 62fec32eda65c824593eecc0c86afcaf, type: 3}
       propertyPath: m_LocalScale.z
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62fec32eda65c824593eecc0c86afcaf, type: 3}
@@ -1679,7 +1679,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: 031c1693cacf6f44499a661affe49d8f, type: 3}
       propertyPath: m_LocalScale.z
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 031c1693cacf6f44499a661affe49d8f, type: 3}
       propertyPath: m_Controller
@@ -1745,7 +1745,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: 10d56f39832bb2e4d87be9ffdc9af03f, type: 3}
       propertyPath: m_LocalScale.z
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10d56f39832bb2e4d87be9ffdc9af03f, type: 3}

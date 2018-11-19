@@ -6,9 +6,10 @@ using DaemonTools;
 public class PlayerMovement : MonoSingleton<PlayerMovement>
 {
 
-    [SerializeField,Range(1,20)] private float m_speed = 6.0f;
-    [SerializeField,Range(0,30)] private float m_jumpSpeed = 0.8f;
-    [SerializeField,Range(0,30)] private float m_gravity = 20.0f;
+    [SerializeField, Range(1, 20)] private float m_speed = 6.0f;
+    [SerializeField, Range(0, 20)] private float m_angleSpeed = 3.0f;
+    [SerializeField, Range(0, 30)] private float m_jumpSpeed = 0.8f;
+    [SerializeField, Range(0, 30)] private float m_gravity = 20.0f;
 
     private CharacterController m_characterController;
     private Vector3 m_cameraWorldForward;
@@ -41,7 +42,9 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
             moveDirection *= m_speed;
 
             if (moveDirection != Vector3.zero)
-                transform.forward = moveDirection;
+            {
+                transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.fixedDeltaTime * m_angleSpeed);
+            }
 
             if (Input.GetButton("Jump"))
             {
