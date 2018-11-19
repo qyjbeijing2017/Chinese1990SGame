@@ -11,6 +11,7 @@ public class Daemon : MonoSingleton<Daemon>
     new void Awake()
     {
         base.Awake();
+        DontDestroyOnLoad(gameObject);
         ConfigManager.Instance.InitUIConfig();
         UIManager.Instance.Init();
     }

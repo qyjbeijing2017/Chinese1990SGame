@@ -18,7 +18,7 @@ public class StartPanel : UIBase {
 
     void OnStartClicked()
     {
-        LoadSceneManager.Instance.LoadSceneAsync("GameStage1",()=>{ },() => {
+        LoadSceneManager.Instance.LoadSceneAsync("Level1",()=>{ },() => {
             UIManager.Instance.clear();
             ConfigManager.Instance.InitConfigManager();
         });

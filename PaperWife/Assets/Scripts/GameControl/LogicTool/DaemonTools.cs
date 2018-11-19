@@ -23,8 +23,6 @@ namespace DaemonTools {
                     GameObject go = new GameObject ();
                     go.name = typeof (T).Name;
                     m_instance = go.AddComponent<T> ();
-                    DontDestroyOnLoad (go);
-
                 }
                 return m_instance;
             }
@@ -33,8 +31,7 @@ namespace DaemonTools {
 
         protected void Awake () {
             m_instance = this as T;
-            gameObject.name = typeof (T).Name;
-            DontDestroyOnLoad (gameObject);
+            gameObject.name = typeof(T).Name;
         }
 
     }
