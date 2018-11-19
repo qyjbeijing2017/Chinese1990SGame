@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DaemonTools;
 
-public class PlayerMovement : MonoSingleton<PlayerMovement>
+public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField, Range(1, 20)] private float m_speed = 6.0f;

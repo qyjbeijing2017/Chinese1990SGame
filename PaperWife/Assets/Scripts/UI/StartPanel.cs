@@ -18,9 +18,9 @@ public class StartPanel : UIBase {
 
     void OnStartClicked()
     {
-        LoadSceneManager.Instance.LoadSceneAsync("Level1",()=>{ },() => {
-            UIManager.Instance.clear();
-            ConfigManager.Instance.InitConfigManager();
+        LoadSceneManager.Instance.LoadSceneAsync("Level1",()=>{
+        },() => {
+            ConfigManager.Instance.InitConfigManager();       
         });
     }
     void OnAboutClicked()
@@ -37,7 +37,7 @@ public class StartPanel : UIBase {
         
     }
 
-    public override void show(bool IsfirstOpen, object value)
+    public override void show(bool IsfirstOpen, object[] value)
     {
         if (IsfirstOpen)
         {

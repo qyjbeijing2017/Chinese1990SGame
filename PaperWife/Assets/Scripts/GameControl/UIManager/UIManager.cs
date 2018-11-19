@@ -12,34 +12,6 @@ namespace DaemonTools
         delegate void LoadPanelCallBack(UIBase ui);
         Dictionary<string, UIBase> m_uiDic = new Dictionary<string, UIBase>();
         List<string> m_uiStack = new List<string>();
-        void LoadNewPanelAsync(string panelName, LoadPanelCallBack callBack)
-        {
-            if (ConfigManager.Instance.UIPanelConfigData.ContainsKey(panelName))
-            {
-                UIPanelConfig uiData = ConfigManager.Instance.UIPanelConfigData[panelName];
-                if (uiData.Path != string.Empty)
-                {
-                    ResourceLoadManager.Instance.LoadResourceAsync(uiData.Path, (obj) =>
-                    {
-                        GameObject go = Daemon.Instantiate(obj as GameObject);
-                        go.transform.SetParent(Canvas.transform, false);
-                        go.SetActive(false);
-                        UIBase ui = go.GetComponent<UIBase>();
-                        m_uiDic.Add(panelName, ui);
-                        callBack.Invoke(ui);
-                    });
-
-                }
-                else
-                {
-                    Debug.LogError("UIPath is empty!");
-                }
-            }
-            else
-            {
-                Debug.LogError("The UiPanel is not exist!");
-            }
-        }
         #endregion
 
         /// <summary>
@@ -68,7 +40,7 @@ namespace DaemonTools
         /// <param name="panelName">Ui的名字</param>
         /// <param name="push">是否入栈</param>
         /// <param name="value">自定义数值</param>
-        public void Open(string panelName, bool push = true, object[] value = null)
+        public void Open(string panelName, bool push = true, params object[] value)
         {
 
             if (m_uiDic.ContainsKey(panelName))
@@ -92,25 +64,47 @@ namespace DaemonTools
             }
             else
             {
-                LoadNewPanelAsync(panelName, (ui) =>
+                if (ConfigManager.Instance.UIPanelConfigData.ContainsKey(panelName))
                 {
-                    ui.show(true, value);
-                    ui.gameObject.SetActive(true);
-                    ui.transform.SetAsLastSibling();
-
-                    if (push)
+                    UIPanelConfig uiData = ConfigManager.Instance.UIPanelConfigData[panelName];
+                    if (uiData.Path != string.Empty)
                     {
-                        if (m_uiStack.Count > 0)
+                        GameObject go = Daemon.Instantiate(Resources.Load(uiData.Path) as GameObject);
+                        go.transform.SetParent(Canvas.transform, false);
+                        go.SetActive(false);
+                        UIBase ui = go.GetComponent<UIBase>();
+                        m_uiDic.Add(panelName, ui);
+
+                        ui.show(true, value);
+                        ui.gameObject.SetActive(true);
+                        ui.transform.SetAsLastSibling();
+
+                        if (push)
                         {
-                            if (m_uiDic.ContainsKey(m_uiStack[m_uiStack.Count - 1]))
+                            if (m_uiStack.Count > 0)
                             {
-                                m_uiDic[m_uiStack[m_uiStack.Count - 1]].gameObject.SetActive(false);
+                                if (m_uiDic.ContainsKey(m_uiStack[m_uiStack.Count - 1]))
+                                {
+                                    m_uiDic[m_uiStack[m_uiStack.Count - 1]].gameObject.SetActive(false);
+                                }
                             }
+                            m_uiStack.Add(panelName);
                         }
-                        m_uiStack.Add(panelName);
+                    }
+                    else
+                    {
+                        Debug.LogError("UIPath is empty!");
                     }
 
-                });
+                }
+                else
+                {
+                    Debug.LogError("The UiPanel is not exist!");
+                }
+
+
+
+
 
             }
 
@@ -163,7 +157,9 @@ namespace DaemonTools
                 m_uiDic[panelName].gameObject.SetActive(false);
             }
         }
-
+        /// <summary>
+        /// 清空场景当中的UI的GameObject
+        /// </summary>
         public void clear()
         {
             var enumator = m_uiDic.GetEnumerator();
@@ -174,13 +170,15 @@ namespace DaemonTools
             m_uiDic.Clear();
             m_uiStack.Clear();
         }
-
+        /// <summary>
+        /// 关闭所有UI但是不清除物体
+        /// </summary>
         public void closeAll()
         {
             var enumator = m_uiDic.GetEnumerator();
             while (enumator.MoveNext())
             {
-               enumator.Current.Value.gameObject.SetActive(false);
+                enumator.Current.Value.gameObject.SetActive(false);
             }
             m_uiStack.Clear();
         }
