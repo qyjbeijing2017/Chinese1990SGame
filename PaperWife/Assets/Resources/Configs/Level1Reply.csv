@@ -1,0 +1,17 @@
+﻿ID,主导性格（1：愤怒(Mad)，2：悲伤(Sad)，3：踌躇满志(Complacent)）,语句Ture（在情绪值后面加入颜色标签示例<color = #ff0000ff>后同）,语句False
+int,enum,string,string
+1,Mad,Mad reply 1,Mad reply false 1
+2,Mad,Mad reply 2,Mad reply false 2
+3,Mad,Mad reply 3,Mad reply false 3
+4,Mad,Mad reply 4,Mad reply false 4
+5,Mad,Mad reply 5,Mad reply false 5
+6,Sad,Sad reply 1,Sad reply false 1
+7,Sad,Sad reply 2,Sad reply false 2
+8,Sad,Sad reply 3,Sad reply false 3
+9,Sad,Sad reply 4,Sad reply false 4
+10,Sad,Sad reply 5,Sad reply false 5
+11,Complacent,Complacent Reply 1,Complacent Reply false 1
+12,Complacent,Complacent Reply 2,Complacent Reply false 2
+13,Complacent,Complacent Reply 3,Complacent Reply false 3
+14,Complacent,Complacent Reply 4,Complacent Reply false 4
+15,Complacent,Complacent Reply 5,Complacent Reply false 5

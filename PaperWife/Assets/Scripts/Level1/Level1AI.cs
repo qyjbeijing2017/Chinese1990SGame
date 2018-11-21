@@ -83,8 +83,7 @@ public class Level1AI : MonoBehaviour
     {
         Debug.Log(ID+"Talk");
         Level1Control.Instance.Seats[m_selectedSeat].OnEachOther -= TalkWithWaiter;
-        //int DialogueNum = 
-        //DialogueManager.Instance；
+
 
     }
 

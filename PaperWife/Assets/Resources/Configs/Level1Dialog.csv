@@ -1,0 +1,17 @@
+﻿ID,主导性格（1：愤怒(Mad)，2：悲伤(Sad)，3：踌躇满志(Complacent)）,语句1（在情绪值后面加入颜色标签示例<color = #ff0000ff>后同）,语句2,语句3,语句4,语句5,情绪量（三种情绪分别以愤怒#悲伤#踌躇满志的Vector3表示）
+int,enum,string,string,string,string,string,vector3
+1,Mad,Mad1DIalog1,Mad1DIalog2,Mad1DIalog3,Mad1DIalog4,Mad1DIalog5,3#1#1
+2,Mad,Mad2DIalog1,Mad2DIalog2,Mad2DIalog3,Mad2DIalog4,Mad2DIalog5,3#1#2
+3,Mad,Mad3DIalog1,Mad3DIalog2,Mad3DIalog3,Mad3DIalog4,Mad3DIalog5,3#1#3
+4,Mad,Mad4DIalog1,Mad4DIalog2,Mad4DIalog3,Mad4DIalog4,Mad4DIalog5,3#1#4
+5,Mad,Mad5DIalog1,Mad5DIalog2,Mad5DIalog3,Mad5DIalog4,Mad5DIalog5,3#1#5
+6,Sad,Sad1DIalog1,Sad1DIalog2,Sad1DIalog3,Sad1DIalog4,Sad1DIalog5,3#1#6
+7,Sad,Sad2DIalog1,Sad2DIalog2,Sad2DIalog3,Sad2DIalog4,Sad2DIalog5,3#1#7
+8,Sad,Sad3DIalog1,Sad3DIalog2,Sad3DIalog3,Sad3DIalog4,Sad3DIalog5,3#1#8
+9,Sad,Sad4DIalog1,Sad4DIalog2,Sad4DIalog3,Sad4DIalog4,Sad4DIalog5,3#1#9
+10,Sad,Sad5DIalog1,Sad5DIalog2,Sad5DIalog3,Sad5DIalog4,Sad5DIalog5,3#1#10
+11,Complacent,Complacent1DIalog1,Complacent1DIalog2,Complacent1DIalog3,Complacent1DIalog4,Complacent1DIalog5,3#1#11
+12,Complacent,Complacent2DIalog1,Complacent2DIalog2,Complacent2DIalog3,Complacent2DIalog4,Complacent2DIalog5,3#1#12
+13,Complacent,Complacent3DIalog1,Complacent3DIalog2,Complacent3DIalog3,Complacent3DIalog4,Complacent3DIalog5,3#1#13
+14,Complacent,Complacent4DIalog1,Complacent4DIalog2,Complacent4DIalog3,Complacent4DIalog4,Complacent4DIalog5,3#1#14
+15,Complacent,Complacent5DIalog1,Complacent5DIalog2,Complacent5DIalog3,Complacent5DIalog4,Complacent5DIalog5,3#1#15

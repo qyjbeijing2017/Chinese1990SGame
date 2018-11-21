@@ -6,6 +6,9 @@ using DaemonTools;
 using UnityEngine.UI;
 using XLua;
 
+
+
+
 public class Daemon : MonoSingleton<Daemon>
 {
     public LuaEnv Luaenv;
@@ -30,7 +33,5 @@ public class Daemon : MonoSingleton<Daemon>
     {
         Luaenv.Dispose();
     }
-
-
 
 }
