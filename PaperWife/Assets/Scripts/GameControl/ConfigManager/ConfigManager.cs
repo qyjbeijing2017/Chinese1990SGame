@@ -18,20 +18,14 @@ namespace DaemonTools
 
         //用于游戏开始前启动
         public void InitUIConfig(){
-            UIPanelConfigData = ConfigFactory<UIPanelConfig>.InitConfigs(UIPanelConfigName);
-            
+            UIPanelConfigData = ConfigFactory<UIPanelConfig>.InitConfigs(UIPanelConfigName);           
         }
 
         //实例化配置表
         public void InitConfigManager()
         {
             Level1DialogConfigData = ConfigFactory<Level1DialogConfig>.InitConfigs(Level1DialogName);
-            Level1ReplyConfigData = ConfigFactory<Level1ReplyConfig>.InitConfigs(Level1ReplyName);
-        
+            Level1ReplyConfigData = ConfigFactory<Level1ReplyConfig>.InitConfigs(Level1ReplyName);        
         }
-
     }
-
-
-
 }

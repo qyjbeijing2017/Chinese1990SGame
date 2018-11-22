@@ -24,7 +24,7 @@ public class Level1DialogConfig : BaseConfig
 
         if (temperamentData.Length != 3)
         {
-            Debug.Log("情绪量出错 ID:"+ID);
+            Debug.Log("情绪量出错 ID:" + ID);
         }
         else
         {
@@ -46,7 +46,8 @@ public struct Temperament
         Complacent = 3,
         LoseMad = 4,
         LoseSad = 5,
-        LoseComplacent = 6
+        LoseComplacent = 6,
+        None = 7
     }
 
     Vector3 emotionData;
@@ -109,10 +110,20 @@ public struct Temperament
     {
         get
         {
+            return new Temperament(1, 1, 1);
+        }
+    }
+    /// <summary>
+    /// 返回一个无性格
+    /// </summary>
+    public static Temperament None
+    {
+        get
+        {
             return new Temperament(0, 0, 0);
         }
     }
-  
+
     TemperamentType m_mainType;
     /// <summary>
     /// 主情绪
@@ -133,13 +144,24 @@ public struct Temperament
     public Temperament(float mad, float sad, float complacent)
     {
         emotionData = new Vector3(mad, sad, complacent);
-        m_mainType = TemperamentType.Gentle;
+        m_mainType = TemperamentType.None;
+        m_mainType = GetMain();
+    }
+
+    public Temperament(Vector3 t)
+    {
+        emotionData = t;
+        m_mainType = TemperamentType.None;
         m_mainType = GetMain();
     }
 
     TemperamentType GetMain()
     {
         TemperamentType type = TemperamentType.Gentle;
+        if (EmotionVec3 == Vector3.zero)
+        {
+            return TemperamentType.None;
+        }
         if (Mad > Sad)
         {
             if (Complacent > Mad)
@@ -195,12 +217,41 @@ public struct Temperament
     /// <param name="ta">from</param>
     /// <param name="tb">to</param>
     /// <returns></returns>
-    static float Like(Temperament ta, Temperament tb)
+    public static float Like(Temperament ta, Temperament tb)
     {
+        if (ta.EmotionVec3 == Vector3.zero || tb.EmotionVec3 == Vector3.zero)
+        {
+            if (ta.EmotionVec3 == Vector3.zero && tb.EmotionVec3 == Vector3.zero)
+            {
+                return 1.0f;
+            }
+            else
+            {
+                return 0.0f;
+            }
+        }
         float angle = Vector3.Angle(ta.EmotionVec3, tb.EmotionVec3);
-        return 1.0f - (angle / 180.0f);
+        return 1.0f - (angle / 90.0f);
     }
 
+    public static bool operator ==(Temperament ta, Temperament tb)
+    {
+        return ta.EmotionVec3 == tb.EmotionVec3;
+    }
+    public static bool operator !=(Temperament ta, Temperament tb)
+    {
+        return ta.EmotionVec3 != tb.EmotionVec3;
+    }
 
+    public static Temperament operator +(Temperament ta, Temperament tb)
+    {
+        Vector3 tc = ta.EmotionVec3 + tb.EmotionVec3;
+        return new Temperament(tc.x, tc.y, tc.z);
+    }
+    public static Temperament operator -(Temperament ta, Temperament tb)
+    {
+        Vector3 tc = ta.EmotionVec3 - tb.EmotionVec3;
+        return new Temperament(tc.x, tc.y, tc.z);
+    }
 }
 

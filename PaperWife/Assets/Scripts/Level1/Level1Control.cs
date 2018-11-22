@@ -34,6 +34,8 @@ public class Level1Control : MonoSingleton<Level1Control>
     int m_waiterCallNum = 0;
     [SerializeField, Tooltip("Waiter呼叫上限")] int m_CallMax = 5;
 
+    [SerializeField, Tooltip("结束呼叫后等待时间")] float m_endCallWaitTime = 0.0f;
+
     enum Level1Type
     {
         WaitStart = 0,
@@ -46,11 +48,19 @@ public class Level1Control : MonoSingleton<Level1Control>
     List<Level1DialogConfig> m_madDialogs = new List<Level1DialogConfig>();
     List<Level1DialogConfig> m_sadDialogs = new List<Level1DialogConfig>();
     List<Level1DialogConfig> m_complacentDialogs = new List<Level1DialogConfig>();
+    List<BettingData> m_madDialogsBetting = new List<BettingData>();
+    List<BettingData> m_sadDialogsBetting = new List<BettingData>();
+    List<BettingData> m_complacentDialogsBetting = new List<BettingData>();
 
     //结束对话
     List<Level1ReplyConfig> m_madReply = new List<Level1ReplyConfig>();
     List<Level1ReplyConfig> m_sadReply = new List<Level1ReplyConfig>();
     List<Level1ReplyConfig> m_complacentReply = new List<Level1ReplyConfig>();
+
+    /// <summary>
+    /// 当前食物记录
+    /// </summary>
+    public Temperament Food = Temperament.None;
 
     // Use this for initialization
     void Start()
@@ -85,14 +95,19 @@ public class Level1Control : MonoSingleton<Level1Control>
             {
                 case Temperament.TemperamentType.Mad:
                     m_madDialogs.Add(dialogEnumerator.Current.Value);
+                    BettingData bettingData = new BettingData((m_madDialogs.Count-1).ToString(),1);
+                    m_madDialogsBetting.Add(bettingData);
                     break;
                 case Temperament.TemperamentType.Sad:
                     m_sadDialogs.Add(dialogEnumerator.Current.Value);
+                    BettingData bettingData1 = new BettingData((m_sadDialogs.Count - 1).ToString(), 1);
+                    m_sadDialogsBetting.Add(bettingData1);
                     break;
                 case Temperament.TemperamentType.Complacent:
                     m_complacentDialogs.Add(dialogEnumerator.Current.Value);
+                    BettingData bettingData2 = new BettingData((m_complacentDialogs.Count - 1).ToString(), 1);
+                    m_complacentDialogsBetting.Add(bettingData2);
                     break;
-
                 default:
                     break;
             }
@@ -101,7 +116,6 @@ public class Level1Control : MonoSingleton<Level1Control>
         {
             switch (replyEnumerator.Current.Value.MainType)
             {
-
                 case Temperament.TemperamentType.Mad:
                     m_madReply.Add(replyEnumerator.Current.Value);
                     break;
@@ -116,17 +130,6 @@ public class Level1Control : MonoSingleton<Level1Control>
             }
         }
         
-
-        CreatAI().StartIn();
-        CreatAI().StartIn();
-    }
-    private void OnDestroy()
-    {
-    }
-
-    IEnumerator Level1TechnologicalProcess()
-    {
-        yield return new WaitForSeconds(3);
 
     }
 
@@ -144,6 +147,18 @@ public class Level1Control : MonoSingleton<Level1Control>
         }
     }
     /// <summary>
+    /// 结束呼叫Waiter
+    /// </summary>
+    public void OnEndCall()
+    {
+        StartCoroutine("EndCall");
+    }
+    IEnumerator EndCall()
+    {
+        yield return new WaitForSeconds(m_endCallWaitTime);
+        WaiterISHold = false;
+    }
+    /// <summary>
     /// 生成AI
     /// </summary>
     Level1AI CreatAI()
@@ -155,4 +170,52 @@ public class Level1Control : MonoSingleton<Level1Control>
         return ai;
     }
 
+    public Level1DialogConfig ApplyDialog(Temperament.TemperamentType temperamentType)
+    {
+        List < Level1DialogConfig > dialogs = new List< Level1DialogConfig > ();
+        int a = 0;
+        switch (temperamentType)
+        {
+            case Temperament.TemperamentType.Mad:                
+                int.TryParse(BettingData.BettingWheel(m_madDialogsBetting),out a);
+                m_madDialogsBetting[a] = new BettingData(m_madDialogsBetting[a].Name, m_madDialogsBetting[a].Weight / 2);
+                return m_madDialogs[a];
+            case Temperament.TemperamentType.Sad:
+                int.TryParse(BettingData.BettingWheel(m_sadDialogsBetting), out a);
+                return m_sadDialogs[a];
+            case Temperament.TemperamentType.Complacent:
+                int.TryParse(BettingData.BettingWheel(m_complacentDialogsBetting), out a);
+                return m_complacentDialogs[a];
+            default:
+                Debug.Log("没有这个语句");
+                return null;
+        }
+    }
+
+    public string ApplyReply(Temperament.TemperamentType temperamentType,bool isNear)
+    {
+        switch (temperamentType)
+        {
+            case Temperament.TemperamentType.Mad:
+                UnityEngine.Random.seed = System.DateTime.Now.Second;
+                if (isNear)
+                    return m_madReply[Random.Range(0, m_madReply.Count)].DialogTrue;
+                else
+                    return m_madReply[Random.Range(0, m_madReply.Count)].DialogFalse;
+            case Temperament.TemperamentType.Sad:
+                UnityEngine.Random.seed = System.DateTime.Now.Second;
+                if (isNear)
+                    return m_sadReply[Random.Range(0, m_sadReply.Count)].DialogTrue;
+                else
+                    return m_sadReply[Random.Range(0, m_sadReply.Count)].DialogFalse;
+            case Temperament.TemperamentType.Complacent:
+                UnityEngine.Random.seed = System.DateTime.Now.Second;
+                if (isNear)
+                    return m_complacentReply[Random.Range(0, m_complacentReply.Count)].DialogTrue;
+                else
+                    return m_complacentReply[Random.Range(0, m_complacentReply.Count)].DialogFalse;
+            default:
+                return string.Empty;
+        }
+    }
 }

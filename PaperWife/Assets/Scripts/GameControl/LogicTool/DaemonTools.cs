@@ -96,13 +96,13 @@ namespace DaemonTools
         public string Name;
         public float Weight;
 
-        BettingData(string name, float weight)
+        public BettingData(string name, float weight)
         {
             Name = name;
             Weight = weight;
         }
 
-        static string BettingWheel(List<BettingData> datas)
+        static public string BettingWheel(List<BettingData> datas)
         {
             //随机数
             UnityEngine.Random.seed = System.DateTime.Now.Second;
@@ -131,7 +131,7 @@ namespace DaemonTools
                     {
                         return datas[i].Name;
                     }
-                    else if(rand<wheel[i]&& rand>wheel[i-1])
+                    else if (rand < wheel[i] && rand > wheel[i - 1])
                     {
                         return datas[i].Name;
                     }
@@ -141,8 +141,4 @@ namespace DaemonTools
             return string.Empty;
         }
     }
-
-
-
-
 }

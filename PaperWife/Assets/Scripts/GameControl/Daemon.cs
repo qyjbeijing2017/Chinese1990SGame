@@ -23,10 +23,8 @@ public class Daemon : MonoSingleton<Daemon>
         UIManager.Instance.Init();
     }
 
-
     private void Start() {
-        UIManager.Instance.Open("StartPanel");
-        
+        UIManager.Instance.Open("StartPanel");       
     }
 
     private void OnDestroy()
