@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
+  m_replyTrue: 0.706
 --- !u!136 &136973145711093680
 CapsuleCollider:
   m_ObjectHideFlags: 1

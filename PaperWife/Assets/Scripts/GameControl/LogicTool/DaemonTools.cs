@@ -106,7 +106,7 @@ namespace DaemonTools
         {
             //随机数
             UnityEngine.Random.seed = System.DateTime.Now.Second;
-            float rand = UnityEngine.Random.Range(0, 1);
+            float rand = UnityEngine.Random.Range(0.0f, 1.0f);
             //算总值
             float all = 0;
             for (int i = 0; i < datas.Count; i++)
@@ -131,7 +131,10 @@ namespace DaemonTools
                     {
                         return datas[i].Name;
                     }
-                    else if (rand < wheel[i] && rand > wheel[i - 1])
+                }
+                else
+                {
+                    if (rand < wheel[i] && rand > wheel[i - 1])
                     {
                         return datas[i].Name;
                     }

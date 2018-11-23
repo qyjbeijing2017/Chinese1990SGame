@@ -12,7 +12,7 @@ public class Level1Control : MonoSingleton<Level1Control>
     /// <summary>
     /// AI列表
     /// </summary>
-    public List<Level1AI> level1AIs;
+    [HideInInspector] public List<Level1AI> level1AIs;
     /// <summary>
     /// 座位列表
     /// </summary>
@@ -26,13 +26,13 @@ public class Level1Control : MonoSingleton<Level1Control>
     /// <summary>
     /// Waiter是否被占用
     /// </summary>
-    [SerializeField] bool WaiterISHold = false;
+    bool WaiterISHold = false;
 
     /// <summary>
     /// Waiter被呼叫次数
     /// </summary>
-    int m_waiterCallNum = 0;
-    [SerializeField, Tooltip("Waiter呼叫上限")] int m_CallMax = 5;
+    [HideInInspector]public int m_waiterCallNum = 0;
+    [Tooltip("Waiter呼叫上限")] public int m_CallMax = 5;
 
     [SerializeField, Tooltip("结束呼叫后等待时间")] float m_endCallWaitTime = 0.0f;
 
@@ -129,16 +129,23 @@ public class Level1Control : MonoSingleton<Level1Control>
                     break;
             }
         }
-        
-
     }
+
+    public void StartGame()
+    {
+        CreatAI().StartIn(Temperament.TemperamentType.Mad);
+        CreatAI().StartIn(Temperament.TemperamentType.Sad);
+        CreatAI().StartIn(Temperament.TemperamentType.Complacent);
+        CreatAI().StartIn(Temperament.TemperamentType.Mad);
+    }
+    
 
     /// <summary>
     /// 尝试呼叫Waiter
     /// </summary>
     public void OnCallWaiter(Level1AI ai, UnityAction callback)
     {
-        if (!WaiterISHold)
+        if (!WaiterISHold && m_waiterCallNum < m_CallMax)
         {
             WaiterISHold = true;
             m_waiterCallNum++;

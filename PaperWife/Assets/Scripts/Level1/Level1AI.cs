@@ -7,7 +7,7 @@ using DaemonTools;
 
 public class Level1AI : MonoBehaviour
 {
-    public int ID;
+    [HideInInspector]public int ID;
     /// <summary>
     /// AI状态
     /// </summary>
@@ -83,7 +83,14 @@ public class Level1AI : MonoBehaviour
     {
         while (m_state == AIState.CallWaiter)
         {
-            Level1Control.Instance.OnCallWaiter(this, WaiterCallBack);
+            if (Level1Control.Instance.m_CallMax > Level1Control.Instance.m_waiterCallNum)
+            {
+                Level1Control.Instance.OnCallWaiter(this, WaiterCallBack);
+            }
+            else
+            {
+                m_state = AIState.End;
+            }
             yield return null;
         }
     }
@@ -119,6 +126,12 @@ public class Level1AI : MonoBehaviour
     void TalkEnd()
     {
         DialogueManager.Instance.DialogueEnd -= TalkEnd;
+        StartCoroutine("TalkWaitEnd");
+    }
+
+    IEnumerator TalkWaitEnd()
+    {
+        yield return new WaitForSeconds(1);
         Level1Control.Instance.Seats[m_selectedSeat].OnEachOther += WaitFood;
         m_state = AIState.WaitFood;
     }

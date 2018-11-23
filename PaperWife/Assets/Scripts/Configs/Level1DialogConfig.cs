@@ -231,7 +231,8 @@ public struct Temperament
             }
         }
         float angle = Vector3.Angle(ta.EmotionVec3, tb.EmotionVec3);
-        return 1.0f - (angle / 90.0f);
+        float percent = 1.0f - (angle / 90.0f);
+        return percent;
     }
 
     public static bool operator ==(Temperament ta, Temperament tb)

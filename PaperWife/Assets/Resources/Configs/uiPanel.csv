@@ -4,3 +4,4 @@ StartPanel,UI/StartPanel/StartPanel
 AboutPanel,UI/AboutPanel/AboutPanel
 LoadingNormalPanel,UI/LoadingNormalPanel/LoadingNormalPanel
 DialoguePanel,UI/DialoguePanel/DialoguePanel
+CookFoodPanel,UI/CookFoodPanel/CookFoodPanel
