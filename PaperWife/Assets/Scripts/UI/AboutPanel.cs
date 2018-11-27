@@ -22,7 +22,7 @@ public class AboutPanel :UIBase {
         
     }
 
-    public override void show(bool IsfirstOpen, object value)
+    public override void show(bool IsfirstOpen, object[] value)
     {
         if (IsfirstOpen)
         {

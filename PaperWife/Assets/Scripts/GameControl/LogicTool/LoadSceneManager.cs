@@ -67,8 +67,7 @@ namespace DaemonTools
         }
 
         IEnumerator LoadScene(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
-        {
-            yield return null;
+        {            
             yield return Daemon.Instance.StartCoroutine(LoadSceneBefore(loadBefore));
             AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneId, loadSceneMode);
             while (!asyncOperationScene.isDone)
@@ -89,8 +88,7 @@ namespace DaemonTools
         }
 
         IEnumerator LoadScene(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
-        {
-            yield return null;
+        {            
             yield return Daemon.Instance.StartCoroutine(LoadSceneBefore(loadBefore));
             AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
             while (!asyncOperationScene.isDone)

@@ -1,2 +1,0 @@
-﻿ID,主导性格（1：愤怒，2：悲伤，3：踌躇满志）,语句1（在情绪值后面加入颜色标签示例<color = #ff0000ff>后同）,语句2,语句3,语句4,语句5,情绪量（三种情绪分别以愤怒#悲伤#踌躇满志的Vector3表示）
-int,int,string,string,string,string,string,vector3

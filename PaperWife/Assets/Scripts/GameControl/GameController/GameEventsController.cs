@@ -8,6 +8,10 @@ public class GameEventsController : Singleton<GameEventsController>
 {
 
     #region Level1Events
+    /// <summary>
+    /// 尝试呼叫Waiter
+    /// </summary>
+
 
 
     #endregion

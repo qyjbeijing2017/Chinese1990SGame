@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DaemonTools;
 
-public class PlayerMovement : MonoSingleton<PlayerMovement>
+public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField, Range(1, 20)] private float m_speed = 6.0f;
     [SerializeField, Range(0, 20)] private float m_angleSpeed = 3.0f;
     [SerializeField, Range(0, 30)] private float m_jumpSpeed = 0.8f;
     [SerializeField, Range(0, 30)] private float m_gravity = 20.0f;
+    [SerializeField] Animator animator;
 
     private CharacterController m_characterController;
     private Vector3 m_cameraWorldForward;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
     private void Awake()
     {
         m_characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
 
     }
     private void Start()
@@ -51,8 +53,10 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
                 moveDirection.y = m_jumpSpeed;
             }
         }
+
         moveDirection.y -= m_gravity * Time.fixedDeltaTime;
         m_characterController.Move(moveDirection * Time.fixedDeltaTime);
+
 
 
     }

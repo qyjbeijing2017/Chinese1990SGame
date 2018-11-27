@@ -6,6 +6,9 @@ using DaemonTools;
 using UnityEngine.UI;
 using XLua;
 
+
+
+
 public class Daemon : MonoSingleton<Daemon>
 {
     public LuaEnv Luaenv;
@@ -20,10 +23,8 @@ public class Daemon : MonoSingleton<Daemon>
         UIManager.Instance.Init();
     }
 
-
     private void Start() {
-        UIManager.Instance.Open("StartPanel");
-        
+        UIManager.Instance.Open("StartPanel");       
     }
 
     private void OnDestroy()
