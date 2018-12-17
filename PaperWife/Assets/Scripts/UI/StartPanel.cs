@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DaemonTools;
 
-public class StartPanel : UIBase {
+/* public class StartPanel : UIBase {
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _aboutButton;
     [SerializeField] private Button _exitButton;
@@ -18,9 +18,9 @@ public class StartPanel : UIBase {
 
     void OnStartClicked()
     {
-        LoadSceneManager.Instance.LoadSceneAsync("Level1",()=>{
-        },() => {
-            ConfigManager.Instance.InitConfigManager();       
+        LoadSceneManager.Instance.LoadSceneAsync("Level1",()=>{ },() => {
+            UIManager.Instance.clear();
+            ConfigManager.Instance.InitConfigManager();
         });
     }
     void OnAboutClicked()
@@ -37,12 +37,16 @@ public class StartPanel : UIBase {
         
     }
 
-    public override void show(bool IsfirstOpen, object[] value)
+
+
+    public override void show(bool IsfirstOpen, object value)
     {
         if (IsfirstOpen)
         {
             AddEvent();
         }
+
+
     }
 
-}
+}*/
