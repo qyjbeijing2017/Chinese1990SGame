@@ -23,6 +23,7 @@ public class MagnetPlayerController : MonoBehaviour {
 	 private float m_joystickH;
 	 private float m_joystickRT;
 
+
 	/* [SerializeField]private List <Collider2D> m_boxCollider2D = new List<Collider2D>();
 
 	enum MyCollider
@@ -73,7 +74,9 @@ public class MagnetPlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		move();
+	
 		ColliderOn();
+		
 	}
 
 	void Update() {
@@ -81,13 +84,21 @@ public class MagnetPlayerController : MonoBehaviour {
 	}
 
 
+	//移动脚本
 	void move(){
 		float h = Input.GetAxis("Horizontal");
 		m_rigidbody.AddForce(new Vector2(h,0) * m_playerForce);
 		
 	}
-	//移动脚本
 
+	//更改极性
+	void Pole(bool isPositive){
+		if (m_joystickRT > 0){
+			isPositive = !isPositive;
+		}
+	}
+	
+	//攻击（打开磁场）
 	void ColliderOn(){
 		
 		if(Input.GetKeyDown(KeyCode.I) || m_joystickV > 0){
@@ -124,11 +135,22 @@ public class MagnetPlayerController : MonoBehaviour {
 		}
 							
 	}
+
+	//同性相吸，异性相斥
 	private void OnTriggerEnter2D(Collider2D Other) {
-	
+		if(Other.transform.CompareTag("Player"))
+			if(Other.GetComponent<MagnetPlayerController>().isPositive != isPositive)
+				gameObject.GetComponent<Rigidbody2D>().AddForce((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
+			else
+				gameObject.GetComponent<Rigidbody2D>().AddForce((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
+				
+		//新加入可互动tag IronObject	
+		else if (Other.transform.CompareTag("IronObject"))
 			Other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(this.gameObject.transform.position.x,this.gameObject.transform.position.y) * m_magnetForce);
 	
 	}
+	
+	//关闭磁场
 	void ColliderOff(){
 	if (m_up.enabled == true )
 		{
