@@ -17,8 +17,8 @@ public class Daemon : MonoSingleton<Daemon>
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-        Luaenv = new LuaEnv();
-        Luaenv.DoString("require 'XLuaMain'");
+       // Luaenv = new LuaEnv();
+       // Luaenv.DoString("require 'XLuaMain'");
         ConfigManager.Instance.InitUIConfig();
         UIManager.Instance.Init();
     }
@@ -27,7 +27,7 @@ public class Daemon : MonoSingleton<Daemon>
         UIManager.Instance.Open("StartPanel");       
     }
 
-    private void OnDestroy()
+   private void OnDestroy()
     {
         Luaenv.Dispose();
     }
