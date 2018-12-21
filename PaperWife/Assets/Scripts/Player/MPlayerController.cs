@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MPlayerController : MonoBehaviour {
-
 	[SerializeField] private BoxCollider2D m_up;
 	[SerializeField] private BoxCollider2D m_down;
 	[SerializeField] private BoxCollider2D m_left;
@@ -20,7 +19,7 @@ public class MPlayerController : MonoBehaviour {
 	[SerializeField] private bool isPositive = true;
 
 	[SerializeField] private int m_playerHPMax = 5;
-	 private int m_playerHP;
+	 [HideInInspector] public int m_playerHP;
 	[SerializeField] private bool isdead = false;
 	[SerializeField] private Transform m_reborn1;
 	[SerializeField] private Transform m_reborn2;
@@ -39,6 +38,7 @@ public class MPlayerController : MonoBehaviour {
 	private string m_horizontal;
 
 	void Start () {
+		m_playerHP = m_playerHPMax;
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
 		if (m_playerID == 1) {
 			m_horizontal = "Horizontal1";
@@ -47,8 +47,6 @@ public class MPlayerController : MonoBehaviour {
 			m_x = "1X";
 			m_y = "1Y";
 			m_rB = "1RB";
-
-			Debug.Log (m_horizontal);
 		} else if (m_playerID == 2) {
 			m_horizontal = "Horizontal2";
 			m_a = "2A";
@@ -79,8 +77,8 @@ public class MPlayerController : MonoBehaviour {
 	void FixedUpdate () {
 		if (!isdead) {
 			move ();
-			ColliderOn ();
-			Pole ();
+			TriggerOn ();
+			PoleChange ();
 			Death ();
 		} else {
 			Reborn ();
@@ -89,7 +87,7 @@ public class MPlayerController : MonoBehaviour {
 	}
 
 	void Update () {
-		ColliderOff ();
+		TriggerOff ();
 	}
 
 	//移动脚本
@@ -99,55 +97,51 @@ public class MPlayerController : MonoBehaviour {
 	}
 
 	//更改极性
-	void Pole () {
+	void PoleChange () {
 		if (Input.GetButtonDown (m_rB)) {
 			isPositive = !isPositive;
 		}
 	}
 
 	//攻击（打开磁场）
-	void ColliderOn () {
+	void TriggerOn () {
 
-		if (Input.GetKeyDown (KeyCode.I) || Input.GetButtonDown (m_y)) {
-			if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
+		if (Input.GetButtonDown (m_y)) {
+			if (Input.GetButtonDown (m_x)) {
 				m_upperLeft.enabled = true;
 				return;
 			}
-			if (Input.GetKeyDown (KeyCode.L) || Input.GetButton (m_b)) {
+			if ( Input.GetButton (m_b)) {
 				m_upperRight.enabled = true;
 				return;
 			}
 			m_up.enabled = true;
-			Debug.Log ("up");
 			return;
 		}
-		if (Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown (m_a)) {
-			if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
+		if ( Input.GetButtonDown (m_a)) {
+			if ( Input.GetButtonDown (m_x)) {
 				m_lowerLeft.enabled = true;
 				return;
 			}
-			if (Input.GetKeyDown (KeyCode.L) || Input.GetButtonDown (m_b)) {
+			if ( Input.GetButtonDown (m_b)) {
 				m_lowerRight.enabled = true;
 				return;
 			}
 			m_down.enabled = true;
-			Debug.Log ("down");
 			return;
 		}
-		if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
+		if ( Input.GetButtonDown (m_x)) {
 			m_left.enabled = true;
-			Debug.Log ("left");
 			return;
 		}
-		if (Input.GetKeyDown (KeyCode.L) || Input.GetButtonDown (m_b)) {
+		if (Input.GetButtonDown (m_b)) {
 			m_right.enabled = true;
-			Debug.Log ("right");
 			return;
 		}
 
 	}
 
-	//同性相斥，异性相吸
+	//磁场碰撞，同性相斥，异性相吸
 	private void OnTriggerEnter2D (Collider2D Other) {
 		if (Other.transform.CompareTag ("Player"))
 			if (Other.GetComponent<MPlayerController> ().isPositive != isPositive)
@@ -157,14 +151,17 @@ public class MPlayerController : MonoBehaviour {
 
 			//新加入可互动tag IronObject	
 		else if (Other.transform.CompareTag ("ComeObject"))
-			Other.gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y) * m_magnetForce);
+			Other.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
 		else if (Other.transform.CompareTag("GoObject"))
-			gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
+			gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);	
 	}
 
+	//人物自身碰撞
+
+
 	//关闭磁场
-	void ColliderOff () {
-		if (m_up.enabled == true) {
+	void TriggerOff () {
+		 if (m_up.enabled == true) {
 			m_up.enabled = false;
 		}
 		if (m_down.enabled == true) {
@@ -212,6 +209,7 @@ public class MPlayerController : MonoBehaviour {
 		}
 		isdead = false;
 		m_playerHP = m_playerHPMax;
+		gameObject.GetComponent<Rigidbody2D>().drag /= 10 * m_magnetForce;
 	}
 
 	//死亡判定
@@ -224,6 +222,8 @@ public class MPlayerController : MonoBehaviour {
 
 		if (m_playerHP <= 0) {
 			isdead = true;
+			m_rigidbody.drag *= 10 * m_magnetForce ;
 		}
 	}
+	
 }

@@ -875,6 +875,16 @@ Prefab:
       propertyPath: m_deathYMax
       value: 
       objectReference: {fileID: 649003738}
+    - target: {fileID: 114697327010122258, guid: 2aece9276a51a8e459db7c745b33b46b,
+        type: 2}
+      propertyPath: m_playerForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697327010122258, guid: 2aece9276a51a8e459db7c745b33b46b,
+        type: 2}
+      propertyPath: m_magnetForce
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aece9276a51a8e459db7c745b33b46b, type: 2}
   m_IsPrefabAsset: 0
@@ -1275,7 +1285,7 @@ Prefab:
     - target: {fileID: 61331911035635572, guid: 2aece9276a51a8e459db7c745b33b46b,
         type: 2}
       propertyPath: m_Offset.y
-      value: 5.0394287
+      value: 7.822592
       objectReference: {fileID: 0}
     - target: {fileID: 61603655735893548, guid: 2aece9276a51a8e459db7c745b33b46b,
         type: 2}
@@ -1335,7 +1345,7 @@ Prefab:
     - target: {fileID: 61331911035635572, guid: 2aece9276a51a8e459db7c745b33b46b,
         type: 2}
       propertyPath: m_Size.y
-      value: 10.694853
+      value: 16.261179
       objectReference: {fileID: 0}
     - target: {fileID: 61331911035635572, guid: 2aece9276a51a8e459db7c745b33b46b,
         type: 2}
@@ -1391,6 +1401,16 @@ Prefab:
         type: 2}
       propertyPath: m_Size.y
       value: 1.9659519
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697327010122258, guid: 2aece9276a51a8e459db7c745b33b46b,
+        type: 2}
+      propertyPath: m_magnetForce
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697327010122258, guid: 2aece9276a51a8e459db7c745b33b46b,
+        type: 2}
+      propertyPath: m_playerForce
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aece9276a51a8e459db7c745b33b46b, type: 2}
