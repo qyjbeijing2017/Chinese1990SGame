@@ -100,8 +100,10 @@ public class MPlayerController : MonoBehaviour {
 
 	//更改极性
 	void Pole () {
+        
 		if (Input.GetButtonDown (m_rB)) {
-			isPositive = !isPositive;
+            //Debug.Log("change!" + "+"+this.name+"+"+m_rB);
+		     isPositive = !isPositive;
 		}
 	}
 
@@ -136,7 +138,7 @@ public class MPlayerController : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
 			m_left.enabled = true;
-			Debug.Log ("left");
+			//Debug.Log ("left"+"I am" + m_playerID);
 			return;
 		}
 		if (Input.GetKeyDown (KeyCode.L) || Input.GetButtonDown (m_b)) {
