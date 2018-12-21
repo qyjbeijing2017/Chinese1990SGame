@@ -26,15 +26,14 @@ public class Knife : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerEnter(Collider other) {
-		
+	private void OnTriggerEnter2D(Collider2D other) {
 		if(other.transform.CompareTag("Player")){
-			other.GetComponent<MPlayerController>().m_playerHP --;
+			other.GetComponentInParent<MPlayerController>().m_playerHP --;
+			Debug.Log("Minus");
 		}
 		
 	}
 
 	
 
-	//刀子有两个box collider，一个写ontriggerenter，一个写oncollisionenter，刀子碰玩家是trigger，刀子碰地面是collider（设置物理层），刀子速度为0时无伤害，刀子有速度时有伤害
 }

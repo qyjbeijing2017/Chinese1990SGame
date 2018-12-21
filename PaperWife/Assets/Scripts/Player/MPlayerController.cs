@@ -219,7 +219,7 @@ public class MPlayerController : MonoBehaviour {
 			gameObject.transform.position.y < m_deathYMin.position.y || gameObject.transform.position.y > m_deathYMax.position.y) {
 			m_playerHP = 0;
 		}
-
+		Debug.Log(m_playerHP);
 		if (m_playerHP <= 0) {
 			isdead = true;
 			m_rigidbody.drag *= 10 * m_magnetForce ;
