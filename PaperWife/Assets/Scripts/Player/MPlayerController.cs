@@ -37,6 +37,8 @@ public class MPlayerController : MonoBehaviour {
 	private string m_rB;
 	private string m_horizontal;
 
+    private Animator selfanimator;
+    private Animator particleanimator;
 	void Start () {
 		m_playerHP = m_playerHPMax;
 		m_rigidbody = this.GetComponent<Rigidbody2D> ();
@@ -70,7 +72,10 @@ public class MPlayerController : MonoBehaviour {
 			m_y = "4Y";
 			m_rB = "4RB";
 		}
-
+        selfanimator = this.GetComponent<Animator>();
+        
+        particleanimator = transform.Find("Particle1").GetComponent<Animator>();
+        
 	}
 
 	// Update is called once per frame
@@ -93,8 +98,32 @@ public class MPlayerController : MonoBehaviour {
 	//移动脚本
 	void move () {
 		m_rigidbody.AddForce (new Vector2 (Input.GetAxis (m_horizontal), 0) * m_playerForce);
+        
+        float currentSpeed;//  控制动画基
 
-	}
+        if (m_rigidbody.velocity.x > 0)
+
+            currentSpeed = m_rigidbody.velocity.x;
+
+        else
+
+            currentSpeed = -m_rigidbody.velocity.x;
+
+        selfanimator.SetFloat("speed",currentSpeed);
+        particleanimator.SetFloat("runspeed", currentSpeed);
+
+        if (m_rigidbody.velocity.x >= 0.5)
+        {
+            transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
+        }
+        else
+        {
+
+            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
+        }
+    }
 
 	//更改极性
 	void PoleChange () {
