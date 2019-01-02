@@ -28,7 +28,7 @@ public class Knife : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if(other.transform.CompareTag("Player")){
-			other.GetComponentInParent<MPlayerController>().m_playerHP --;
+			//other.GetComponentInParent<MPlayerController>().m_playerHP --;
 			Debug.Log("Minus");
 			
 		}

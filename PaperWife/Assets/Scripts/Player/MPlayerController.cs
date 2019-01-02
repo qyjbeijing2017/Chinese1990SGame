@@ -2,130 +2,114 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MPlayerController : MonoBehaviour {
-	enum Magnet
-	{
-		Up = 0,
-		Down = 1,
-		Left = 2,
-		Right = 3,
-		UpperLeft = 4,
-		UpperRight = 5,
-		LowerLeft = 6,
-		LowerRight = 7,
-	}
-	/* [SerializeField] private BoxCollider2D m_up;
-	[SerializeField] private BoxCollider2D m_down;
-	[SerializeField] private BoxCollider2D m_left;
-	[SerializeField] private BoxCollider2D m_right;
-	[SerializeField] private BoxCollider2D m_upperLeft;
-	[SerializeField] private BoxCollider2D m_upperRight;
-	[SerializeField] private BoxCollider2D m_lowerLeft;
-	[SerializeField] private BoxCollider2D m_lowerRight;*/
-	[SerializeField] private BoxCollider2D[] m_magnet;
+public class MPlayerController : MonoBehaviour, MagneticItem
+{
 
-	private Rigidbody2D m_rigidbody;
-	[SerializeField] private int m_playerID = 1;
-	[SerializeField] private int m_playerForce = 10;
-	[SerializeField] private int m_magnetForce = 50;
-	[SerializeField] private bool isPositive = true;
+    private Rigidbody2D m_rigidbody;
 
-	[SerializeField] private int m_playerHPMax = 5;
-	 [HideInInspector] public int m_playerHP;
-	[SerializeField] private bool isdead = false;
-	[SerializeField] private Transform m_reborn1;
-	[SerializeField] private Transform m_reborn2;
-	[SerializeField] private Transform m_reborn3;
-	[SerializeField] private Transform m_reborn4;
-	[SerializeField] private Transform m_deathXMin;
-	[SerializeField] private Transform m_deathXMax;
-	[SerializeField] private Transform m_deathYMin;
-	[SerializeField] private Transform m_deathYMax;
+    [SerializeField, Tooltip("人物id")] private int m_playerID = 1;
+    [SerializeField, Tooltip("移动力")] private float m_playerForce = 10;
+    [SerializeField, Tooltip("跳跃速度")] private List<float> m_JumpsVelocity;
+    [SerializeField, Tooltip("磁极")] Polarity m_polarity = Polarity.North;
+    [SerializeField, Tooltip("磁场")] MagneticField m_magneticField;
+    [SerializeField, Tooltip("最大生命")] private int m_playerHPMax = 5;
+    [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3;
 
-	
-
-	private string m_a;
-	private string m_b;
-	private string m_x;
-	private string m_y;
-	private string m_rB;
-	private string m_horizontal;
-
-
+    private int m_playerHP;
+    /// <summary>
+    ///  当前生命值
+    /// </summary>
+    [HideInInspector]
+    public int PlayerHP
+    {
+        get { return m_playerHP; }
+        set
+        {
+            m_playerHP = value;
+            if (m_playerHP <= 0)
+            {
+                m_isdead = true;
+                Destroy(this);
+            }
+        }
+    }
+    [SerializeField, Tooltip("是否死亡")] private bool m_isdead = false;
+    public bool IsDead
+    {
+        get
+        {
+            return m_isdead;
+        }
+    }
 
     private Animator selfanimator;
     private Animator particleanimator;
-	void Start () {
-		m_playerHP = m_playerHPMax;
-		m_rigidbody = this.GetComponent<Rigidbody2D> ();
-		if (m_playerID == 1) {
-			m_horizontal = "Horizontal1";
-			m_a = "1A";
-			m_b = "1B";
-			m_x = "1X";
-			m_y = "1Y";
-			m_rB = "1RB";
-		} else if (m_playerID == 2) {
-			m_horizontal = "Horizontal2";
-			m_a = "2A";
-			m_b = "2B";
-			m_x = "2X";
-			m_y = "2Y";
-			m_rB = "2RB";
-		} else if (m_playerID == 3) {
-			m_horizontal = "Horizontal3";
-			m_a = "3A";
-			m_b = "3B";
-			m_x = "3X";
-			m_y = "3Y";
-			m_rB = "3RB";
 
-		} else if (m_playerID == 4) {
-			m_horizontal = "Horizontal4";
-			m_a = "4A";
-			m_b = "4B";
-			m_x = "4X";
-			m_y = "4Y";
-			m_rB = "4RB";
-		}
+    /// <summary>
+    /// 锁定所有操作
+    /// </summary>
+    public bool m_lockOption;
+
+    void Start()
+    {
+        m_playerHP = m_playerHPMax;
+        m_rigidbody = this.GetComponent<Rigidbody2D>();
         selfanimator = this.GetComponent<Animator>();
-        
         particleanimator = transform.Find("Particle1").GetComponent<Animator>();
-        
-	}
+        m_magneticField.magneticItem = this;
+    }
 
-	// Update is called once per frame
-	void FixedUpdate () {
-		if (!isdead) {
-			move ();
-			TriggerOn ();
-			PoleChange ();
-			Death ();
-		} else {
-			Reborn ();
-		}
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!m_lockOption && !m_isdead)
+        {
+            move();
+        }
 
-	}
+    }
 
-	void Update () {
-		TriggerOff ();
-	}
+    void Update()
+    {
+        if (!m_lockOption && !m_isdead)
+        {
+            PolarityChange();
+            //磁场触发
+            if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
+            {
+                m_magneticField.OnMagneticStart();
+            }
+        }
+    }
 
-	//移动脚本
-	void move () {
-		m_rigidbody.AddForce (new Vector2 (Input.GetAxis (m_horizontal), 0) * m_playerForce);
-        
-        float currentSpeed;
-		//  控制动画基
+    int m_jumpNum = 0; //跳跃计数
+    //移动脚本
+    void move()
+    {
+        m_rigidbody.AddForce(new Vector2(Input.GetAxis("Horizontal" + m_playerID.ToString()), 0) * m_playerForce);                          // 手柄移动
+        if (Input.GetAxis("Horizontal" + m_playerID.ToString()) <= 0.1f)                                                                     // 键盘移动
+        {
+            m_rigidbody.AddForce(new Vector2(Input.GetAxis("HorizontalKB" + m_playerID.ToString()), 0) * m_playerForce);
+        }
+
+        if (Input.GetButtonDown("Jump" + m_playerID.ToString()))                                                                             // 多段跳跃
+        {
+            if (m_JumpsVelocity != null && m_jumpNum < m_JumpsVelocity.Count)
+            {
+                m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_JumpsVelocity[m_jumpNum]);
+                m_jumpNum++;
+            }
+        }                                                                          
+
+
+
+        float currentSpeed;//  控制动画基
         if (m_rigidbody.velocity.x > 0)
-
             currentSpeed = m_rigidbody.velocity.x;
-
         else
-
             currentSpeed = -m_rigidbody.velocity.x;
 
-        selfanimator.SetFloat("speed",currentSpeed);
+        selfanimator.SetFloat("speed", currentSpeed);
         particleanimator.SetFloat("runspeed", currentSpeed);
 
         if (m_rigidbody.velocity.x >= 0.5)
@@ -141,135 +125,68 @@ public class MPlayerController : MonoBehaviour {
         }
     }
 
-	//更改极性
-	void PoleChange () {
-		if (Input.GetButtonDown (m_rB)) {
-			isPositive = !isPositive;
-		}
-	}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 13)                                      //地面层为13层
+        {
+            m_jumpNum = 0;                                                         //重置跳跃次数
+        }
+    }
 
-	//攻击（打开磁场）
-	void TriggerOn () {
-
-		if (Input.GetButtonDown (m_y)) {
-			if (Input.GetButtonDown (m_x)) {
-				m_magnet[4].enabled = true;
-				return;
-			}
-			if ( Input.GetButton (m_b)) {
-				m_magnet[5].enabled = true;
-				return;
-			}
-			m_magnet[0].enabled = true;
-			return;
-		}
-		if ( Input.GetButtonDown (m_a)) {
-			if ( Input.GetButtonDown (m_x)) {
-				m_magnet[6].enabled = true;
-				return;
-			}
-			if ( Input.GetButtonDown (m_b)) {
-				m_magnet[7].enabled = true;
-				return;
-			}
-			m_magnet[1].enabled = true;
-			return;
-		}
-		if ( Input.GetButtonDown (m_x)) {
-			m_magnet[2].enabled = true;
-			return;
-		}
-		if (Input.GetButtonDown (m_b)) {
-			m_magnet[3].enabled = true;
-			return;
-		}
-
-	}
-
-	//磁场碰撞，同性相斥，异性相吸
-	private void OnTriggerEnter2D (Collider2D Other) {
-		if (Other.transform.CompareTag ("Player"))
-			if (Other.GetComponentInParent<MPlayerController> ().isPositive != isPositive){
-				gameObject.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
-				Other.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);}
-			else{
-				gameObject.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
-				Other.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);}
-			//新加入可互动tag IronObject	
-		else if (Other.transform.CompareTag ("ComeObject"))
-			Other.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
-		else if (Other.transform.CompareTag("GoObject"))
-			gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);	
-	}
-
-	//人物自身碰撞
+    //更改极性
+    void PolarityChange()
+    {
+        if (Input.GetButtonDown("Polarity" + m_playerID.ToString()))
+        {
+            if (m_polarity == Polarity.North)
+            {
+                m_polarity = Polarity.Sourth;
+            }
+            else if (m_polarity == Polarity.Sourth)
+            {
+                m_polarity = Polarity.North;
+            }
+        }
+    }
 
 
-	//关闭磁场
-	void TriggerOff () {
-		 if (m_magnet[0].enabled == true) {
-			m_magnet[0].enabled = false;
-		}
-		if (m_magnet[1].enabled == true) {
-			m_magnet[1].enabled = false;
-		}
-		if (m_magnet[2].enabled == true) {
-			m_magnet[2].enabled = false;
-		}
-		if (m_magnet[3].enabled == true) {
-			m_magnet[3].enabled = false;
-		}
-		if (m_magnet[4].enabled == true) {
-			m_magnet[4].enabled = false;
-		}
-		if (m_magnet[5].enabled == true) {
-			m_magnet[5].enabled = false;
-		}
-		if (m_magnet[6].enabled == true) {
-			m_magnet[6].enabled = false;
-		}
-		if (m_magnet[7].enabled == true) {
-			m_magnet[7].enabled = false;
-		}
+    //我的极性
+    public Polarity PolarityMy
+    {
+        get
+        {
+            return m_polarity;
+        }
+    }
+    public void OnMagnetic(MagneticData md)
+    {
+        // 如果吸引玩家的物体是没有极性的，不做任何处理，直接结束该方法。
+        if (md.Polarity == Polarity.None)
+        {
+            return;
+        }
 
-	}
+        if (md.Polarity != PolarityMy)
+        {
+            // 极性不同
+            m_rigidbody.AddForce(md.Mforce);                              // 同性相吸，Mforce为从我指向对手
+        }
+        else
+        {
+            // 极性相同
+            m_rigidbody.AddForce(-md.Mforce);
+        }
+    }
 
-	//重生判定
-	void Reborn () {
-		int i = Random.Range (1, 5);
-		if (i == 1) {
-			gameObject.transform.position = m_reborn1.position;
-			
-		} 
-		else if (i == 2) {
-			gameObject.transform.position = m_reborn2.position;
-		
-		} 
-		else if (i == 3) {
-			gameObject.transform.position = m_reborn3.position;
-			
-		} 
-		else if (i == 4) {
-			gameObject.transform.position = m_reborn4.position;
-			
-		}
-		isdead = false;
-		m_playerHP = m_playerHPMax;
-	
-	}
 
-	//死亡判定
-	void Death () {
+    //重生
+    public void Reborn()
+    {
+        m_rigidbody.velocity = Vector3.zero;
+        int rebornPositionNum = Random.Range(0, MagnetLevelControl.Instance.RebornPosition.Count);
+        transform.position = MagnetLevelControl.Instance.RebornPosition[rebornPositionNum].position;
+        gameObject.SetActive(true);
+    }
 
-		if (gameObject.transform.position.x < m_deathXMin.position.x || gameObject.transform.position.x > m_deathXMax.position.x ||
-			gameObject.transform.position.y < m_deathYMin.position.y || gameObject.transform.position.y > m_deathYMax.position.y) {
-			m_playerHP = 0;
-		}
-		Debug.Log(m_playerHP);
-		if (m_playerHP <= 0) {
-			isdead = true;
-			
-			m_rigidbody.velocity = Vector3.zero;
-		}
-	}
+
 }
