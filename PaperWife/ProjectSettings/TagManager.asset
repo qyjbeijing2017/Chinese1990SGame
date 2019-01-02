@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Seat
   - ComeObject
+  - GoObject
+  - RebornPosition
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Target
   - Knife
   - Player
-  - 
-  - 
+  - MagneticField
+  - Ground
   - 
   - 
   - 
