@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MPlayerController : MonoBehaviour {
-	[SerializeField] private BoxCollider2D m_up;
+	enum Magnet
+	{
+		Up = 0,
+		Down = 1,
+		Left = 2,
+		Right = 3,
+		UpperLeft = 4,
+		UpperRight = 5,
+		LowerLeft = 6,
+		LowerRight = 7,
+	}
+	/* [SerializeField] private BoxCollider2D m_up;
 	[SerializeField] private BoxCollider2D m_down;
 	[SerializeField] private BoxCollider2D m_left;
 	[SerializeField] private BoxCollider2D m_right;
 	[SerializeField] private BoxCollider2D m_upperLeft;
 	[SerializeField] private BoxCollider2D m_upperRight;
 	[SerializeField] private BoxCollider2D m_lowerLeft;
-	[SerializeField] private BoxCollider2D m_lowerRight;
+	[SerializeField] private BoxCollider2D m_lowerRight;*/
+	[SerializeField] private BoxCollider2D[] m_magnet;
 
 	private Rigidbody2D m_rigidbody;
 	[SerializeField] private int m_playerID = 1;
@@ -30,12 +42,16 @@ public class MPlayerController : MonoBehaviour {
 	[SerializeField] private Transform m_deathYMin;
 	[SerializeField] private Transform m_deathYMax;
 
+	
+
 	private string m_a;
 	private string m_b;
 	private string m_x;
 	private string m_y;
 	private string m_rB;
 	private string m_horizontal;
+
+
 
     private Animator selfanimator;
     private Animator particleanimator;
@@ -99,8 +115,8 @@ public class MPlayerController : MonoBehaviour {
 	void move () {
 		m_rigidbody.AddForce (new Vector2 (Input.GetAxis (m_horizontal), 0) * m_playerForce);
         
-        float currentSpeed;//  控制动画基
-
+        float currentSpeed;
+		//  控制动画基
         if (m_rigidbody.velocity.x > 0)
 
             currentSpeed = m_rigidbody.velocity.x;
@@ -137,34 +153,34 @@ public class MPlayerController : MonoBehaviour {
 
 		if (Input.GetButtonDown (m_y)) {
 			if (Input.GetButtonDown (m_x)) {
-				m_upperLeft.enabled = true;
+				m_magnet[4].enabled = true;
 				return;
 			}
 			if ( Input.GetButton (m_b)) {
-				m_upperRight.enabled = true;
+				m_magnet[5].enabled = true;
 				return;
 			}
-			m_up.enabled = true;
+			m_magnet[0].enabled = true;
 			return;
 		}
 		if ( Input.GetButtonDown (m_a)) {
 			if ( Input.GetButtonDown (m_x)) {
-				m_lowerLeft.enabled = true;
+				m_magnet[6].enabled = true;
 				return;
 			}
 			if ( Input.GetButtonDown (m_b)) {
-				m_lowerRight.enabled = true;
+				m_magnet[7].enabled = true;
 				return;
 			}
-			m_down.enabled = true;
+			m_magnet[1].enabled = true;
 			return;
 		}
 		if ( Input.GetButtonDown (m_x)) {
-			m_left.enabled = true;
+			m_magnet[2].enabled = true;
 			return;
 		}
 		if (Input.GetButtonDown (m_b)) {
-			m_right.enabled = true;
+			m_magnet[3].enabled = true;
 			return;
 		}
 
@@ -173,14 +189,15 @@ public class MPlayerController : MonoBehaviour {
 	//磁场碰撞，同性相斥，异性相吸
 	private void OnTriggerEnter2D (Collider2D Other) {
 		if (Other.transform.CompareTag ("Player"))
-			if (Other.GetComponent<MPlayerController> ().isPositive != isPositive)
-				gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
-			else
-				gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
-
+			if (Other.GetComponentInParent<MPlayerController> ().isPositive != isPositive){
+				gameObject.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
+				Other.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);}
+			else{
+				gameObject.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
+				Other.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);}
 			//新加入可互动tag IronObject	
 		else if (Other.transform.CompareTag ("ComeObject"))
-			Other.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
+			Other.GetComponentInParent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
 		else if (Other.transform.CompareTag("GoObject"))
 			gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);	
 	}
@@ -190,29 +207,29 @@ public class MPlayerController : MonoBehaviour {
 
 	//关闭磁场
 	void TriggerOff () {
-		 if (m_up.enabled == true) {
-			m_up.enabled = false;
+		 if (m_magnet[0].enabled == true) {
+			m_magnet[0].enabled = false;
 		}
-		if (m_down.enabled == true) {
-			m_down.enabled = false;
+		if (m_magnet[1].enabled == true) {
+			m_magnet[1].enabled = false;
 		}
-		if (m_left.enabled == true) {
-			m_left.enabled = false;
+		if (m_magnet[2].enabled == true) {
+			m_magnet[2].enabled = false;
 		}
-		if (m_right.enabled == true) {
-			m_right.enabled = false;
+		if (m_magnet[3].enabled == true) {
+			m_magnet[3].enabled = false;
 		}
-		if (m_upperLeft.enabled == true) {
-			m_upperLeft.enabled = false;
+		if (m_magnet[4].enabled == true) {
+			m_magnet[4].enabled = false;
 		}
-		if (m_upperRight.enabled == true) {
-			m_upperRight.enabled = false;
+		if (m_magnet[5].enabled == true) {
+			m_magnet[5].enabled = false;
 		}
-		if (m_lowerLeft.enabled == true) {
-			m_lowerLeft.enabled = false;
+		if (m_magnet[6].enabled == true) {
+			m_magnet[6].enabled = false;
 		}
-		if (m_lowerRight.enabled == true) {
-			m_lowerRight.enabled = false;
+		if (m_magnet[7].enabled == true) {
+			m_magnet[7].enabled = false;
 		}
 
 	}
@@ -238,7 +255,7 @@ public class MPlayerController : MonoBehaviour {
 		}
 		isdead = false;
 		m_playerHP = m_playerHPMax;
-		gameObject.GetComponent<Rigidbody2D>().drag /= 10 * m_magnetForce;
+	
 	}
 
 	//死亡判定
@@ -251,8 +268,8 @@ public class MPlayerController : MonoBehaviour {
 		Debug.Log(m_playerHP);
 		if (m_playerHP <= 0) {
 			isdead = true;
-			m_rigidbody.drag *= 10 * m_magnetForce ;
+			
+			m_rigidbody.velocity = Vector3.zero;
 		}
 	}
-	
 }

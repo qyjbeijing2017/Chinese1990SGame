@@ -77,8 +77,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042230862545814}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -7.03, y: 2.15, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.5, y: 2.15, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4280471354974770}
@@ -404,17 +404,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3069ba671ff133147a657e4204ed7f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_up: {fileID: 61009144293317680}
-  m_down: {fileID: 61583716560549246}
-  m_left: {fileID: 61629886417658668}
-  m_right: {fileID: 61742524176602450}
-  m_upperLeft: {fileID: 61195669892843696}
-  m_upperRight: {fileID: 61847464540233354}
-  m_lowerLeft: {fileID: 61484186690850790}
-  m_lowerRight: {fileID: 61389147058855372}
+  m_magnet:
+  - {fileID: 61009144293317680}
+  - {fileID: 61583716560549246}
+  - {fileID: 61629886417658668}
+  - {fileID: 61742524176602450}
+  - {fileID: 61195669892843696}
+  - {fileID: 61847464540233354}
+  - {fileID: 61484186690850790}
+  - {fileID: 61389147058855372}
   m_playerID: 1
   m_playerForce: 10
-  m_magnetForce: 50
+  m_magnetForce: 500
   isPositive: 1
   m_playerHPMax: 5
   m_playerHP: 0
