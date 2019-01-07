@@ -6,6 +6,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 {
 
     private Rigidbody2D m_rigidbody;
+    private bool victory = false;
+    private bool release = false;//控制动画胜利和链条
 
     [SerializeField, Tooltip("人物id")] private int m_playerID = 1;
     [SerializeField, Tooltip("移动力")] private float m_playerForce = 10;
@@ -73,6 +75,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     {
         if (!m_lockOption && !m_isdead)
         {
+            Animated();
             PolarityChange();
             //磁场触发
             if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
@@ -82,6 +85,38 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
+    void Animated()//  控制动画基
+    {
+        float currentSpeed;
+        
+        if (m_rigidbody.velocity.x > 0)
+            currentSpeed = m_rigidbody.velocity.x;
+        else
+            currentSpeed = -m_rigidbody.velocity.x;
+
+        selfanimator.SetFloat("speed", currentSpeed);
+        particleanimator.SetFloat("runspeed", currentSpeed);
+        selfanimator.SetBool("victory", victory);
+        selfanimator.SetBool("release", release);
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            victory = !victory;
+            Debug.Log("victory");
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+            release = !release;
+        if (m_rigidbody.velocity.x >= 0.5)
+        {
+            transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
+        }
+        else
+        {
+
+            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
+        }
+    }
     int m_jumpNum = 0; //跳跃计数
     //移动脚本
     void move()
@@ -103,26 +138,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
 
 
-        float currentSpeed;//  控制动画基
-        if (m_rigidbody.velocity.x > 0)
-            currentSpeed = m_rigidbody.velocity.x;
-        else
-            currentSpeed = -m_rigidbody.velocity.x;
-
-        selfanimator.SetFloat("speed", currentSpeed);
-        particleanimator.SetFloat("runspeed", currentSpeed);
-
-        if (m_rigidbody.velocity.x >= 0.5)
-        {
-            transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
-        }
-        else
-        {
-
-            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
-            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
-        }
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

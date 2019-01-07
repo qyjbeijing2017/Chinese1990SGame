@@ -77,9 +77,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042230862545814}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 2.15, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -7.03, y: -3.54, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4280471354974770}
   - {fileID: 4470942763538306}
@@ -144,18 +144,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021689415, y: 3.46977}
+  m_Offset: {x: 0.021689415, y: 10.219381}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4630985, y: 6.7391443}
+  m_Size: {x: 2.4630985, y: 20.238365}
   m_EdgeRadius: 0
 --- !u!61 &61104158686087758
 BoxCollider2D:
@@ -198,7 +198,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -223,7 +223,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -248,7 +248,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -273,7 +273,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -298,7 +298,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -323,7 +323,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -348,7 +348,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.27, y: 11.49}
+    oldSize: {x: 2.0675, y: 2.8725}
     newSize: {x: 0.51, y: 0.41}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -384,7 +384,7 @@ Animator:
   m_GameObject: {fileID: 1042230862545814}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c368c1ccf2f64784cbc5a433e68bfa02, type: 2}
+  m_Controller: {fileID: 9100000, guid: b09e4324e2ab287458f52da058afe502, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -404,30 +404,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3069ba671ff133147a657e4204ed7f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_magnet:
-  - {fileID: 61009144293317680}
-  - {fileID: 61583716560549246}
-  - {fileID: 61629886417658668}
-  - {fileID: 61742524176602450}
-  - {fileID: 61195669892843696}
-  - {fileID: 61847464540233354}
-  - {fileID: 61484186690850790}
-  - {fileID: 61389147058855372}
   m_playerID: 1
   m_playerForce: 10
-  m_magnetForce: 500
-  isPositive: 1
+  m_JumpsVelocity: []
+  m_polarity: 1
+  m_magneticField: {fileID: 0}
   m_playerHPMax: 5
-  m_playerHP: 0
-  isdead: 0
-  m_reborn1: {fileID: 0}
-  m_reborn2: {fileID: 0}
-  m_reborn3: {fileID: 0}
-  m_reborn4: {fileID: 0}
-  m_deathXMin: {fileID: 0}
-  m_deathXMax: {fileID: 0}
-  m_deathYMin: {fileID: 0}
-  m_deathYMax: {fileID: 0}
+  m_rebornTime: 3
+  m_isdead: 0
+  m_lockOption: 0
 --- !u!212 &212059529876774326
 SpriteRenderer:
   m_ObjectHideFlags: 1
