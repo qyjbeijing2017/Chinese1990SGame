@@ -25,6 +25,10 @@ public class MagneticField : MonoBehaviour
     /// </summary>
     public float MagneticForce;
     /// <summary>
+    /// 磁场系数
+    /// </summary>
+    public float MagneticCoefficient;
+    /// <summary>
     /// 磁场发射冷却时间
     /// </summary>
     public float MagneticCDTime;
@@ -90,6 +94,7 @@ public class MagneticField : MonoBehaviour
             StopCoroutine("OnMagnetic");
             m_collider.enabled = false;
             m_isMagnetic = false;
+            UI.SetActive(false);
         }
     }
 
@@ -106,7 +111,7 @@ public class MagneticField : MonoBehaviour
             md.OriginPosition = transform.position;                                                                             // 设置发出者为自身
             md.Polarity = magneticItem.PolarityMy;                                                                              // 设置发出者磁场
             Vector3 origin2target = transform.position - collision.transform.position;                                              // 计算发出者到接收者的位置向量
-            Vector3 force = origin2target.magnitude / m_collider.radius * MagneticForce * origin2target.normalized;             // 计算一个从发出者到接收者的向量力
+            Vector3 force = Mathf.Pow(origin2target.magnitude / m_collider.radius, MagneticCoefficient) * MagneticForce * origin2target.normalized;             // 计算一个从发出者到接收者的向量力
             md.Mforce = force;
             magneticItemOther.OnMagnetic(md);                                                                                   // 向被作用物体发出消息并传递数据
 

@@ -11,6 +11,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     [SerializeField, Tooltip("人物id")] private int m_playerID = 1;
     [SerializeField, Tooltip("移动力")] private float m_playerForce = 10;
+    [SerializeField, Tooltip("最大移动速度")] private float m_maxMoveSpeed = 10;
     [SerializeField, Tooltip("跳跃速度")] private List<float> m_JumpsVelocity;
     [SerializeField, Tooltip("磁极")] Polarity m_polarity = Polarity.North;
     [SerializeField, Tooltip("磁场")] MagneticField m_magneticField;
@@ -121,11 +122,25 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     //移动脚本
     void move()
     {
-        m_rigidbody.AddForce(new Vector2(Input.GetAxis("Horizontal" + m_playerID.ToString()), 0) * m_playerForce);                          // 手柄移动
-        if (Input.GetAxis("Horizontal" + m_playerID.ToString()) <= 0.1f)                                                                     // 键盘移动
+        float Inputf = Input.GetAxis("Horizontal" + m_playerID.ToString()) * m_playerForce;
+        if (Mathf.Abs(Input.GetAxis("Horizontal" + m_playerID.ToString())) <= 0.1f)
         {
-            m_rigidbody.AddForce(new Vector2(Input.GetAxis("HorizontalKB" + m_playerID.ToString()), 0) * m_playerForce);
+            Inputf = Input.GetAxis("HorizontalKB" + m_playerID.ToString()) * m_playerForce;
         }
+
+        if (m_rigidbody.velocity.x > m_maxMoveSpeed && Inputf>0)
+        {
+            Inputf = 0;
+        }
+
+        if (m_rigidbody.velocity.x < -m_maxMoveSpeed && Inputf<0)
+        {
+            Inputf = 0;
+        }
+
+        m_rigidbody.AddForce(new Vector3(Inputf, 0));
+
+
 
         if (Input.GetButtonDown("Jump" + m_playerID.ToString()))                                                                             // 多段跳跃
         {
@@ -202,6 +217,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         int rebornPositionNum = Random.Range(0, MagnetLevelControl.Instance.RebornPosition.Count);
         transform.position = MagnetLevelControl.Instance.RebornPosition[rebornPositionNum].position;
         gameObject.SetActive(true);
+        m_magneticField.MagneticOff();
     }
 
 
