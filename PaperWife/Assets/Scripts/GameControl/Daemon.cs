@@ -29,7 +29,7 @@ public class Daemon : MonoSingleton<Daemon>
 
    private void OnDestroy()
     {
-        Luaenv.Dispose();
+        //Luaenv.Dispose();
     }
 
 }

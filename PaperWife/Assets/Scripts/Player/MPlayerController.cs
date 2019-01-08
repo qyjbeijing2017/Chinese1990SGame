@@ -16,7 +16,15 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     [SerializeField, Tooltip("磁极")] Polarity m_polarity = Polarity.North;
     [SerializeField, Tooltip("磁场")] MagneticField m_magneticField;
     [SerializeField, Tooltip("最大生命")] private int m_playerHPMax = 5;
-    [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3;
+    [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3.0f;
+    [SerializeField, Tooltip("磁场切换冷却")] public float MagneticChangeCD = 3.0f;
+    [SerializeField, Tooltip("磁场切换持续时间")] public float MagneticChangeTime = 3.0f;
+    public float PolaityDefenceCD{
+        get
+        {
+            return m_PolaityDefenceCD;
+        }
+        }
 
     private int m_playerHP;
     /// <summary>
@@ -164,11 +172,34 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
+
+    float m_PolaityDefenceTimer = 0.0f;
+    float m_PolaityDefenceCD = 1.0f;
+    bool m_defence = false;
     //更改极性
     void PolarityChange()
     {
-        if (Input.GetButtonDown("Polarity" + m_playerID.ToString()))
+        if (Input.GetButton("Polarity" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !m_defence)
         {
+
+            m_defence = true;
+            StartCoroutine("PolaityDefence");
+
+            if (m_polarity == Polarity.North)
+            {
+                m_polarity = Polarity.Sourth;
+            }
+            else if (m_polarity == Polarity.Sourth)
+            {
+                m_polarity = Polarity.North;
+            }
+
+        }
+        if (Input.GetButtonUp("Polarity" + m_playerID.ToString()) && m_defence == true)
+        {
+            m_PolaityDefenceCD = 0.0f;
+            m_PolaityDefenceTimer = 0.0f;
+            m_defence = false;
             if (m_polarity == Polarity.North)
             {
                 m_polarity = Polarity.Sourth;
@@ -178,6 +209,40 @@ public class MPlayerController : MonoBehaviour, MagneticItem
                 m_polarity = Polarity.North;
             }
         }
+
+        if (m_PolaityDefenceCD != 1)
+        {
+            if(m_PolaityDefenceTimer < MagneticChangeCD)
+            {
+                m_PolaityDefenceTimer += Time.deltaTime;
+                m_PolaityDefenceCD = m_PolaityDefenceTimer / MagneticChangeCD;
+            }
+            else
+            {
+                m_PolaityDefenceCD = 1;
+            }
+        }
+
+    }
+
+    IEnumerator PolaityDefence()
+    {
+        yield return new WaitForSeconds(MagneticChangeTime);
+        if (m_defence == true)
+        {
+            m_PolaityDefenceCD = 0.0f;
+            m_PolaityDefenceTimer = 0.0f;
+            m_defence = false;
+            if (m_polarity == Polarity.North)
+            {
+                m_polarity = Polarity.Sourth;
+            }
+            else if (m_polarity == Polarity.Sourth)
+            {
+                m_polarity = Polarity.North;
+            }
+        }
+
     }
 
 

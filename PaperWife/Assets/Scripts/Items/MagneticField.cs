@@ -29,6 +29,10 @@ public class MagneticField : MonoBehaviour
     /// </summary>
     public float MagneticCoefficient;
     /// <summary>
+    /// 是否开启磁场距离衰减
+    /// </summary>
+    public bool MagnetDecrease = true;
+    /// <summary>
     /// 磁场发射冷却时间
     /// </summary>
     public float MagneticCDTime;
@@ -42,6 +46,10 @@ public class MagneticField : MonoBehaviour
             return m_magneticCD;
         }
     }
+    /// <summary>
+    /// 反射系数
+    /// </summary>
+    [Range(0,1)]public float ReatctionForceCoefficient;
 
 
     [SerializeField]private GameObject UI;
@@ -111,7 +119,15 @@ public class MagneticField : MonoBehaviour
             md.OriginPosition = transform.position;                                                                             // 设置发出者为自身
             md.Polarity = magneticItem.PolarityMy;                                                                              // 设置发出者磁场
             Vector3 origin2target = transform.position - collision.transform.position;                                              // 计算发出者到接收者的位置向量
-            Vector3 force = Mathf.Pow(origin2target.magnitude / m_collider.radius, MagneticCoefficient) * MagneticForce * origin2target.normalized;             // 计算一个从发出者到接收者的向量力
+            Vector3 force = Vector3.zero;
+            if (MagnetDecrease)
+            {
+                force = Mathf.Pow(origin2target.magnitude / m_collider.radius, MagneticCoefficient) * MagneticForce * origin2target.normalized;             // 计算一个从发出者到接收者的向量力
+            }
+            else
+            {
+                force = MagneticForce * origin2target.normalized;
+            }
             md.Mforce = force;
             magneticItemOther.OnMagnetic(md);                                                                                   // 向被作用物体发出消息并传递数据
 
@@ -119,14 +135,15 @@ public class MagneticField : MonoBehaviour
             MagneticData mdMy = new MagneticData();
             mdMy.OriginPosition = collision.transform.position;
             mdMy.Polarity = magneticItemOther.PolarityMy;
-            mdMy.Mforce = -force;
+            mdMy.Mforce = -force * ReatctionForceCoefficient;
             mdMy.IsReactionForce = true;                                                                                         // 设置为反作用力 
             magneticItem.OnMagnetic(mdMy);
         }
         catch (System.Exception e)
         {
             //异常处理，往往是因为磁场物理层碰到了非可吸引物体。
-            Debug.LogError(e.Message);
+            Debug.LogError(e.Message + " name:"+ collision.name);
+            
         }
     }
 
