@@ -15,7 +15,7 @@ public class MagneticField : MonoBehaviour
     /// <summary>
     /// 磁场发出者
     /// </summary>
-    public MagneticItem magneticItem;
+    public MagneticItem MagneticItem;
     /// <summary>
     /// 磁场持续时间
     /// </summary>
@@ -108,6 +108,11 @@ public class MagneticField : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.gameObject.layer != 11)
+        {
+            return;
+        }
+
         try
         {
             // 查找可吸引物体接口,如果没有直接跳转catch
@@ -117,7 +122,7 @@ public class MagneticField : MonoBehaviour
             // 给被磁场作用物体发出消息
             MagneticData md = new MagneticData();                                                                               // 新建一个数据类
             md.OriginPosition = transform.position;                                                                             // 设置发出者为自身
-            md.Polarity = magneticItem.PolarityMy;                                                                              // 设置发出者磁场
+            md.Polarity = MagneticItem.PolarityMy;                                                                              // 设置发出者磁场
             Vector3 origin2target = transform.position - collision.transform.position;                                              // 计算发出者到接收者的位置向量
             Vector3 force = Vector3.zero;
             if (MagnetDecrease)
@@ -137,12 +142,12 @@ public class MagneticField : MonoBehaviour
             mdMy.Polarity = magneticItemOther.PolarityMy;
             mdMy.Mforce = -force * ReatctionForceCoefficient;
             mdMy.IsReactionForce = true;                                                                                         // 设置为反作用力 
-            magneticItem.OnMagnetic(mdMy);
+            MagneticItem.OnMagnetic(mdMy);
         }
         catch (System.Exception e)
         {
             //异常处理，往往是因为磁场物理层碰到了非可吸引物体。
-            Debug.LogError(e.Message + " name:"+ collision.name);
+            Debug.LogError(e.Message + " name:"+ collision.name + " layer:" +collision.gameObject.layer + " mylayer"+gameObject.layer);
             
         }
     }

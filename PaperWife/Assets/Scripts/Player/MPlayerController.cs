@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DaemonTools;
 
 public class MPlayerController : MonoBehaviour, MagneticItem
 {
@@ -9,13 +10,13 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     private bool victory = false;
     private bool release = false;//控制动画胜利和链条
 
-    [SerializeField, Tooltip("人物id")] private int m_playerID = 1;
-    [SerializeField, Tooltip("移动力")] private float m_playerForce = 10;
-    [SerializeField, Tooltip("最大移动速度")] private float m_maxMoveSpeed = 10;
-    [SerializeField, Tooltip("跳跃速度")] private List<float> m_JumpsVelocity;
-    [SerializeField, Tooltip("磁极")] Polarity m_polarity = Polarity.North;
-    [SerializeField, Tooltip("磁场")] MagneticField m_magneticField;
-    [SerializeField, Tooltip("最大生命")] private int m_playerHPMax = 5;
+    [SerializeField, Tooltip("人物id")] public int m_playerID = 1;
+    [SerializeField, Tooltip("移动力")] public float m_playerForce = 10;
+    [SerializeField, Tooltip("最大移动速度")] public float m_maxMoveSpeed = 10;
+    [SerializeField, Tooltip("跳跃速度")] public List<float> m_JumpsVelocity;
+    [SerializeField, Tooltip("磁极")] public Polarity m_polarity = Polarity.North;
+    [SerializeField, Tooltip("磁场")] public MagneticField m_magneticField;
+    [SerializeField, Tooltip("最大生命")] public int m_playerHPMax = 5;
     [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3.0f;
     [SerializeField, Tooltip("磁场切换冷却")] public float MagneticChangeCD = 3.0f;
     [SerializeField, Tooltip("磁场切换持续时间")] public float MagneticChangeTime = 3.0f;
@@ -67,8 +68,11 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         m_rigidbody = this.GetComponent<Rigidbody2D>();
         selfanimator = this.GetComponent<Animator>();
         particleanimator = transform.Find("Particle1").GetComponent<Animator>();
-        m_magneticField.magneticItem = this;
+        m_magneticField.MagneticItem = this;
+        
     }
+
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -82,7 +86,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     void Update()
     {
-        if (!m_lockOption && !m_isdead)
+        if (!m_lockOption && !m_isdead && Time.timeScale!= 0)
         {
             Animated();
             PolarityChange();

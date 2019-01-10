@@ -6,9 +6,9 @@ using DaemonTools;
 public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
 {
 
-    public List<MPlayerController> Players;
-    public List<Transform> RebornPosition;
-
+    public List<MPlayerController> Players = new List<MPlayerController>();
+    public List<Transform> RebornPosition = new List<Transform>();
+    public PhysicsMaterial2D pm;
     // Use this for initialization
     void Start()
     {
@@ -30,6 +30,8 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             RebornPosition.Add(reborn[i].transform);
         }
 
+        Daemon.Instance.InitConsoleObjs();
+        ReadConfig();
     }
 
     /// <summary>
@@ -47,4 +49,31 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
 
     }
 
+
+
+    public void ReadConfig()
+    {
+        PlayerConfig playerConfig = ConfigManager.Instance.PlayerConfigData["Value"];
+        for (int i = 0; i < Players.Count; i++)
+        {
+            MPlayerController player                         = Players[i];
+            player.m_playerForce                             = playerConfig.PlayerForce;
+            player.m_maxMoveSpeed                            = playerConfig.MaxMoveSpeed;
+            player.m_JumpsVelocity                           = playerConfig.JumpsVelocity;
+            player.m_polarity                                = playerConfig.Polarity;
+            player.m_playerHPMax                             = playerConfig.PlayerHPMax;
+            player.m_rebornTime                              = playerConfig.RebornTime;
+            player.MagneticChangeTime                        = playerConfig.MagneticChangeTime;
+            player.MagneticChangeCD                          = playerConfig.MagneticChangeCD;
+            player.m_magneticField.MagneticTime              = playerConfig.MagneticTime;
+            player.m_magneticField.MagneticForce             = playerConfig.MagneticForce;
+            player.m_magneticField.MagneticCoefficient       = playerConfig.MagneticCoefficient;
+            player.m_magneticField.MagnetDecrease            = playerConfig.MagnetDecrease;
+            player.m_magneticField.MagneticCDTime            = playerConfig.MagneticCDTime;
+            player.m_magneticField.ReatctionForceCoefficient = playerConfig.ReatctionForceCoefficient;
+            player.GetComponent<Rigidbody2D>().gravityScale  = playerConfig.GScale;
+            pm.friction                                      = playerConfig.DragGround;
+            player.GetComponent<Rigidbody2D>().drag          = playerConfig.DragRB;
+        }
+    }
 }

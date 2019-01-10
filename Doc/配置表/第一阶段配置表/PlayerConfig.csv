@@ -1,0 +1,4 @@
+﻿ID,String,playerForce,maxMoveSpeed,jumpsVelocity,polarity,playerHPMax,rebornTime,magneticChangeCD,magneticChangeTime,magneticTime,magneticForce,magneticCoefficient,magnetDecrease,magneticCDTime,reatctionForceCoefficient,gScale,dragGround,dragRB
+Name,,给玩家的力,最大移动速度,跳跃速度,极性,玩家最大血量,复活冷却时间,改变磁力CD,改变磁力持续时间,磁场持续时间,磁场强度,磁场系数,是否开启磁场衰减,磁场发射冷却时间,磁场对自己的反射系数,重力,摩擦力,Rigidbody的阻力
+Class,,float,float,float[],string,int,float,float,float,float,float,float,bool,float,float,float,float,float
+Value,,15,10,8#12,Sourth,10000,1,3,3,0.1,500,1,1,1,0.5,2,0.3,0.5

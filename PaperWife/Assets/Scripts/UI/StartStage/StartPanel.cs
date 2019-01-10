@@ -21,7 +21,6 @@ public class StartPanel : UIBase
     {
         LoadSceneManager.Instance.LoadSceneAsync("MagnetTestForGryonder", () => { }, () =>
         {
-            UIManager.Instance.clear();
             ConfigManager.Instance.InitConfigManager();
         });
     }
