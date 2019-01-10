@@ -23,7 +23,7 @@ public class Daemon : MonoSingleton<Daemon>
         // Luaenv.DoString("require 'XLuaMain'");
         ConfigManager.Instance.InitUIConfig();
         UIManager.Instance.Init();
-        InitConsoleObjs();
+        
     }
 
     private void Start()

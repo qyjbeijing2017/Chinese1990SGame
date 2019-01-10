@@ -62,6 +62,9 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     /// </summary>
     public bool m_lockOption;
 
+
+    Color startcolor;
+    SpriteRenderer spriteRenderer;
     void Start()
     {
         m_playerHP = m_playerHPMax;
@@ -69,7 +72,11 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         selfanimator = this.GetComponent<Animator>();
         particleanimator = transform.Find("Particle1").GetComponent<Animator>();
         m_magneticField.MagneticItem = this;
-        
+
+
+        //临时换色
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        startcolor = spriteRenderer.color;
     }
 
 
@@ -95,6 +102,18 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             {
                 m_magneticField.OnMagneticStart();
             }
+        }
+
+
+
+        //防御时变更颜色
+        if (m_defence)
+        {
+            spriteRenderer.color = Color.black;
+        }
+        else
+        {
+            spriteRenderer.color = startcolor;
         }
     }
 

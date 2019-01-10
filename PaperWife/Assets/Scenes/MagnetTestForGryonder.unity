@@ -2102,6 +2102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Players: []
   RebornPosition: []
+  pm: {fileID: 6200000, guid: c34064567a27bfd4095042be6ba7f99f, type: 2}
 --- !u!4 &1279086162
 Transform:
   m_ObjectHideFlags: 0
@@ -2585,6 +2586,21 @@ PrefabInstance:
         type: 3}
       propertyPath: ReatctionForceCoefficient
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212557754509659038, guid: c35272b1a88702f4d918969e64036c6c,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212557754509659038, guid: c35272b1a88702f4d918969e64036c6c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 212557754509659038, guid: c35272b1a88702f4d918969e64036c6c,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.4113207
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c35272b1a88702f4d918969e64036c6c, type: 3}

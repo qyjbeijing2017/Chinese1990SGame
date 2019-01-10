@@ -59,9 +59,11 @@ public class PlayerConfig : BaseConfig
             float.TryParse(m_data[11], out MagneticForce);
             float.TryParse(m_data[12], out MagneticCoefficient);
             bool.TryParse(m_data[13], out MagnetDecrease);
-            float.TryParse(m_data[14], out ReatctionForceCoefficient);
-            float.TryParse(m_data[15], out GScale);
-            float.TryParse(m_data[16], out DragGround);
+            float.TryParse(m_data[14], out MagneticCDTime);
+            float.TryParse(m_data[15], out ReatctionForceCoefficient);
+            float.TryParse(m_data[16], out GScale);
+            float.TryParse(m_data[17], out DragGround);
+            float.TryParse(m_data[18], out DragRB);
         }
     }
 
