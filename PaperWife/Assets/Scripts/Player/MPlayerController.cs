@@ -309,4 +309,9 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
 
+    public void testMeth(int i, float f, bool b, Vector3 vec, Polarity polarity)
+    {
+        print("int:" + i + " float:" + f + " bool:" + b + " vec:" + vec + " polarity:"+ polarity.ToString());
+    }
+
 }

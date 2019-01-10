@@ -76,4 +76,7 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             player.GetComponent<Rigidbody2D>().drag          = playerConfig.DragRB;
         }
     }
+
+
+
 }
