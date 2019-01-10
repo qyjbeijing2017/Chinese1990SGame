@@ -57,7 +57,12 @@ public class GameConsole : UIBase
 
     public void Log(string log)
     {
-        m_textShow.text += log + "\n>";
+        m_textShow.text += "<color=#F5F000>" + log + "</color>\n>";
+    }
+
+    public void LogError(string log)
+    {
+        m_textShow.text += "<color=#FF000>" + log + "</color>\n>";
     }
 
 }
