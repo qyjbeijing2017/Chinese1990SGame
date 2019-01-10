@@ -23,6 +23,7 @@ public class PlayerConfig : BaseConfig
     public float             GScale                       = 1f;
     public float             DragGround                   = 0.3f;
     public float             DragRB                       = 0.5f;
+    public float             DrawCoefficient                    = 0.3f;
 
 
     public void InitConfig(List<string> m_data)
@@ -64,6 +65,7 @@ public class PlayerConfig : BaseConfig
             float.TryParse(m_data[16], out GScale);
             float.TryParse(m_data[17], out DragGround);
             float.TryParse(m_data[18], out DragRB);
+            float.TryParse(m_data[19], out DrawCoefficient);
         }
     }
 

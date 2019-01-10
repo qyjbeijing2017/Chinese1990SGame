@@ -74,6 +74,7 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             player.GetComponent<Rigidbody2D>().gravityScale  = playerConfig.GScale;
             pm.friction                                      = playerConfig.DragGround;
             player.GetComponent<Rigidbody2D>().drag          = playerConfig.DragRB;
+            player.DrawCoefficient = playerConfig.DrawCoefficient;
         }
     }
 

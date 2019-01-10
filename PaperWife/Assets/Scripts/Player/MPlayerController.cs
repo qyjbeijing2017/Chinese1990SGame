@@ -20,6 +20,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3.0f;
     [SerializeField, Tooltip("磁场切换冷却")] public float MagneticChangeCD = 3.0f;
     [SerializeField, Tooltip("磁场切换持续时间")] public float MagneticChangeTime = 3.0f;
+    public float DrawCoefficient = 0.3f;
     public float PolaityDefenceCD{
         get
         {
@@ -288,7 +289,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         if (md.Polarity != PolarityMy)
         {
             // 极性不同
-            m_rigidbody.AddForce(md.Mforce);                              // 同性相吸，Mforce为从我指向对手
+            m_rigidbody.AddForce(md.Mforce * DrawCoefficient);                              // 异性相吸，Mforce为从我指向对手
         }
         else
         {
