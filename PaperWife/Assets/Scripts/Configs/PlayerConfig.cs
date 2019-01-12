@@ -24,6 +24,9 @@ public class PlayerConfig : BaseConfig
     public float             DragGround                   = 0.3f;
     public float             DragRB                       = 0.5f;
     public float             DrawCoefficient                    = 0.3f;
+    public int EdgeBack = 3;
+    public float BackSpeed = 10;
+    public Polarity EdgePolarity;
 
 
     public void InitConfig(List<string> m_data)
@@ -66,6 +69,19 @@ public class PlayerConfig : BaseConfig
             float.TryParse(m_data[17], out DragGround);
             float.TryParse(m_data[18], out DragRB);
             float.TryParse(m_data[19], out DrawCoefficient);
+            int.TryParse(m_data[20], out EdgeBack);
+            float.TryParse(m_data[21], out BackSpeed);
+            try
+            {
+                EdgePolarity = (Polarity)Enum.Parse(typeof(Polarity), m_data[22]);
+            }
+            catch (Exception e)
+            {
+
+                Debug.LogError("enum error:" + e.Message);
+            }
+
+
         }
     }
 

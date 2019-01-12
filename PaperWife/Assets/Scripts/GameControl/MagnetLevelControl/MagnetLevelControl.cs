@@ -9,6 +9,7 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
     public List<MPlayerController> Players = new List<MPlayerController>();
     public List<Transform> RebornPosition = new List<Transform>();
     public PhysicsMaterial2D pm;
+    public Edge edge;
     // Use this for initialization
     void Start()
     {
@@ -29,6 +30,9 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
         {
             RebornPosition.Add(reborn[i].transform);
         }
+
+        //初始化边界
+        edge = FindObjectOfType<Edge>();
 
         Daemon.Instance.InitConsoleObjs();
         ReadConfig();
@@ -75,6 +79,10 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             pm.friction                                      = playerConfig.DragGround;
             player.GetComponent<Rigidbody2D>().drag          = playerConfig.DragRB;
             player.DrawCoefficient = playerConfig.DrawCoefficient;
+            player.EdgeBack = playerConfig.EdgeBack;
+            edge.BackSpeed = playerConfig.BackSpeed;
+            edge.PolarityA = playerConfig.EdgePolarity;
+            
         }
     }
 

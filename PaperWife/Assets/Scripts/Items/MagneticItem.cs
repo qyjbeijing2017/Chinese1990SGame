@@ -11,6 +11,15 @@ public interface MagneticItem{
         get;
     }
     /// <summary>
+    /// 属性、类型
+    /// </summary>
+    MagneticType Type
+    {
+        get;
+    }
+
+
+    /// <summary>
     /// 被吸引时触发
     /// </summary>
     /// <param name="md">吸引数据</param>
@@ -36,6 +45,10 @@ public class MagneticData
     /// </summary>
     public bool IsReactionForce = false;
     
+
+
+    public MagneticType OriginType = MagneticType.None;
+
     public MagneticData Copy()
     {
         MagneticData md = new MagneticData();
@@ -44,11 +57,20 @@ public class MagneticData
         md.Polarity = Polarity;
         md.Mforce = Mforce;
         md.IsReactionForce = IsReactionForce;
+        md.OriginType = OriginType;
 
         return md;
     }
 }
 
+
+public enum MagneticType
+{
+    None = 0,
+    Player = 1,
+    Item = 2,
+    Edge = 3
+}
 
 public enum Polarity
 {
