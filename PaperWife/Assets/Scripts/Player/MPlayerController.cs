@@ -20,6 +20,13 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3.0f;
     [SerializeField, Tooltip("磁场切换冷却")] public float MagneticChangeCD = 3.0f;
     [SerializeField, Tooltip("磁场切换持续时间")] public float MagneticChangeTime = 3.0f;
+    /// <summary>
+    /// 拉拽系数
+    /// </summary>
+    public float DrawCoefficient = 0.3f;
+    /// <summary>
+    /// 当前防御冷却
+    /// </summary>
     public float PolaityDefenceCD{
         get
         {
@@ -61,7 +68,19 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     /// 锁定所有操作
     /// </summary>
     public bool m_lockOption;
+    /// <summary>
+    /// 边界返回次数
+    /// </summary>
+    public int EdgeBack;
 
+
+    public MagneticType Type
+    {
+        get
+        {
+            return MagneticType.Player;
+        }
+    }
 
     Color startcolor;
     SpriteRenderer spriteRenderer;
@@ -78,6 +97,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         spriteRenderer = GetComponent<SpriteRenderer>();
         startcolor = spriteRenderer.color;
     }
+
 
 
 
@@ -279,6 +299,15 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
     public void OnMagnetic(MagneticData md)
     {
+
+        if (md.OriginType == MagneticType.Edge)
+        {
+            if (!OnEdge())
+            {
+                return;
+            }
+        }
+
         // 如果吸引玩家的物体是没有极性的，不做任何处理，直接结束该方法。
         if (md.Polarity == Polarity.None)
         {
@@ -288,7 +317,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         if (md.Polarity != PolarityMy)
         {
             // 极性不同
-            m_rigidbody.AddForce(md.Mforce);                              // 同性相吸，Mforce为从我指向对手
+            m_rigidbody.AddForce(md.Mforce * DrawCoefficient);                              // 异性相吸，Mforce为从我指向对手
         }
         else
         {
@@ -308,10 +337,21 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         m_magneticField.MagneticOff();
     }
 
-
-    public void testMeth(int i, float f, bool b, Vector3 vec, Polarity polarity)
+    /// <summary>
+    /// 是否还能返回
+    /// </summary>
+    /// <returns></returns>
+    public bool OnEdge()
     {
-        print("int:" + i + " float:" + f + " bool:" + b + " vec:" + vec + " polarity:"+ polarity.ToString());
+        if (EdgeBack>0)
+        {
+            EdgeBack --;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

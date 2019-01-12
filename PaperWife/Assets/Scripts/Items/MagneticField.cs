@@ -108,7 +108,7 @@ public class MagneticField : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer != 11)
+        if (collision.gameObject.layer != 11 && collision.gameObject.layer != 14)
         {
             return;
         }
@@ -134,6 +134,7 @@ public class MagneticField : MonoBehaviour
                 force = MagneticForce * origin2target.normalized;
             }
             md.Mforce = force;
+            md.OriginType = MagneticItem.Type;
             magneticItemOther.OnMagnetic(md);                                                                                   // 向被作用物体发出消息并传递数据
 
             // 给磁场发出者发消息，因为可以看做是被磁场作用物体给磁场发出者相同的力，所以与上一部分赋值相反
@@ -142,6 +143,7 @@ public class MagneticField : MonoBehaviour
             mdMy.Polarity = magneticItemOther.PolarityMy;
             mdMy.Mforce = -force * ReatctionForceCoefficient;
             mdMy.IsReactionForce = true;                                                                                         // 设置为反作用力 
+            mdMy.OriginType = magneticItemOther.Type;
             MagneticItem.OnMagnetic(mdMy);
         }
         catch (System.Exception e)
