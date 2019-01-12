@@ -1242,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &806939556
 Transform:
   m_ObjectHideFlags: 0
@@ -2204,7 +2204,7 @@ MonoBehaviour:
   DrawCoefficient: 0.3
   m_isdead: 0
   m_lockOption: 0
-  EdgeBack: 3
+  EdgeBack: 10000000
 --- !u!50 &1289857669
 Rigidbody2D:
   serializedVersion: 4
@@ -2490,7 +2490,7 @@ GameObject:
   - component: {fileID: 1656993703}
   - component: {fileID: 1656993706}
   - component: {fileID: 1656993707}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: edge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3313,11 +3313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4484001204703638, guid: c35272b1a88702f4d918969e64036c6c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 4484001204703638, guid: c35272b1a88702f4d918969e64036c6c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.15
+      value: 3.11
       objectReference: {fileID: 0}
     - target: {fileID: 4484001204703638, guid: c35272b1a88702f4d918969e64036c6c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3351,7 +3351,7 @@ PrefabInstance:
     - target: {fileID: 114345731427769348, guid: c35272b1a88702f4d918969e64036c6c,
         type: 3}
       propertyPath: EdgeBack
-      value: 3
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 114408294715110210, guid: c35272b1a88702f4d918969e64036c6c,
         type: 3}
@@ -3361,7 +3361,7 @@ PrefabInstance:
     - target: {fileID: 114408294715110210, guid: c35272b1a88702f4d918969e64036c6c,
         type: 3}
       propertyPath: MagneticForce
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 114408294715110210, guid: c35272b1a88702f4d918969e64036c6c,
         type: 3}
@@ -3372,6 +3372,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ReatctionForceCoefficient
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114408294715110210, guid: c35272b1a88702f4d918969e64036c6c,
+        type: 3}
+      propertyPath: MagnetDecrease
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212557754509659038, guid: c35272b1a88702f4d918969e64036c6c,
         type: 3}
@@ -3397,6 +3402,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897347784391892, guid: c35272b1a88702f4d918969e64036c6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c35272b1a88702f4d918969e64036c6c, type: 3}
@@ -3467,7 +3476,7 @@ MonoBehaviour:
   MagneticTime: 0.1
   MagneticForce: 500
   MagneticCoefficient: 1
-  MagnetDecrease: 1
+  MagnetDecrease: 0
   MagneticCDTime: 1
   ReatctionForceCoefficient: 1
   UI: {fileID: 1938139356}
@@ -3502,7 +3511,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 3
 --- !u!1 &1824591729
 GameObject:
   m_ObjectHideFlags: 0
