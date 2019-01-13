@@ -24,8 +24,8 @@ public class PlayerConfig : BaseConfig
     public float             DragGround                   = 0.3f;
     public float             DragRB                       = 0.5f;
     public float             DrawCoefficient                    = 0.3f;
-    public int EdgeBack = 3;
-    public float BackSpeed = 10;
+    public int EdgeBackNum = 3;
+    public float BackSpeed = 5.0f;
     public Polarity EdgePolarity;
 
 
@@ -69,7 +69,7 @@ public class PlayerConfig : BaseConfig
             float.TryParse(m_data[17], out DragGround);
             float.TryParse(m_data[18], out DragRB);
             float.TryParse(m_data[19], out DrawCoefficient);
-            int.TryParse(m_data[20], out EdgeBack);
+            int.TryParse(m_data[20], out EdgeBackNum);
             float.TryParse(m_data[21], out BackSpeed);
             try
             {
