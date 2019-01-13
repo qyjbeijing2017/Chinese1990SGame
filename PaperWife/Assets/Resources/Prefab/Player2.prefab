@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3069ba671ff133147a657e4204ed7f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharactorCamera: {fileID: 0}
   m_playerID: 1
   m_playerForce: 10
   m_maxMoveSpeed: 10
@@ -125,8 +126,12 @@ MonoBehaviour:
   m_magneticField: {fileID: 0}
   m_playerHPMax: 5
   m_rebornTime: 3
+  MagneticChangeCD: 3
+  MagneticChangeTime: 3
+  DrawCoefficient: 0.3
   m_isdead: 0
   m_lockOption: 0
+  EdgeBack: 0
 --- !u!95 &95084311148110106
 Animator:
   serializedVersion: 3
@@ -137,7 +142,7 @@ Animator:
   m_GameObject: {fileID: 1042230862545814}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b09e4324e2ab287458f52da058afe502, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7fc5779bfa474364d963e20960f7fea2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

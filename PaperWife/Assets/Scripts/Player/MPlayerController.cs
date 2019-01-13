@@ -29,12 +29,13 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     /// <summary>
     /// 当前防御冷却
     /// </summary>
-    public float PolaityDefenceCD{
+    public float PolaityDefenceCD
+    {
         get
         {
             return m_PolaityDefenceCD;
         }
-        }
+    }
 
     private int m_playerHP;
     /// <summary>
@@ -63,7 +64,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
-    private Animator selfanimator;
+    private Animator m_animator;
     private Animator particleanimator;
 
     /// <summary>
@@ -84,20 +85,14 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
-    Color startcolor;
-    SpriteRenderer spriteRenderer;
+
     public void Init()
     {
         m_playerHP = m_playerHPMax;
         m_rigidbody = this.GetComponent<Rigidbody2D>();
-        selfanimator = this.GetComponent<Animator>();
+        m_animator = this.GetComponent<Animator>();
         particleanimator = transform.Find("Particle1").GetComponent<Animator>();
         m_magneticField.MagneticItem = this;
-
-
-        //临时换色
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        startcolor = spriteRenderer.color;
     }
 
 
@@ -115,7 +110,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     void Update()
     {
-        if (!m_lockOption && !m_isdead && Time.timeScale!= 0)
+        if (!m_lockOption && !m_isdead && Time.timeScale != 0)
         {
             Animated();
             PolarityChange();
@@ -125,52 +120,33 @@ public class MPlayerController : MonoBehaviour, MagneticItem
                 m_magneticField.OnMagneticStart();
             }
         }
-
-
-
-        //防御时变更颜色
-        if (m_defence)
-        {
-            spriteRenderer.color = Color.black;
-        }
-        else
-        {
-            spriteRenderer.color = startcolor;
-        }
     }
 
     void Animated()//  控制动画基
     {
-        float currentSpeed;
-        
-        if (m_rigidbody.velocity.x > 0)
-            currentSpeed = m_rigidbody.velocity.x;
-        else
-            currentSpeed = -m_rigidbody.velocity.x;
-
-        selfanimator.SetFloat("speed", currentSpeed);
-        particleanimator.SetFloat("runspeed", currentSpeed);
-        selfanimator.SetBool("victory", victory);
-        selfanimator.SetBool("release", release);
-        if (Input.GetKeyDown(KeyCode.V))
+        m_animator.SetFloat("MoveSpeed", Mathf.Abs(m_rigidbody.velocity.x));
+        if (m_polarity == Polarity.Sourth)
         {
-            victory = !victory;
-            Debug.Log("victory");
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-            release = !release;
-        if (m_rigidbody.velocity.x >= 0.5)
-        {
-            transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
+            m_animator.SetLayerWeight(1, 1);
         }
         else
         {
+            m_animator.SetLayerWeight(1, 0);
+        }
 
-            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
-            transform.Find("Particle1").eulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
+
+        if (m_rigidbody.velocity.x < -0.3f && transform.localScale.x>0)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
+
+        if (m_rigidbody.velocity.x > 0.3f && transform.localScale.x < 0)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
     }
+
+
     int m_jumpNum = 0; //跳跃计数
     //移动脚本
     void move()
@@ -181,12 +157,12 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             Inputf = Input.GetAxis("HorizontalKB" + m_playerID.ToString()) * m_playerForce;
         }
 
-        if (m_rigidbody.velocity.x > m_maxMoveSpeed && Inputf>0)
+        if (m_rigidbody.velocity.x > m_maxMoveSpeed && Inputf > 0)
         {
             Inputf = 0;
         }
 
-        if (m_rigidbody.velocity.x < -m_maxMoveSpeed && Inputf<0)
+        if (m_rigidbody.velocity.x < -m_maxMoveSpeed && Inputf < 0)
         {
             Inputf = 0;
         }
@@ -202,11 +178,11 @@ public class MPlayerController : MonoBehaviour, MagneticItem
                 m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_JumpsVelocity[m_jumpNum]);
                 m_jumpNum++;
             }
-        }                                                                          
+        }
 
 
 
-       
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -220,14 +196,14 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     float m_PolaityDefenceTimer = 0.0f;
     float m_PolaityDefenceCD = 1.0f;
-    bool m_defence = false;
+    bool IsDefence = false;
     //更改极性
     void PolarityChange()
     {
-        if (Input.GetButton("Polarity" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !m_defence)
+        if (Input.GetButton("Polarity" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
         {
 
-            m_defence = true;
+            IsDefence = true;
             StartCoroutine("PolaityDefence");
 
             if (m_polarity == Polarity.North)
@@ -240,11 +216,11 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             }
 
         }
-        if (Input.GetButtonUp("Polarity" + m_playerID.ToString()) && m_defence == true)
+        if (Input.GetButtonUp("Polarity" + m_playerID.ToString()) && IsDefence == true)
         {
             m_PolaityDefenceCD = 0.0f;
             m_PolaityDefenceTimer = 0.0f;
-            m_defence = false;
+            IsDefence = false;
             if (m_polarity == Polarity.North)
             {
                 m_polarity = Polarity.Sourth;
@@ -257,7 +233,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
         if (m_PolaityDefenceCD != 1)
         {
-            if(m_PolaityDefenceTimer < MagneticChangeCD)
+            if (m_PolaityDefenceTimer < MagneticChangeCD)
             {
                 m_PolaityDefenceTimer += Time.deltaTime;
                 m_PolaityDefenceCD = m_PolaityDefenceTimer / MagneticChangeCD;
@@ -269,15 +245,14 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
 
     }
-
     IEnumerator PolaityDefence()
     {
         yield return new WaitForSeconds(MagneticChangeTime);
-        if (m_defence == true)
+        if (IsDefence == true)
         {
             m_PolaityDefenceCD = 0.0f;
             m_PolaityDefenceTimer = 0.0f;
-            m_defence = false;
+            IsDefence = false;
             if (m_polarity == Polarity.North)
             {
                 m_polarity = Polarity.Sourth;
@@ -345,9 +320,9 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     /// <returns></returns>
     public bool OnEdge()
     {
-        if (EdgeBack>0)
+        if (EdgeBack > 0)
         {
-            EdgeBack --;
+            EdgeBack--;
             return true;
         }
         else
@@ -355,5 +330,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             return false;
         }
     }
+
+
+    //动画
 
 }
