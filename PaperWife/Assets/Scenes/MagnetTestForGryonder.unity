@@ -664,9 +664,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &212415831
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1137,9 +1137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &378290518
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1437,9 +1437,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &642745267
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2507,7 +2507,7 @@ MonoBehaviour:
   Players: []
   RebornPosition: []
   pm: {fileID: 6200000, guid: c34064567a27bfd4095042be6ba7f99f, type: 2}
-  edge: {fileID: 0}
+  EdgeBacks: []
 --- !u!4 &1279086162
 Transform:
   m_ObjectHideFlags: 0
@@ -3000,9 +3000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!1 &1563080095
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,9 +3048,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &1563080098
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4196,9 +4196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &1738573766
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4318,9 +4318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &1749273021
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4440,9 +4440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9dc78c8002ab2644a11f2159c759822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdgeBackNum: 5
-  BackVelocity: 3
-  EdgeBackNumNow: 5
+  EdgeBackNum: 3
+  BackSpeed: 3
+  EdgeBackNumNow: 3
 --- !u!61 &1777092060
 BoxCollider2D:
   m_ObjectHideFlags: 0

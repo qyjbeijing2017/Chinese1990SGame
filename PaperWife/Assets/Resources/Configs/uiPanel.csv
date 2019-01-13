@@ -6,3 +6,4 @@ LoadingNormalPanel,UI/LoadingNormalPanel/LoadingNormalPanel
 DialoguePanel,UI/DialoguePanel/DialoguePanel
 CookFoodPanel,UI/CookFoodPanel/CookFoodPanel
 GameConsole,UI/GameConsole/GameConsole
+PlayerUIPanel,UI/PlayerUIPanel/PlayerUIPanel

@@ -10,6 +10,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     private bool victory = false;
     private bool release = false;//控制动画胜利和链条
 
+    public Camera CharactorCamera;
+
     [SerializeField, Tooltip("人物id")] public int m_playerID = 1;
     [SerializeField, Tooltip("移动力")] public float m_playerForce = 10;
     [SerializeField, Tooltip("最大移动速度")] public float m_maxMoveSpeed = 10;
@@ -84,7 +86,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     Color startcolor;
     SpriteRenderer spriteRenderer;
-    void Start()
+    public void Init()
     {
         m_playerHP = m_playerHPMax;
         m_rigidbody = this.GetComponent<Rigidbody2D>();

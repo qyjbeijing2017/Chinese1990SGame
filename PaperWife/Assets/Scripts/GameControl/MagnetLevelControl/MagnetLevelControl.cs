@@ -20,8 +20,8 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
         for (int i = 0; i < players.Length; i++)
         {
             Players.Add(players[i]);
-
         }
+        
 
         //初始化重生点
         GameObject[] reborn = GameObject.FindGameObjectsWithTag("RebornPosition");
@@ -39,10 +39,11 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             EdgeBacks.Add(edgeBacks[i]);
         }
 
-
+        UIManager.Instance.Open("PlayerUIPanel", true, Players);
 
         Daemon.Instance.InitConsoleObjs();
         ReadConfig();
+
     }
 
     /// <summary>
@@ -95,7 +96,7 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
                 EdgeBacks[j].EdgeBackNumNow = playerConfig.EdgeBackNum;
                 EdgeBacks[j].BackSpeed = playerConfig.BackSpeed;
             }
-            
+            player.Init();
         }
     }
 
