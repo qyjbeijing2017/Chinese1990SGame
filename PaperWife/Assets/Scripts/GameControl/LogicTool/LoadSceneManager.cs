@@ -50,6 +50,7 @@ namespace DaemonTools
         public void LoadSceneAsync(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             SceneManager.LoadScene("LoadingScene");
+            UIManager.Instance.Open("LoadingNormalPanel");
             Daemon.Instance.StartCoroutine(LoadScene(sceneName, callBack, loadBefore, loadSceneMode));
         }
 
@@ -63,6 +64,7 @@ namespace DaemonTools
         public void LoadSceneAsync(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
             SceneManager.LoadScene("LoadingScene");
+            UIManager.Instance.Open("LoadingNormalPanel");
             Daemon.Instance.StartCoroutine(LoadScene(sceneId, callBack, loadBefore, loadSceneMode));
         }
 
@@ -80,6 +82,7 @@ namespace DaemonTools
                         callBack.Invoke();
                     }
                     asyncOperationScene.allowSceneActivation = true;
+                    UIManager.Instance.clear();
                     m_loadProgress = 0;
                 }
                 yield return null;
@@ -101,6 +104,7 @@ namespace DaemonTools
                         callBack.Invoke();
                     }
                     asyncOperationScene.allowSceneActivation = true;
+                    UIManager.Instance.clear();
                     m_loadProgress = 0;
                 }
                 yield return null;

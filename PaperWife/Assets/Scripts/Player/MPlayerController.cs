@@ -1,229 +1,337 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DaemonTools;
 
-public class MPlayerController : MonoBehaviour {
+public class MPlayerController : MonoBehaviour, MagneticItem
+{
 
-	[SerializeField] private BoxCollider2D m_up;
-	[SerializeField] private BoxCollider2D m_down;
-	[SerializeField] private BoxCollider2D m_left;
-	[SerializeField] private BoxCollider2D m_right;
-	[SerializeField] private BoxCollider2D m_upperLeft;
-	[SerializeField] private BoxCollider2D m_upperRight;
-	[SerializeField] private BoxCollider2D m_lowerLeft;
-	[SerializeField] private BoxCollider2D m_lowerRight;
+    private Rigidbody2D m_rigidbody;
+    private bool victory = false;
+    private bool release = false;//控制动画胜利和链条
 
-	private Rigidbody2D m_rigidbody;
-	[SerializeField] private int m_playerID = 1;
-	[SerializeField] private int m_playerForce = 10;
-	[SerializeField] private int m_magnetForce = 50;
-	[SerializeField] private bool isPositive = true;
+    public Camera CharactorCamera;
 
-	[SerializeField] private int m_playerHPMax = 5;
-	 private int m_playerHP;
-	[SerializeField] private bool isdead = false;
-	[SerializeField] private Transform m_reborn1;
-	[SerializeField] private Transform m_reborn2;
-	[SerializeField] private Transform m_reborn3;
-	[SerializeField] private Transform m_reborn4;
-	[SerializeField] private Transform m_deathXMin;
-	[SerializeField] private Transform m_deathXMax;
-	[SerializeField] private Transform m_deathYMin;
-	[SerializeField] private Transform m_deathYMax;
+    [SerializeField, Tooltip("人物id")] public int m_playerID = 1;
+    [SerializeField, Tooltip("移动力")] public float m_playerForce = 10;
+    [SerializeField, Tooltip("最大移动速度")] public float m_maxMoveSpeed = 10;
+    [SerializeField, Tooltip("跳跃速度")] public List<float> m_JumpsVelocity;
+    [SerializeField, Tooltip("磁极")] public Polarity m_polarity = Polarity.North;
+    [SerializeField, Tooltip("磁场")] public MagneticField m_magneticField;
+    [SerializeField, Tooltip("最大生命")] public int m_playerHPMax = 5;
+    [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3.0f;
+    [SerializeField, Tooltip("磁场切换冷却")] public float MagneticChangeCD = 3.0f;
+    [SerializeField, Tooltip("磁场切换持续时间")] public float MagneticChangeTime = 3.0f;
+    /// <summary>
+    /// 拉拽系数
+    /// </summary>
+    public float DrawCoefficient = 0.3f;
+    /// <summary>
+    /// 当前防御冷却
+    /// </summary>
+    public float PolaityDefenceCD
+    {
+        get
+        {
+            return m_PolaityDefenceCD;
+        }
+    }
 
-	private string m_a;
-	private string m_b;
-	private string m_x;
-	private string m_y;
-	private string m_rB;
-	private string m_horizontal;
+    private int m_playerHP;
+    /// <summary>
+    ///  当前生命值
+    /// </summary>
+    [HideInInspector]
+    public int PlayerHP
+    {
+        get { return m_playerHP; }
+        set
+        {
+            m_playerHP = value;
+            if (m_playerHP <= 0)
+            {
+                m_isdead = true;
+                Destroy(this);
+            }
+        }
+    }
+    [SerializeField, Tooltip("是否死亡")] private bool m_isdead = false;
+    public bool IsDead
+    {
+        get
+        {
+            return m_isdead;
+        }
+    }
 
-	void Start () {
-		m_rigidbody = this.GetComponent<Rigidbody2D> ();
-		if (m_playerID == 1) {
-			m_horizontal = "Horizontal1";
-			m_a = "1A";
-			m_b = "1B";
-			m_x = "1X";
-			m_y = "1Y";
-			m_rB = "1RB";
+    private Animator m_animator;
+    private Animator particleanimator;
 
-			Debug.Log (m_horizontal);
-		} else if (m_playerID == 2) {
-			m_horizontal = "Horizontal2";
-			m_a = "2A";
-			m_b = "2B";
-			m_x = "2X";
-			m_y = "2Y";
-			m_rB = "2RB";
-		} else if (m_playerID == 3) {
-			m_horizontal = "Horizontal3";
-			m_a = "3A";
-			m_b = "3B";
-			m_x = "3X";
-			m_y = "3Y";
-			m_rB = "3RB";
+    /// <summary>
+    /// 锁定所有操作
+    /// </summary>
+    public bool m_lockOption;
+    /// <summary>
+    /// 边界返回次数
+    /// </summary>
+    public int EdgeBack;
 
-		} else if (m_playerID == 4) {
-			m_horizontal = "Horizontal4";
-			m_a = "4A";
-			m_b = "4B";
-			m_x = "4X";
-			m_y = "4Y";
-			m_rB = "4RB";
-		}
 
-	}
+    public MagneticType Type
+    {
+        get
+        {
+            return MagneticType.Player;
+        }
+    }
 
-	// Update is called once per frame
-	void FixedUpdate () {
-		if (!isdead) {
-			move ();
-			ColliderOn ();
-			Pole ();
-			Death ();
-		} else {
-			Reborn ();
-		}
 
-	}
+    public void Init()
+    {
+        m_playerHP = m_playerHPMax;
+        m_rigidbody = this.GetComponent<Rigidbody2D>();
+        m_animator = this.GetComponent<Animator>();
+        particleanimator = transform.Find("Particle1").GetComponent<Animator>();
+        m_magneticField.MagneticItem = this;
+    }
 
-	void Update () {
-		ColliderOff ();
-	}
 
-	//移动脚本
-	void move () {
-		m_rigidbody.AddForce (new Vector2 (Input.GetAxis (m_horizontal), 0) * m_playerForce);
 
-	}
 
-	//更改极性
-	void Pole () {
-		if (Input.GetButtonDown (m_rB)) {
-			isPositive = !isPositive;
-		}
-	}
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!m_lockOption && !m_isdead)
+        {
+            move();
+        }
 
-	//攻击（打开磁场）
-	void ColliderOn () {
+    }
 
-		if (Input.GetKeyDown (KeyCode.I) || Input.GetButtonDown (m_y)) {
-			if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
-				m_upperLeft.enabled = true;
-				return;
-			}
-			if (Input.GetKeyDown (KeyCode.L) || Input.GetButton (m_b)) {
-				m_upperRight.enabled = true;
-				return;
-			}
-			m_up.enabled = true;
-			Debug.Log ("up");
-			return;
-		}
-		if (Input.GetKeyDown (KeyCode.K) || Input.GetButtonDown (m_a)) {
-			if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
-				m_lowerLeft.enabled = true;
-				return;
-			}
-			if (Input.GetKeyDown (KeyCode.L) || Input.GetButtonDown (m_b)) {
-				m_lowerRight.enabled = true;
-				return;
-			}
-			m_down.enabled = true;
-			Debug.Log ("down");
-			return;
-		}
-		if (Input.GetKeyDown (KeyCode.J) || Input.GetButtonDown (m_x)) {
-			m_left.enabled = true;
-			Debug.Log ("left");
-			return;
-		}
-		if (Input.GetKeyDown (KeyCode.L) || Input.GetButtonDown (m_b)) {
-			m_right.enabled = true;
-			Debug.Log ("right");
-			return;
-		}
+    void Update()
+    {
+        if (!m_lockOption && !m_isdead && Time.timeScale != 0)
+        {
+            Animated();
+            PolarityChange();
+            //磁场触发
+            if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
+            {
+                m_magneticField.OnMagneticStart();
+            }
+        }
+    }
 
-	}
+    void Animated()//  控制动画基
+    {
+        m_animator.SetFloat("MoveSpeed", Mathf.Abs(m_rigidbody.velocity.x));
+        if (m_polarity == Polarity.Sourth)
+        {
+            m_animator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            m_animator.SetLayerWeight(1, 0);
+        }
 
-	//同性相斥，异性相吸
-	private void OnTriggerEnter2D (Collider2D Other) {
-		if (Other.transform.CompareTag ("Player"))
-			if (Other.GetComponent<MPlayerController> ().isPositive != isPositive)
-				gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
-			else
-				gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce * -1f);
 
-			//新加入可互动tag IronObject	
-		else if (Other.transform.CompareTag ("ComeObject"))
-			Other.gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y) * m_magnetForce);
-		else if (Other.transform.CompareTag("GoObject"))
-			gameObject.GetComponent<Rigidbody2D> ().AddForce ((Other.transform.position - gameObject.transform.position).normalized * m_magnetForce);
-	}
+        if (m_rigidbody.velocity.x < -0.3f && transform.localScale.x>0)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
 
-	//关闭磁场
-	void ColliderOff () {
-		if (m_up.enabled == true) {
-			m_up.enabled = false;
-		}
-		if (m_down.enabled == true) {
-			m_down.enabled = false;
-		}
-		if (m_left.enabled == true) {
-			m_left.enabled = false;
-		}
-		if (m_right.enabled == true) {
-			m_right.enabled = false;
-		}
-		if (m_upperLeft.enabled == true) {
-			m_upperLeft.enabled = false;
-		}
-		if (m_upperRight.enabled == true) {
-			m_upperRight.enabled = false;
-		}
-		if (m_lowerLeft.enabled == true) {
-			m_lowerLeft.enabled = false;
-		}
-		if (m_lowerRight.enabled == true) {
-			m_lowerRight.enabled = false;
-		}
+        if (m_rigidbody.velocity.x > 0.3f && transform.localScale.x < 0)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
+    }
 
-	}
 
-	//重生判定
-	void Reborn () {
-		int i = Random.Range (1, 5);
-		if (i == 1) {
-			gameObject.transform.position = m_reborn1.position;
-			
-		} 
-		else if (i == 2) {
-			gameObject.transform.position = m_reborn2.position;
-		
-		} 
-		else if (i == 3) {
-			gameObject.transform.position = m_reborn3.position;
-			
-		} 
-		else if (i == 4) {
-			gameObject.transform.position = m_reborn4.position;
-			
-		}
-		isdead = false;
-		m_playerHP = m_playerHPMax;
-	}
+    int m_jumpNum = 0; //跳跃计数
+    //移动脚本
+    void move()
+    {
+        float Inputf = Input.GetAxis("Horizontal" + m_playerID.ToString()) * m_playerForce;
+        if (Mathf.Abs(Input.GetAxis("Horizontal" + m_playerID.ToString())) <= 0.1f)
+        {
+            Inputf = Input.GetAxis("HorizontalKB" + m_playerID.ToString()) * m_playerForce;
+        }
 
-	//死亡判定
-	void Death () {
+        if (m_rigidbody.velocity.x > m_maxMoveSpeed && Inputf > 0)
+        {
+            Inputf = 0;
+        }
 
-		if (gameObject.transform.position.x < m_deathXMin.position.x || gameObject.transform.position.x > m_deathXMax.position.x ||
-			gameObject.transform.position.y < m_deathYMin.position.y || gameObject.transform.position.y > m_deathYMax.position.y) {
-			m_playerHP = 0;
-		}
+        if (m_rigidbody.velocity.x < -m_maxMoveSpeed && Inputf < 0)
+        {
+            Inputf = 0;
+        }
 
-		if (m_playerHP <= 0) {
-			isdead = true;
-		}
-	}
+        m_rigidbody.AddForce(new Vector3(Inputf, 0));
+
+
+
+        if (Input.GetButtonDown("Jump" + m_playerID.ToString()))                                                                             // 多段跳跃
+        {
+            if (m_JumpsVelocity != null && m_jumpNum < m_JumpsVelocity.Count)
+            {
+                m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_JumpsVelocity[m_jumpNum]);
+                m_jumpNum++;
+            }
+        }
+
+
+
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 13)                                      //地面层为13层
+        {
+            m_jumpNum = 0;                                                         //重置跳跃次数
+        }
+    }
+
+
+    float m_PolaityDefenceTimer = 0.0f;
+    float m_PolaityDefenceCD = 1.0f;
+    bool IsDefence = false;
+    //更改极性
+    void PolarityChange()
+    {
+        if (Input.GetButton("Polarity" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
+        {
+
+            IsDefence = true;
+            StartCoroutine("PolaityDefence");
+
+            if (m_polarity == Polarity.North)
+            {
+                m_polarity = Polarity.Sourth;
+            }
+            else if (m_polarity == Polarity.Sourth)
+            {
+                m_polarity = Polarity.North;
+            }
+
+        }
+        if (Input.GetButtonUp("Polarity" + m_playerID.ToString()) && IsDefence == true)
+        {
+            m_PolaityDefenceCD = 0.0f;
+            m_PolaityDefenceTimer = 0.0f;
+            IsDefence = false;
+            if (m_polarity == Polarity.North)
+            {
+                m_polarity = Polarity.Sourth;
+            }
+            else if (m_polarity == Polarity.Sourth)
+            {
+                m_polarity = Polarity.North;
+            }
+        }
+
+        if (m_PolaityDefenceCD != 1)
+        {
+            if (m_PolaityDefenceTimer < MagneticChangeCD)
+            {
+                m_PolaityDefenceTimer += Time.deltaTime;
+                m_PolaityDefenceCD = m_PolaityDefenceTimer / MagneticChangeCD;
+            }
+            else
+            {
+                m_PolaityDefenceCD = 1;
+            }
+        }
+
+    }
+    IEnumerator PolaityDefence()
+    {
+        yield return new WaitForSeconds(MagneticChangeTime);
+        if (IsDefence == true)
+        {
+            m_PolaityDefenceCD = 0.0f;
+            m_PolaityDefenceTimer = 0.0f;
+            IsDefence = false;
+            if (m_polarity == Polarity.North)
+            {
+                m_polarity = Polarity.Sourth;
+            }
+            else if (m_polarity == Polarity.Sourth)
+            {
+                m_polarity = Polarity.North;
+            }
+        }
+
+    }
+
+
+    //我的极性
+    public Polarity PolarityMy
+    {
+        get
+        {
+            return m_polarity;
+        }
+    }
+    public void OnMagnetic(MagneticData md)
+    {
+
+        if (md.OriginType == MagneticType.Edge)
+        {
+            if (!OnEdge())
+            {
+                return;
+            }
+        }
+
+        // 如果吸引玩家的物体是没有极性的，不做任何处理，直接结束该方法。
+        if (md.Polarity == Polarity.None)
+        {
+            return;
+        }
+
+        if (md.Polarity != PolarityMy)
+        {
+            // 极性不同
+            m_rigidbody.AddForce(md.Mforce * DrawCoefficient);                              // 异性相吸，Mforce为从我指向对手
+        }
+        else
+        {
+            // 极性相同
+            m_rigidbody.AddForce(-md.Mforce);
+        }
+    }
+
+
+    //重生
+    public void Reborn()
+    {
+        m_rigidbody.velocity = Vector3.zero;
+        int rebornPositionNum = Random.Range(0, MagnetLevelControl.Instance.RebornPosition.Count);
+        transform.position = MagnetLevelControl.Instance.RebornPosition[rebornPositionNum].position;
+        gameObject.SetActive(true);
+        m_magneticField.MagneticOff();
+    }
+
+    /// <summary>
+    /// 是否还能返回
+    /// </summary>
+    /// <returns></returns>
+    public bool OnEdge()
+    {
+        if (EdgeBack > 0)
+        {
+            EdgeBack--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    //动画
+
 }

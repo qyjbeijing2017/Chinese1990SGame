@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 5b18010b2e47d864096d56e081693ee5
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: 775e201630739bb47a4d0818caf9cce1
+    path: Assets/Scenes/MagnetTestForGryonder.unity
+    guid: 7b55387108949a24e82511f8676c4271
   m_configObjects: {}

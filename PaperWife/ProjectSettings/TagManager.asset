@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Seat
-  - GoObject
   - ComeObject
+  - GoObject
+  - RebornPosition
   layers:
   - Default
   - TransparentFX
@@ -18,11 +19,11 @@ TagManager:
   - 
   - PostProcessing
   - Target
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Knife
+  - Player
+  - MagneticField
+  - Ground
+  - MagneticItem
   - 
   - 
   - 
