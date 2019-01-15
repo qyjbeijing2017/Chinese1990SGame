@@ -117,22 +117,31 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             //磁场触发
             if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
             {
-                m_magneticField.OnMagneticStart();
+                m_magneticField.OnMagneticStart(MagneticField.FieldType.Circle);
             }
+            if (Input.GetButtonDown("HAttack" + m_playerID.ToString()))
+            {
+                m_magneticField.OnMagneticStart(MagneticField.FieldType.BoxH);
+            }
+            if (Input.GetButtonDown("VAttack" + m_playerID.ToString()))
+            {
+                m_magneticField.OnMagneticStart(MagneticField.FieldType.BoxV);
+            }
+
         }
     }
 
     void Animated()//  控制动画基
     {
         m_animator.SetFloat("MoveSpeed", Mathf.Abs(m_rigidbody.velocity.x));
-        if (m_polarity == Polarity.Sourth)
-        {
-            m_animator.SetLayerWeight(1, 1);
-        }
-        else
-        {
-            m_animator.SetLayerWeight(1, 0);
-        }
+        //if (m_polarity == Polarity.Sourth)
+        //{
+        //    m_animator.SetLayerWeight(1, 1);
+        //}
+        //else
+        //{
+        //    m_animator.SetLayerWeight(1, 0);
+        //}
 
 
         if (m_rigidbody.velocity.x < -0.3f && transform.localScale.x>0)

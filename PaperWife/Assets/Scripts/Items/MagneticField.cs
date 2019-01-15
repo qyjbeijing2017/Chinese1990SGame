@@ -7,7 +7,9 @@ public class MagneticField : MonoBehaviour
     /// <summary>
     /// 磁场的圆形碰撞
     /// </summary>
-    CircleCollider2D m_collider;
+    [SerializeField]CircleCollider2D m_cCollider;
+    [SerializeField] BoxCollider2D m_hCollider;
+    [SerializeField] BoxCollider2D m_vCollider;
     /// <summary>
     /// 磁场是否在开启中
     /// </summary>
@@ -53,30 +55,59 @@ public class MagneticField : MonoBehaviour
 
 
     [SerializeField]private GameObject UI;
+    [SerializeField] private GameObject VUI;
+    [SerializeField] private GameObject HUI;
+
+    public enum FieldType
+    {
+        None = 0,
+        Circle = 1,
+        BoxH = 2,
+        BoxV = 3,
+
+    }
 
 
     void Start()
     {
         gameObject.layer = 12;                                                               // 设置物理层为12层，磁场层
-        m_collider = GetComponent<CircleCollider2D>();                                       // 查找圆形碰撞
-        m_collider.enabled = false;                                                          // 将碰撞关闭
+        m_cCollider.enabled = false;                                                          // 将碰撞关闭
 
-        UI.transform.localScale = new Vector3(m_collider.radius, m_collider.radius, m_collider.radius);
+        UI.transform.localScale = new Vector3(m_cCollider.radius, m_cCollider.radius, m_cCollider.radius);
         UI.SetActive(false);
     }
 
     /// <summary>
     /// 让磁场打开
     /// </summary>
-    public void OnMagneticStart()
+    public void OnMagneticStart(FieldType fieldType)
     {
         if (!m_isMagnetic && m_magneticCD >= 1)
         {
-            m_collider.enabled = true;
+            switch (fieldType)
+            {
+                case FieldType.None:
+                    return;
+                case FieldType.Circle:
+                    m_cCollider.enabled = true;
+                    UI.SetActive(true);
+                    break;
+                case FieldType.BoxH:
+                    m_hCollider.enabled = true;
+                    HUI.SetActive(true);
+                    break;
+                case FieldType.BoxV:
+                    m_vCollider.enabled = true;
+                    VUI.SetActive(true);
+                    break;
+                default:
+                    break;
+            }
+            
             StartCoroutine("OnMagnetic");
             m_isMagnetic = true;
             m_magneticCD = 0;
-            UI.SetActive(true);
+            
         }
     }
 
@@ -87,9 +118,14 @@ public class MagneticField : MonoBehaviour
     IEnumerator OnMagnetic()
     {
         yield return new WaitForSeconds(MagneticTime);
-        m_collider.enabled = false;
+        m_cCollider.enabled = false;
+        m_hCollider.enabled = false;
+        m_vCollider.enabled = false;
         m_isMagnetic = false;
+        
         UI.SetActive(false);
+        HUI.SetActive(false);
+        VUI.SetActive(false);
     }
 
     /// <summary>
@@ -100,7 +136,7 @@ public class MagneticField : MonoBehaviour
         if (m_isMagnetic)
         {
             StopCoroutine("OnMagnetic");
-            m_collider.enabled = false;
+            m_cCollider.enabled = false;
             m_isMagnetic = false;
             UI.SetActive(false);
         }
@@ -127,7 +163,7 @@ public class MagneticField : MonoBehaviour
             Vector3 force = Vector3.zero;
             if (MagnetDecrease)
             {
-                force = Mathf.Pow(origin2target.magnitude / m_collider.radius, MagneticCoefficient) * MagneticForce * origin2target.normalized;             // 计算一个从发出者到接收者的向量力
+                force = Mathf.Pow(origin2target.magnitude / m_cCollider.radius, MagneticCoefficient) * MagneticForce * origin2target.normalized;             // 计算一个从发出者到接收者的向量力
             }
             else
             {
