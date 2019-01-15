@@ -44,8 +44,8 @@ public class MagneticData
     /// 是否是反作用力
     /// </summary>
     public bool IsReactionForce = false;
-    
 
+    public bool IsFirstAttack = false;
 
     public MagneticType OriginType = MagneticType.None;
 
@@ -58,7 +58,7 @@ public class MagneticData
         md.Mforce = Mforce;
         md.IsReactionForce = IsReactionForce;
         md.OriginType = OriginType;
-
+        md.IsFirstAttack = IsFirstAttack;
         return md;
     }
 }

@@ -33,6 +33,10 @@ namespace DaemonTools
         public void Init()
         {
             m_canvas = Daemon.FindObjectOfType<Canvas>();
+            if (!m_canvas)
+            {
+                m_canvas = Daemon.Instantiate(new Canvas());
+            }
             Daemon.DontDestroyOnLoad(m_canvas);
         }
         /// <summary>

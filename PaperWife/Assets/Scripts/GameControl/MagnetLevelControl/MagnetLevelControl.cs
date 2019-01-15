@@ -21,7 +21,7 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
         {
             Players.Add(players[i]);
         }
-        
+
 
         //初始化重生点
         GameObject[] reborn = GameObject.FindGameObjectsWithTag("RebornPosition");
@@ -39,10 +39,19 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             EdgeBacks.Add(edgeBacks[i]);
         }
 
-        UIManager.Instance.Open("PlayerUIPanel", true, Players);
+        if (FindObjectOfType<Daemon>())
+        {
+            ReadConfig();
+            UIManager.Instance.Open("PlayerUIPanel", true, Players);
+        }
+        else
+        {
+            for (int i = 0; i < Players.Count; i++)
+            {
+                Players[i].Init();
+            }
+        }
 
-        Daemon.Instance.InitConsoleObjs();
-        ReadConfig();
 
     }
 
@@ -68,24 +77,24 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
         PlayerConfig playerConfig = ConfigManager.Instance.PlayerConfigData["Value"];
         for (int i = 0; i < Players.Count; i++)
         {
-            MPlayerController player                         = Players[i];
-            player.m_playerForce                             = playerConfig.PlayerForce;
-            player.m_maxMoveSpeed                            = playerConfig.MaxMoveSpeed;
-            player.m_JumpsVelocity                           = playerConfig.JumpsVelocity;
-            player.m_polarity                                = playerConfig.Polarity;
-            player.m_playerHPMax                             = playerConfig.PlayerHPMax;
-            player.m_rebornTime                              = playerConfig.RebornTime;
-            player.MagneticChangeTime                        = playerConfig.MagneticChangeTime;
-            player.MagneticChangeCD                          = playerConfig.MagneticChangeCD;
-            player.m_magneticField.MagneticTime              = playerConfig.MagneticTime;
-            player.m_magneticField.MagneticForce             = playerConfig.MagneticForce;
-            player.m_magneticField.MagneticCoefficient       = playerConfig.MagneticCoefficient;
-            player.m_magneticField.MagnetDecrease            = playerConfig.MagnetDecrease;
-            player.m_magneticField.MagneticCDTime            = playerConfig.MagneticCDTime;
+            MPlayerController player = Players[i];
+            player.m_playerForce = playerConfig.PlayerForce;
+            player.m_maxMoveSpeed = playerConfig.MaxMoveSpeed;
+            player.m_JumpsVelocity = playerConfig.JumpsVelocity;
+            player.m_polarity = playerConfig.Polarity;
+            player.m_playerHPMax = playerConfig.PlayerHPMax;
+            player.m_rebornTime = playerConfig.RebornTime;
+            player.MagneticChangeTime = playerConfig.MagneticChangeTime;
+            player.MagneticChangeCD = playerConfig.MagneticChangeCD;
+            player.m_magneticField.MagneticTime = playerConfig.MagneticTime;
+            player.m_magneticField.MagneticForce = playerConfig.MagneticForce;
+            player.m_magneticField.MagneticCoefficient = playerConfig.MagneticCoefficient;
+            player.m_magneticField.MagnetDecrease = playerConfig.MagnetDecrease;
+            player.m_magneticField.MagneticCDTime = playerConfig.MagneticCDTime;
             player.m_magneticField.ReatctionForceCoefficient = playerConfig.ReatctionForceCoefficient;
-            player.GetComponent<Rigidbody2D>().gravityScale  = playerConfig.GScale;
-            pm.friction                                      = playerConfig.DragGround;
-            player.GetComponent<Rigidbody2D>().drag          = playerConfig.DragRB;
+            player.GetComponent<Rigidbody2D>().gravityScale = playerConfig.GScale;
+            pm.friction = playerConfig.DragGround;
+            player.GetComponent<Rigidbody2D>().drag = playerConfig.DragRB;
             player.DrawCoefficient = playerConfig.DrawCoefficient;
             //player.EdgeBack = playerConfig.EdgeBack;
             //edge.BackSpeed = playerConfig.BackSpeed;

@@ -103,7 +103,7 @@ public class MagneticField : MonoBehaviour
                 default:
                     break;
             }
-            
+
             StartCoroutine("OnMagnetic");
             m_isMagnetic = true;
             m_magneticCD = 0;
@@ -153,7 +153,7 @@ public class MagneticField : MonoBehaviour
         {
             // 查找可吸引物体接口,如果没有直接跳转catch
             MagneticItem magneticItemOther = collision.GetComponent<MagneticItem>();
-
+            
 
             // 给被磁场作用物体发出消息
             MagneticData md = new MagneticData();                                                                               // 新建一个数据类

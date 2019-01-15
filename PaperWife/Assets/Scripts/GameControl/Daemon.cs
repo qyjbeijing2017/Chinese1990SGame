@@ -63,7 +63,10 @@ public class Daemon : MonoSingleton<Daemon>
 
     }
 
-
+    public Daemon Init()
+    {
+        return Instance;
+    }
     /// <summary>
     /// console响应
     /// </summary>

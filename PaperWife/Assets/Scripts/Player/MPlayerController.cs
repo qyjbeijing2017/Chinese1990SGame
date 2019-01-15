@@ -7,6 +7,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 {
 
     private Rigidbody2D m_rigidbody;
+    private Collider2D m_collider2D;
     private bool victory = false;
     private bool release = false;//控制动画胜利和链条
 
@@ -89,8 +90,9 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     public void Init()
     {
         m_playerHP = m_playerHPMax;
-        m_rigidbody = this.GetComponent<Rigidbody2D>();
-        m_animator = this.GetComponent<Animator>();
+        m_rigidbody = GetComponent<Rigidbody2D>();
+        m_animator = GetComponent<Animator>();
+        m_collider2D = GetComponent<Collider2D>();
         particleanimator = transform.Find("Particle1").GetComponent<Animator>();
         m_magneticField.MagneticItem = this;
     }
@@ -144,7 +146,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         //}
 
 
-        if (m_rigidbody.velocity.x < -0.3f && transform.localScale.x>0)
+        if (m_rigidbody.velocity.x < -0.3f && transform.localScale.x > 0)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
@@ -283,16 +285,19 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             return m_polarity;
         }
     }
+
+    public PlatformEffector2D platformEffector;
     public void OnMagnetic(MagneticData md)
     {
 
-        if (md.OriginType == MagneticType.Edge)
-        {
-            if (!OnEdge())
-            {
-                return;
-            }
-        }
+
+        //if (md.OriginType == MagneticType.Edge)
+        //{
+        //    if (!OnEdge())
+        //    {
+        //        return;
+        //    }
+        //}
 
         // 如果吸引玩家的物体是没有极性的，不做任何处理，直接结束该方法。
         if (md.Polarity == Polarity.None)
@@ -300,18 +305,33 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             return;
         }
 
+        Vector3 force = Vector3.zero;
         if (md.Polarity != PolarityMy)
         {
             // 极性不同
             m_rigidbody.AddForce(md.Mforce * DrawCoefficient);                              // 异性相吸，Mforce为从我指向对手
+            force = md.Mforce * DrawCoefficient;
         }
         else
         {
             // 极性相同
             m_rigidbody.AddForce(-md.Mforce);
+            force = -md.Mforce;
+        }
+
+        if (md.IsReactionForce == false && !platformEffector.useColliderMask && Vector3.Angle(force, Vector3.down) <= 70)
+        {
+            platformEffector.useColliderMask = true;
+            StartCoroutine("CloseColliderEffect");
         }
     }
 
+
+    IEnumerator CloseColliderEffect()
+    {
+        yield return new WaitForSeconds(0.1f);
+        platformEffector.useColliderMask = false;
+    }
 
     //重生
     public void Reborn()
