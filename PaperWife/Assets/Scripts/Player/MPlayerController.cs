@@ -158,6 +158,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     void Animated()//  控制动画基
     {
         m_animator.SetFloat("MoveSpeed", Mathf.Abs(m_rigidbody.velocity.x));
+        m_animator.SetFloat("jumpspeed", Mathf.Abs(m_rigidbody.velocity.y));
         //if (m_polarity == Polarity.Sourth)
         //{
         //    m_animator.SetLayerWeight(1, 1);
