@@ -465,6 +465,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         StopAllCoroutines();
         m_jumpNum = 0;
         m_isDizz = false;
+        m_PolaityDefenceCD = 1.0f;
+        m_PolarityChangeCD = 1.0f;
 
 
     }
@@ -491,8 +493,6 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     public float Power;
     public float AttackPowerCost;
-
-
 
 
 }
