@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DaemonTools;
+using UnityEngine.Events;
 
 public class MPlayerController : MonoBehaviour, MagneticItem
 {
@@ -68,6 +69,22 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     private Animator m_animator;
     private Animator particleanimator;
 
+
+    public bool IsDizz
+    {
+        get
+        {
+            return m_isDizz;
+        }
+    }
+    private bool m_isDizz;
+    public UnityAction OnDizz;
+    public float DizzForce;
+    public float PlayerDizzForce;
+    public float DizzTime;
+    public Vector3 LastFrameVelocity { get { return m_lastFrameVelocity; } }
+    private Vector3 m_lastFrameVelocity;
+
     /// <summary>
     /// 锁定所有操作
     /// </summary>
@@ -76,6 +93,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     /// 边界返回次数
     /// </summary>
     public int EdgeBack;
+
+
 
 
     public MagneticType Type
@@ -115,7 +134,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         if (!m_lockOption && !m_isdead && Time.timeScale != 0)
         {
             Animated();
-            PolarityChange();
+            Defence();
             //磁场触发
             if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
             {
@@ -131,6 +150,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             }
 
         }
+
+        m_lastFrameVelocity = m_rigidbody.velocity;
     }
 
     void Animated()//  控制动画基
@@ -204,18 +225,68 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.layer == 11 && InFight && !IsDefence)
+        {
+            Vector3 dir = collision.transform.position - transform.position;
+            float force2 = Vector3.Dot(collision.gameObject.GetComponent<MPlayerController>().LastFrameVelocity, -dir.normalized);
+            float force1 = Vector3.Dot(LastFrameVelocity, dir.normalized);
+            float force = force1 + force2;
+            if (force >= PlayerDizzForce)
+            {
+                OnDizzStart();
+            }
+
+        }
+        else if (collision.gameObject.layer == 16 && InFight && !IsDefence)
+        {
+            Vector3 dir = collision.transform.position - transform.position;
+            float force = Vector3.Dot(LastFrameVelocity, dir.normalized);
+            if (force >= DizzForce)
+            {
+                OnDizzStart();
+            }
+        }
+    }
+
+    public void OnDizzStart()
+    {
+        m_isDizz = true;
+        m_lockOption = true;
+        StartCoroutine("Dizzing");
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(0, 0, 0, 1);
+        m_rigidbody.velocity = Vector3.zero;
+        if (OnDizz != null)
+        {
+            OnDizz.Invoke();
+        }
+    }
+
+    IEnumerator Dizzing()
+    {
+        yield return new WaitForSeconds(DizzTime);
+        m_isDizz = false;
+        m_lockOption = false;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(1, 1, 1, 1);
+    }
+
+
 
     float m_PolaityDefenceTimer = 0.0f;
     float m_PolaityDefenceCD = 1.0f;
     bool IsDefence = false;
     //更改极性
-    void PolarityChange()
+    void Defence()
     {
         if (Input.GetButton("Polarity" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
         {
 
             IsDefence = true;
-            StartCoroutine("PolaityDefence");
+            StartCoroutine("Defencing");
 
             if (m_polarity == Polarity.North)
             {
@@ -256,7 +327,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
 
     }
-    IEnumerator PolaityDefence()
+    IEnumerator Defencing()
     {
         yield return new WaitForSeconds(MagneticChangeTime);
         if (IsDefence == true)
@@ -321,10 +392,24 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
         if (md.IsReactionForce == false && !platformEffector.useColliderMask && Vector3.Angle(force, Vector3.down) <= 70)
         {
+            StopCoroutine("InFighting");
+            StartCoroutine("InFighting");
+            m_infight = true;
             platformEffector.useColliderMask = true;
             StartCoroutine("CloseColliderEffect");
         }
     }
+
+    bool m_infight = false;
+    public bool InFight{get{ return m_infight; }}
+    public float InFightTime = 1.0f;
+    IEnumerator InFighting()
+    {
+        yield return new WaitForSeconds(InFightTime);
+        m_infight = false;
+    }
+
+
 
 
     IEnumerator CloseColliderEffect()
@@ -341,6 +426,11 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         transform.position = MagnetLevelControl.Instance.RebornPosition[rebornPositionNum].position;
         gameObject.SetActive(true);
         m_magneticField.MagneticOff();
+        StopAllCoroutines();
+        m_jumpNum = 0;
+        m_isDizz = false;
+
+
     }
 
     /// <summary>
