@@ -473,7 +473,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         m_isDizz = false;
         m_PolaityDefenceCD = 1.0f;
         m_PolarityChangeCD = 1.0f;
-
+        m_infight = false;
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
 
     }
 
