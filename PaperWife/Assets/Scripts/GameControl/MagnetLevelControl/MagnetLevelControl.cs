@@ -84,8 +84,8 @@ public class MagnetLevelControl : MonoSingleton<MagnetLevelControl>
             player.m_polarity = playerConfig.Polarity;
             player.m_playerHPMax = playerConfig.PlayerHPMax;
             player.m_rebornTime = playerConfig.RebornTime;
-            player.MagneticChangeTime = playerConfig.MagneticChangeTime;
-            player.MagneticChangeCD = playerConfig.MagneticChangeCD;
+            player.DefenceTime = playerConfig.MagneticChangeTime;
+            player.DefenceCD = playerConfig.MagneticChangeCD;
             player.m_magneticField.MagneticTime = playerConfig.MagneticTime;
             player.m_magneticField.MagneticForce = playerConfig.MagneticForce;
             player.m_magneticField.MagneticCoefficient = playerConfig.MagneticCoefficient;

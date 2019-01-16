@@ -22,8 +22,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     [SerializeField, Tooltip("磁场")] public MagneticField m_magneticField;
     [SerializeField, Tooltip("最大生命")] public int m_playerHPMax = 5;
     [SerializeField, Tooltip("重生时间")] public float m_rebornTime = 3.0f;
-    [SerializeField, Tooltip("磁场切换冷却")] public float MagneticChangeCD = 3.0f;
-    [SerializeField, Tooltip("磁场切换持续时间")] public float MagneticChangeTime = 3.0f;
+    [SerializeField, Tooltip("磁场切换冷却")] public float DefenceCD = 3.0f;
+    [SerializeField, Tooltip("磁场切换持续时间")] public float DefenceTime = 3.0f;
     /// <summary>
     /// 拉拽系数
     /// </summary>
@@ -135,6 +135,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         {
             Animated();
             Defence();
+            PolarityChange();
             //磁场触发
             if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
             {
@@ -278,47 +279,41 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     float m_PolaityDefenceTimer = 0.0f;
     float m_PolaityDefenceCD = 1.0f;
-    bool IsDefence = false;
-    //更改极性
+    [SerializeField]bool IsDefence = false;
+    //防御
     void Defence()
     {
-        if (Input.GetButton("Polarity" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
+        if (Input.GetButton("Defence" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
         {
 
             IsDefence = true;
             StartCoroutine("Defencing");
 
-            if (m_polarity == Polarity.North)
-            {
-                m_polarity = Polarity.Sourth;
-            }
-            else if (m_polarity == Polarity.Sourth)
-            {
-                m_polarity = Polarity.North;
-            }
+            GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
 
         }
-        if (Input.GetButtonUp("Polarity" + m_playerID.ToString()) && IsDefence == true)
+        if (Input.GetButtonUp("Defence" + m_playerID.ToString()) && IsDefence == true)
         {
             m_PolaityDefenceCD = 0.0f;
             m_PolaityDefenceTimer = 0.0f;
             IsDefence = false;
-            if (m_polarity == Polarity.North)
-            {
-                m_polarity = Polarity.Sourth;
-            }
-            else if (m_polarity == Polarity.Sourth)
-            {
-                m_polarity = Polarity.North;
-            }
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            //if (m_polarity == Polarity.North)
+            //{
+            //    m_polarity = Polarity.Sourth;
+            //}
+            //else if (m_polarity == Polarity.Sourth)
+            //{
+            //    m_polarity = Polarity.North;
+            //}
         }
 
         if (m_PolaityDefenceCD != 1)
         {
-            if (m_PolaityDefenceTimer < MagneticChangeCD)
+            if (m_PolaityDefenceTimer < DefenceCD)
             {
                 m_PolaityDefenceTimer += Time.deltaTime;
-                m_PolaityDefenceCD = m_PolaityDefenceTimer / MagneticChangeCD;
+                m_PolaityDefenceCD = m_PolaityDefenceTimer / DefenceCD;
             }
             else
             {
@@ -329,13 +324,31 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
     IEnumerator Defencing()
     {
-        yield return new WaitForSeconds(MagneticChangeTime);
+        yield return new WaitForSeconds(DefenceTime);
         if (IsDefence == true)
         {
             m_PolaityDefenceCD = 0.0f;
             m_PolaityDefenceTimer = 0.0f;
             IsDefence = false;
-            if (m_polarity == Polarity.North)
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            //if (m_polarity == Polarity.North)
+            //{
+            //    m_polarity = Polarity.Sourth;
+            //}
+            //else if (m_polarity == Polarity.Sourth)
+            //{
+            //    m_polarity = Polarity.North;
+            //}
+        }
+
+    }
+
+    //磁场切换
+    public void PolarityChange()
+    {
+        if (m_PolarityChangeCD == 1.0f && Input.GetButtonDown("Polarity" + m_playerID.ToString()))
+        {
+            if (PolarityMy == Polarity.North)
             {
                 m_polarity = Polarity.Sourth;
             }
@@ -343,9 +356,32 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             {
                 m_polarity = Polarity.North;
             }
-        }
+            m_PolarityChangeCD = 0.0f;
+            StartCoroutine("PolarityChanging");
 
+        }
     }
+
+    private float m_PolarityChangeCD = 1.0f;
+    public float PolarityChangeCD { get { return m_PolarityChangeCD; } }
+    public float PolarityChangeTime;
+
+    IEnumerator PolarityChanging()
+    {
+        float timer = 0.0f;
+
+        while (m_PolarityChangeCD < 1.0f)
+        {
+            m_PolarityChangeCD = timer / PolarityChangeTime;
+            if (m_PolarityChangeCD >1.0f)
+            {
+                m_PolarityChangeCD = 1.0f;
+            }
+            timer += Time.deltaTime;
+            yield return 0;
+        }
+    }
+
 
 
     //我的极性
@@ -401,7 +437,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
     bool m_infight = false;
-    public bool InFight{get{ return m_infight; }}
+    public bool InFight { get { return m_infight; } }
     public float InFightTime = 1.0f;
     IEnumerator InFighting()
     {
@@ -451,6 +487,12 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
 
-    //动画
+    //能量槽
+
+    public float Power;
+    public float AttackPowerCost;
+
+
+
 
 }
