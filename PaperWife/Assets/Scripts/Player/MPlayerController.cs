@@ -426,11 +426,17 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             force = -md.Mforce;
         }
 
-        if (md.IsReactionForce == false && !platformEffector.useColliderMask && Vector3.Angle(force, Vector3.down) <= 70)
+        if (md.IsReactionForce == false)
         {
             StopCoroutine("InFighting");
             StartCoroutine("InFighting");
             m_infight = true;
+        }
+
+        if (md.IsReactionForce == false && !platformEffector.useColliderMask && Vector3.Angle(force, Vector3.down) <= 70)
+        {
+
+            
             platformEffector.useColliderMask = true;
             StartCoroutine("CloseColliderEffect");
         }
@@ -467,7 +473,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         m_isDizz = false;
         m_PolaityDefenceCD = 1.0f;
         m_PolarityChangeCD = 1.0f;
-
+        m_infight = false;
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
 
     }
 
@@ -493,6 +500,6 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     public float Power;
     public float AttackPowerCost;
-
+    
 
 }
