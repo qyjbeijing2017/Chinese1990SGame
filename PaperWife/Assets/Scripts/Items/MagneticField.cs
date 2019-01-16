@@ -139,6 +139,8 @@ public class MagneticField : MonoBehaviour
             m_cCollider.enabled = false;
             m_isMagnetic = false;
             UI.SetActive(false);
+            HUI.SetActive(false);
+            VUI.SetActive(false);
         }
     }
 
