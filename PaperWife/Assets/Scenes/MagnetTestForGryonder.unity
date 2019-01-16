@@ -140,7 +140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13794025}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.6, y: -0.1, z: -0.19474965}
+  m_LocalPosition: {x: 11.6, y: -1.04, z: -0.19474965}
   m_LocalScale: {x: 45.3768, y: 2.07185, z: 1}
   m_Children:
   - {fileID: 1242072916}
@@ -883,7 +883,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327388853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.23, y: -3.21, z: -0.19474965}
+  m_LocalPosition: {x: 3.23, y: -5.42, z: -0.19474965}
   m_LocalScale: {x: 45.376793, y: 2.0718539, z: 1}
   m_Children:
   - {fileID: 1858031376}
@@ -1744,6 +1744,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8898658568237225458, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_JumpsVelocity.Array.data[0]
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8898658568237225458, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_JumpsVelocity.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
 --- !u!1 &859003732
@@ -2288,7 +2298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102088491}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.71, y: -0.24, z: -0.19474965}
+  m_LocalPosition: {x: -5.71, y: -1.04, z: -0.19474965}
   m_LocalScale: {x: 45.3768, y: 2.07185, z: 1}
   m_Children:
   - {fileID: 1663374978}
