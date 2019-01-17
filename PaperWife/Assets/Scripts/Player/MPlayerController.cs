@@ -94,8 +94,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     /// </summary>
     public int EdgeBack;
 
-
-
+    public event UnityAction<int> Jump;
+    public event UnityAction JumpEnd;
 
     public MagneticType Type
     {
@@ -114,6 +114,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         m_collider2D = GetComponent<Collider2D>();
         particleanimator = transform.Find("Particle1").GetComponent<Animator>();
         m_magneticField.MagneticItem = this;
+        Jump += OnAnimaJump;
+        JumpEnd += OnAnimaJumpEnd;
     }
 
 
@@ -179,6 +181,14 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
+    void OnAnimaJump(int jumpTime)
+    {
+        m_animator.SetTrigger("Jump1");
+    }
+    void OnAnimaJumpEnd()
+    {
+        m_animator.SetTrigger("JumpEnd");
+    }
 
     int m_jumpNum = 0; //跳跃计数
     //移动脚本
@@ -210,6 +220,10 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             {
                 m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_JumpsVelocity[m_jumpNum]);
                 m_jumpNum++;
+                if (null != Jump)
+                {
+                    Jump.Invoke(m_jumpNum + 1);
+                }
             }
         }
 
@@ -223,6 +237,20 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         if (collision.gameObject.layer == 13)                                      //地面层为13层
         {
             m_jumpNum = 0;                                                         //重置跳跃次数
+            if (null != JumpEnd)
+            {
+                JumpEnd.Invoke();
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 13)
+        {
+            if (null != Jump)
+            {
+                Jump.Invoke(m_jumpNum + 1);
+            }
         }
     }
 
@@ -279,7 +307,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     float m_PolaityDefenceTimer = 0.0f;
     float m_PolaityDefenceCD = 1.0f;
-    [SerializeField]bool IsDefence = false;
+    [SerializeField] bool IsDefence = false;
     //防御
     void Defence()
     {
@@ -373,7 +401,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         while (m_PolarityChangeCD < 1.0f)
         {
             m_PolarityChangeCD = timer / PolarityChangeTime;
-            if (m_PolarityChangeCD >1.0f)
+            if (m_PolarityChangeCD > 1.0f)
             {
                 m_PolarityChangeCD = 1.0f;
             }
@@ -436,7 +464,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         if (md.IsReactionForce == false && !platformEffector.useColliderMask && Vector3.Angle(force, Vector3.down) <= 70)
         {
 
-            
+
             platformEffector.useColliderMask = true;
             StartCoroutine("CloseColliderEffect");
         }
@@ -500,6 +528,6 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     public float Power;
     public float AttackPowerCost;
-    
+
 
 }
