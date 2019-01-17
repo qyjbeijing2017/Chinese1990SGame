@@ -105,6 +105,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
+    public float ReatctionForce = 300.0f;
+
 
     public void Init()
     {
