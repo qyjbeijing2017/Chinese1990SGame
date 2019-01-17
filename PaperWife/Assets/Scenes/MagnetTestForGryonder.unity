@@ -1754,6 +1754,11 @@ PrefabInstance:
       propertyPath: m_JumpsVelocity.Array.data[1]
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8898658568237225458, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_playerID
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
 --- !u!1 &859003732
@@ -2615,6 +2620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863815252624924093, guid: c6422a0f38ec7c744b558723afacb449,
+        type: 3}
+      propertyPath: m_playerID
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6422a0f38ec7c744b558723afacb449, type: 3}
