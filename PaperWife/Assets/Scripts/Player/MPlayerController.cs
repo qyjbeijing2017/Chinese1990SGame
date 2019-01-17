@@ -105,8 +105,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
     }
 
-    public float ReatctionForce = 300.0f;
-
+    public float ReatctionForce = 100.0f;
+    [Range(0,1.4f)]public float JumpLineRay = 1f;
 
     public void Init()
     {
@@ -157,7 +157,28 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
 
         m_lastFrameVelocity = m_rigidbody.velocity;
+        m_rigidbody.AddForce(m_ReactionForceDir.normalized * ReatctionForce);
+        m_ReactionForceDir = Vector3.zero;
+
+        if (IsOnGround)
+        {
+            Ray2D ray = new Ray2D(transform.position, Vector2.down);
+            RaycastHit2D info = Physics2D.Raycast(ray.origin, ray.direction, JumpLineRay);
+            if (!info)
+            {
+                IsOnGround = false;
+                if (null != Jump)
+                {
+                    Jump.Invoke(m_jumpNum + 1);
+                }
+            }
+
+
+        }
+        Debug.DrawLine(transform.position, transform.position + new Vector3(0, -JumpLineRay, 0));
     }
+
+    public bool IsOnGround;
 
     void Animated()//  控制动画基
     {
@@ -223,10 +244,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             {
                 m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_JumpsVelocity[m_jumpNum]);
                 m_jumpNum++;
-                if (null != Jump)
-                {
-                    Jump.Invoke(m_jumpNum + 1);
-                }
+
             }
         }
 
@@ -244,17 +262,19 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             {
                 JumpEnd.Invoke();
             }
+
+            IsOnGround = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 13)
-        {
-            if (null != Jump)
-            {
-                Jump.Invoke(m_jumpNum + 1);
-            }
-        }
+        //if (collision.gameObject.layer == 13)
+        //{
+        //    if (null != Jump)
+        //    {
+        //        Jump.Invoke(m_jumpNum + 1);
+        //    }
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -425,6 +445,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
     public PlatformEffector2D platformEffector;
+    public Vector3 m_ReactionForceDir = Vector3.zero;
     public void OnMagnetic(MagneticData md)
     {
 
@@ -437,6 +458,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         //    }
         //}
 
+
+
         // 如果吸引玩家的物体是没有极性的，不做任何处理，直接结束该方法。
         if (md.Polarity == Polarity.None)
         {
@@ -446,15 +469,33 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         Vector3 force = Vector3.zero;
         if (md.Polarity != PolarityMy)
         {
-            // 极性不同
-            m_rigidbody.AddForce(md.Mforce * DrawCoefficient);                              // 异性相吸，Mforce为从我指向对手
             force = md.Mforce * DrawCoefficient;
+            // 极性不同
+            if (md.IsReactionForce)
+            {
+                m_ReactionForceDir += force;
+            }
+            else
+            {
+                m_rigidbody.AddForce(force);                              // 异性相吸，Mforce为从我指向对手
+                
+            }
+
         }
         else
         {
-            // 极性相同
-            m_rigidbody.AddForce(-md.Mforce);
             force = -md.Mforce;
+            // 极性相同
+            if (md.IsReactionForce)
+            {
+                m_ReactionForceDir += force;
+            }
+            else
+            {
+                m_rigidbody.AddForce(force);
+
+            }
+
         }
 
         if (md.IsReactionForce == false)
