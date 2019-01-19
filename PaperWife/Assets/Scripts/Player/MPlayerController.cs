@@ -67,7 +67,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
     private Animator m_animator;
-    private Animator particleanimator;
+
 
 
     public bool IsDizz
@@ -114,7 +114,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         m_rigidbody = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         m_collider2D = GetComponent<Collider2D>();
-        particleanimator = transform.Find("Particle1").GetComponent<Animator>();
+
         m_magneticField.MagneticItem = this;
         Jump += OnAnimaJump;
         JumpEnd += OnAnimaJumpEnd;
