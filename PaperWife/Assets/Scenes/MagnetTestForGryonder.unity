@@ -1717,13 +1717,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8898658568237225458, guid: f2b3838996916474585dd8d2c1470fbb,
         type: 3}
-      propertyPath: JumpLineRay
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8898658568237225458, guid: f2b3838996916474585dd8d2c1470fbb,
-        type: 3}
-      propertyPath: ReatctionForce
-      value: 100
+      propertyPath: m_playerID
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3358669109692998793, guid: f2b3838996916474585dd8d2c1470fbb,
         type: 3}
@@ -2476,8 +2471,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -8.246038, y: 0.31746006}
-  - {x: 10.629129, y: 0.29661044}
+  - {x: -8.283161, y: 0.41790348}
+  - {x: 10.629131, y: 0.41140288}
 --- !u!1 &1279086160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,13 +2609,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7863815252624924093, guid: c6422a0f38ec7c744b558723afacb449,
         type: 3}
-      propertyPath: JumpLineRay
-      value: 0.75
+      propertyPath: m_playerID
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7863815252624924093, guid: c6422a0f38ec7c744b558723afacb449,
+    - target: {fileID: 2205204382411846483, guid: c6422a0f38ec7c744b558723afacb449,
         type: 3}
-      propertyPath: ReatctionForce
-      value: 100
+      propertyPath: m_Radius
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6422a0f38ec7c744b558723afacb449, type: 3}
@@ -3004,8 +2999,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -8.246038, y: 0.31746006}
-  - {x: 10.629129, y: 0.29661044}
+  - {x: -8.309198, y: 0.52845025}
+  - {x: 10.703767, y: 0.4832019}
 --- !u!1 &1562644525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,8 +4066,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -8.246038, y: 0.31746006}
-  - {x: 10.629129, y: 0.29661044}
+  - {x: -8.218414, y: 0.4555839}
+  - {x: 10.684381, y: 0.48998383}
 --- !u!1 &1682966510
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,8 +4609,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -8.246038, y: 0.31746006}
-  - {x: 10.629129, y: 0.29661044}
+  - {x: -8.19706, y: 0.39092878}
+  - {x: 10.653619, y: 0.39456847}
 --- !u!1 &2014198869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4852,16 +4847,6 @@ PrefabInstance:
       propertyPath: PolarityChangeTime
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 3908830343855136226, guid: 358902c9e54228d479a02dd71450bc52,
-        type: 3}
-      propertyPath: JumpLineRay
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 3908830343855136226, guid: 358902c9e54228d479a02dd71450bc52,
-        type: 3}
-      propertyPath: ReatctionForce
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 2119252450490186576, guid: 358902c9e54228d479a02dd71450bc52,
         type: 3}
       propertyPath: m_Radius
@@ -4936,35 +4921,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6271847229178132320, guid: 966548d675839d349a0e10c4667b9ff9,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271847229178132320, guid: 966548d675839d349a0e10c4667b9ff9,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 2.0675
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271847229178132320, guid: 966548d675839d349a0e10c4667b9ff9,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 2.875
-      objectReference: {fileID: 0}
     - target: {fileID: 7863815252624924093, guid: 966548d675839d349a0e10c4667b9ff9,
         type: 3}
       propertyPath: DizzTime
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7863815252624924093, guid: 966548d675839d349a0e10c4667b9ff9,
+    - target: {fileID: 7596216884393475150, guid: 966548d675839d349a0e10c4667b9ff9,
         type: 3}
-      propertyPath: JumpLineRay
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863815252624924093, guid: 966548d675839d349a0e10c4667b9ff9,
-        type: 3}
-      propertyPath: ReatctionForce
-      value: 100
+      propertyPath: m_Radius
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 966548d675839d349a0e10c4667b9ff9, type: 3}
