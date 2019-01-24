@@ -1725,6 +1725,11 @@ PrefabInstance:
       propertyPath: JumpLineRay
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 8898658568237225458, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_playerPower
+      value: 
+      objectReference: {fileID: 782019296}
     - target: {fileID: 3358669109692998793, guid: f2b3838996916474585dd8d2c1470fbb,
         type: 3}
       propertyPath: m_Radius
@@ -1732,6 +1737,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
+--- !u!1 &782019295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6716117706817560014, guid: f2b3838996916474585dd8d2c1470fbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 782019294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &782019296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782019295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90f509f77ce36a41b4a9206e29d443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxPower: 100
+  m_powerNow: 100
+  m_attackCost: 30
+  m_defenceCostPerS: 50
+  m_repower: 20
+  m_repowerWaitTime: 1
+  m_IsLockRepower: 0
+  m_IsWaitRepowerEnd: 0
 --- !u!1 &859003732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,6 +2653,11 @@ PrefabInstance:
       propertyPath: JumpLineRay
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 7863815252624924093, guid: c6422a0f38ec7c744b558723afacb449,
+        type: 3}
+      propertyPath: m_playerPower
+      value: 
+      objectReference: {fileID: 1320022675}
     - target: {fileID: 2205204382411846483, guid: c6422a0f38ec7c744b558723afacb449,
         type: 3}
       propertyPath: m_Radius
@@ -2629,6 +2665,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6422a0f38ec7c744b558723afacb449, type: 3}
+--- !u!1 &1320022674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3968947523355005275, guid: c6422a0f38ec7c744b558723afacb449,
+    type: 3}
+  m_PrefabInstance: {fileID: 1320022673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1320022675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320022674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90f509f77ce36a41b4a9206e29d443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxPower: 100
+  m_powerNow: 100
+  m_attackCost: 30
+  m_defenceCostPerS: 50
+  m_repower: 20
+  m_repowerWaitTime: 1
+  m_IsLockRepower: 0
+  m_IsWaitRepowerEnd: 0
 --- !u!1 &1386774882
 GameObject:
   m_ObjectHideFlags: 0
@@ -4862,6 +4924,11 @@ PrefabInstance:
       propertyPath: JumpLineRay
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 3908830343855136226, guid: 358902c9e54228d479a02dd71450bc52,
+        type: 3}
+      propertyPath: m_playerPower
+      value: 
+      objectReference: {fileID: 4042150701880733734}
     - target: {fileID: 2119252450490186576, guid: 358902c9e54228d479a02dd71450bc52,
         type: 3}
       propertyPath: m_Radius
@@ -4869,6 +4936,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 358902c9e54228d479a02dd71450bc52, type: 3}
+--- !u!1 &4042150701880733733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3133123061491905797, guid: 358902c9e54228d479a02dd71450bc52,
+    type: 3}
+  m_PrefabInstance: {fileID: 4042150701880733732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4042150701880733734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4042150701880733733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90f509f77ce36a41b4a9206e29d443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxPower: 100
+  m_powerNow: 100
+  m_attackCost: 30
+  m_defenceCostPerS: 50
+  m_repower: 20
+  m_repowerWaitTime: 1
+  m_IsLockRepower: 0
+  m_IsWaitRepowerEnd: 0
 --- !u!1001 &6899044158438107424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4946,6 +5039,11 @@ PrefabInstance:
       propertyPath: JumpLineRay
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 7863815252624924093, guid: 966548d675839d349a0e10c4667b9ff9,
+        type: 3}
+      propertyPath: m_playerPower
+      value: 
+      objectReference: {fileID: 6899044158438107426}
     - target: {fileID: 7596216884393475150, guid: 966548d675839d349a0e10c4667b9ff9,
         type: 3}
       propertyPath: m_Radius
@@ -4953,3 +5051,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 966548d675839d349a0e10c4667b9ff9, type: 3}
+--- !u!1 &6899044158438107425 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3968947523355005275, guid: 966548d675839d349a0e10c4667b9ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6899044158438107424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6899044158438107426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899044158438107425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90f509f77ce36a41b4a9206e29d443f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxPower: 100
+  m_powerNow: 100
+  m_attackCost: 30
+  m_defenceCostPerS: 50
+  m_repower: 20
+  m_repowerWaitTime: 1
+  m_IsLockRepower: 0
+  m_IsWaitRepowerEnd: 0
