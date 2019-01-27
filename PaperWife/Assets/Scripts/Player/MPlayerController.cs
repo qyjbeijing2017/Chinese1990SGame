@@ -106,7 +106,9 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
     public float ReatctionForce = 100.0f;
-    [Range(0,1.4f)]public float JumpLineRay = 1f;
+    [Range(0, 1.4f)] public float JumpLineRay = 1f;
+    public PlayerPower m_playerPower;
+
 
     public void Init()
     {
@@ -119,9 +121,6 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         Jump += OnAnimaJump;
         JumpEnd += OnAnimaJumpEnd;
     }
-
-
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -141,17 +140,25 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             Defence();
             PolarityChange();
             //磁场触发
-            if (Input.GetButtonDown("Attack" + m_playerID.ToString()))
+            if (Input.GetButtonDown("Attack" + m_playerID.ToString()) && m_magneticField.MagneticCD ==1)
             {
-                m_magneticField.OnMagneticStart(MagneticField.FieldType.Circle);
+                if (m_playerPower.Attack(PlayerPower.CostType.Attack))
+                {
+                    m_magneticField.OnMagneticStart(MagneticField.FieldType.Circle);
+                }
             }
-            if (Input.GetButtonDown("HAttack" + m_playerID.ToString()))
+            if (Input.GetButtonDown("HAttack" + m_playerID.ToString()) && m_magneticField.MagneticCD == 1)
             {
-                m_magneticField.OnMagneticStart(MagneticField.FieldType.BoxH);
+                if (m_playerPower.Attack(PlayerPower.CostType.Attack))
+                {
+                    m_magneticField.OnMagneticStart(MagneticField.FieldType.BoxH);
+
+                }
             }
-            if (Input.GetButtonDown("VAttack" + m_playerID.ToString()))
+            if (Input.GetButtonDown("VAttack" + m_playerID.ToString()) && m_magneticField.MagneticCD == 1)
             {
-                m_magneticField.OnMagneticStart(MagneticField.FieldType.BoxV);
+                if (m_playerPower.Attack(PlayerPower.CostType.Attack))
+                    m_magneticField.OnMagneticStart(MagneticField.FieldType.BoxV);
             }
 
         }
@@ -266,16 +273,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             IsOnGround = true;
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //if (collision.gameObject.layer == 13)
-        //{
-        //    if (null != Jump)
-        //    {
-        //        Jump.Invoke(m_jumpNum + 1);
-        //    }
-        //}
-    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -334,65 +332,84 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     //防御
     void Defence()
     {
-        if (Input.GetButton("Defence" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
+        //if (Input.GetButton("Defence" + m_playerID.ToString()) && m_PolaityDefenceCD == 1 && !IsDefence)
+        //{
+
+        //    IsDefence = true;
+        //    StartCoroutine("Defencing");
+
+        //    GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
+
+        //}
+        //if (Input.GetButtonUp("Defence" + m_playerID.ToString()) && IsDefence == true)
+        //{
+        //    m_PolaityDefenceCD = 0.0f;
+        //    m_PolaityDefenceTimer = 0.0f;
+        //    IsDefence = false;
+        //    GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        //    //if (m_polarity == Polarity.North)
+        //    //{
+        //    //    m_polarity = Polarity.Sourth;
+        //    //}
+        //    //else if (m_polarity == Polarity.Sourth)
+        //    //{
+        //    //    m_polarity = Polarity.North;
+        //    //}
+        //}
+
+        //if (m_PolaityDefenceCD != 1)
+        //{
+        //    if (m_PolaityDefenceTimer < DefenceCD)
+        //    {
+        //        m_PolaityDefenceTimer += Time.deltaTime;
+        //        m_PolaityDefenceCD = m_PolaityDefenceTimer / DefenceCD;
+        //    }
+        //    else
+        //    {
+        //        m_PolaityDefenceCD = 1;
+        //    }
+        //}
+        IsDefence = false;
+        if (Input.GetButton("Defence" + m_playerID.ToString()))
         {
-
-            IsDefence = true;
-            StartCoroutine("Defencing");
-
-            GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1);
-
-        }
-        if (Input.GetButtonUp("Defence" + m_playerID.ToString()) && IsDefence == true)
-        {
-            m_PolaityDefenceCD = 0.0f;
-            m_PolaityDefenceTimer = 0.0f;
-            IsDefence = false;
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            //if (m_polarity == Polarity.North)
-            //{
-            //    m_polarity = Polarity.Sourth;
-            //}
-            //else if (m_polarity == Polarity.Sourth)
-            //{
-            //    m_polarity = Polarity.North;
-            //}
-        }
-
-        if (m_PolaityDefenceCD != 1)
-        {
-            if (m_PolaityDefenceTimer < DefenceCD)
+            if (m_playerPower.Attack(PlayerPower.CostType.Defence))
             {
-                m_PolaityDefenceTimer += Time.deltaTime;
-                m_PolaityDefenceCD = m_PolaityDefenceTimer / DefenceCD;
+                IsDefence = true;
+  
             }
-            else
-            {
-                m_PolaityDefenceCD = 1;
-            }
+        }
+        if (IsDefence)
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color(1, 0, 0, 1);
+        }
+        else
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = new Color(1, 1, 1, 1);
         }
 
     }
-    IEnumerator Defencing()
-    {
-        yield return new WaitForSeconds(DefenceTime);
-        if (IsDefence == true)
-        {
-            m_PolaityDefenceCD = 0.0f;
-            m_PolaityDefenceTimer = 0.0f;
-            IsDefence = false;
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            //if (m_polarity == Polarity.North)
-            //{
-            //    m_polarity = Polarity.Sourth;
-            //}
-            //else if (m_polarity == Polarity.Sourth)
-            //{
-            //    m_polarity = Polarity.North;
-            //}
-        }
+    //IEnumerator Defencing()
+    //{
+    //    yield return new WaitForSeconds(DefenceTime);
+    //    if (IsDefence == true)
+    //    {
+    //        m_PolaityDefenceCD = 0.0f;
+    //        m_PolaityDefenceTimer = 0.0f;
+    //        IsDefence = false;
+    //        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+    //        //if (m_polarity == Polarity.North)
+    //        //{
+    //        //    m_polarity = Polarity.Sourth;
+    //        //}
+    //        //else if (m_polarity == Polarity.Sourth)
+    //        //{
+    //        //    m_polarity = Polarity.North;
+    //        //}
+    //    }
 
-    }
+    //}
 
     //磁场切换
     public void PolarityChange()
@@ -478,7 +495,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             else
             {
                 m_rigidbody.AddForce(force);                              // 异性相吸，Mforce为从我指向对手
-                
+
             }
 
         }
@@ -568,10 +585,6 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     }
 
 
-    //能量槽
-
-    public float Power;
-    public float AttackPowerCost;
 
 
 }

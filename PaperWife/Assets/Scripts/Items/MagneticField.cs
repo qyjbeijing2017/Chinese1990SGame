@@ -53,6 +53,7 @@ public class MagneticField : MonoBehaviour
     /// </summary>
     [Range(0,1)]public float ReatctionForceCoefficient;
 
+    public bool IsMagnetic { get { return m_isMagnetic; } }
 
     [SerializeField]private GameObject UI;
     [SerializeField] private GameObject VUI;
