@@ -214,7 +214,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
 
     void OnAnimaJump(int jumpTime)
     {
-        m_animator.SetTrigger("Jump1");
+        m_animator.SetTrigger("Jump" + jumpTime.ToString());
     }
     void OnAnimaJumpEnd()
     {
