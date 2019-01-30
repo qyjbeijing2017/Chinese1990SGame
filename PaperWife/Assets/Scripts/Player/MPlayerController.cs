@@ -15,6 +15,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     public Camera CharactorCamera;
 
     [SerializeField, Tooltip("人物id")] public int m_playerID = 1;
+
     [SerializeField, Tooltip("移动力")] public float m_playerForce = 10;
     [SerializeField, Tooltip("最大移动速度")] public float m_maxMoveSpeed = 10;
     [SerializeField, Tooltip("跳跃速度")] public List<float> m_JumpsVelocity;
@@ -176,7 +177,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
                 IsOnGround = false;
                 if (null != Jump)
                 {
-                    Jump.Invoke(m_jumpNum + 1);
+                    Jump.Invoke(m_jumpNum);
                 }
             }
 
@@ -215,13 +216,14 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     void OnAnimaJump(int jumpTime)
     {
         m_animator.SetTrigger("Jump" + jumpTime.ToString());
+        print("Jump" + jumpTime.ToString());
     }
     void OnAnimaJumpEnd()
     {
         m_animator.SetTrigger("JumpEnd");
     }
 
-    int m_jumpNum = 0; //跳跃计数
+    [SerializeField]int m_jumpNum = 0; //跳跃计数
     //移动脚本
     void move()
     {
@@ -251,7 +253,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             {
                 m_rigidbody.velocity = new Vector2(m_rigidbody.velocity.x, m_JumpsVelocity[m_jumpNum]);
                 m_jumpNum++;
-
+                Jump.Invoke(m_jumpNum);
             }
         }
 
