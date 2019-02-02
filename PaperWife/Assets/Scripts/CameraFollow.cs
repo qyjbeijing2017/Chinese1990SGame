@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DaemonTools;
 
-public class CameraFallow : MonoSingleton<CameraFallow>
+public class CameraFollow : MonoSingleton<CameraFollow>
 {
 
     [Header("上边缘"), Range(0, 100)] public float TopEdge;
@@ -20,11 +20,13 @@ public class CameraFallow : MonoSingleton<CameraFallow>
     [Space(20), Header("摄像机跟随速度"), Range(0, 10)] public float FollowSpeed;
     [Header("开始跟随中心点最大差值"), Range(0, 10)] public float StartFollowDis;
 
+    const float wh = 16.0f / 9.0f;
+
     public float CameraLeftEdge
     {
         get
         {
-            float a = Camera.main.transform.position.x - Camera.main.orthographicSize * Screen.width / Screen.height;
+            float a = Camera.main.transform.position.x - Camera.main.orthographicSize * wh;
             return a;
         }
     }
@@ -202,8 +204,8 @@ public class CameraFallow : MonoSingleton<CameraFallow>
             }
 
             Vector2 center = Vector2.zero;
-            center.x = (right - left) / 2;
-            center.y = (top - button) / 2;
+            center.x = (right - left) / 2 + left;
+            center.y = (top - button) / 2 + button;
             return center;
         }
     }
@@ -232,7 +234,7 @@ public class CameraFallow : MonoSingleton<CameraFallow>
         Vector2 cameraPosition = Camera.main.transform.position;
         if ((PlayerCenter - cameraPosition).magnitude > StartFollowDis)
         {
-            Camera.main.transform.position -= (Vector3)(PlayerCenter - cameraPosition).normalized * FollowSpeed * Time.deltaTime;
+            Camera.main.transform.position += (Vector3)(PlayerCenter - cameraPosition).normalized * FollowSpeed * Time.deltaTime;
         }
     }
 
@@ -282,7 +284,7 @@ public class CameraFallow : MonoSingleton<CameraFallow>
 
             float targetX = (right - left) / 2;
             float targetY = (top - button) / 2;
-            float targetSize = Mathf.Max(targetX, targetY * Screen.height / Screen.width) / Dis2Size ;
+            float targetSize = Mathf.Max(targetX /wh, targetY ) / Dis2Size;
             return targetSize;
 
         }
@@ -310,6 +312,7 @@ public class CameraFallow : MonoSingleton<CameraFallow>
         }
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -318,6 +321,9 @@ public class CameraFallow : MonoSingleton<CameraFallow>
     // Update is called once per frame
     void Update()
     {
-
+        CameraScaleFollow();
+        CameraScaleLimit();
+        CameraPositionFollow();
+        CameraPositionLimit();
     }
 }
