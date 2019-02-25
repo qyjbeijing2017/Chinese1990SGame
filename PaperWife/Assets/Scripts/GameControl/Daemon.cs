@@ -28,7 +28,7 @@ public class Daemon : MonoSingleton<Daemon>
 
     private void Start()
     {
-        UIManager.Instance.Open("StartPanel");
+        //UIManager.Instance.Open("StartPanel");
         UIManager.Instance.Open("GameConsole", false);
         UIManager.Instance.close("GameConsole");
         console = UIManager.Instance.GetUI<GameConsole>();
