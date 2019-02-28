@@ -7,6 +7,7 @@ public class smoke : MonoBehaviour
 
     [SerializeField]List<Animator> animators;
     [SerializeField]List<float> time;
+    [SerializeField] float animSpeed = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class smoke : MonoBehaviour
         for (int i = 0; i < animators.Count; i++)
         {
             yield return new WaitForSeconds(time[i]);
-            animators[i].speed = 1;
+            animators[i].speed = animSpeed;
         }
         yield return 0;
     }
