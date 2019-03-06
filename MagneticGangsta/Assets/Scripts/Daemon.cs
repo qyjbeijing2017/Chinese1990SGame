@@ -40,7 +40,7 @@ public class Daemon : MonoSingleton<Daemon>
             Debug.Log("contentInt:" + enumerator.Current.Value.ContentInt + " ");
             Debug.Log("contentString:" + enumerator.Current.Value.ContentString + " ");
             Debug.Log("contentBool:" + enumerator.Current.Value.ContentBool + " ");
-            Debug.Log("contentEnum:" + enumerator.Current.Value.contentEnum + " ");
+            Debug.Log("contentEnum:" + enumerator.Current.Value.ContentEnum + " ");
             Debug.Log("contentFloat:" + enumerator.Current.Value.ContentFloat + " ");
         }
     }
