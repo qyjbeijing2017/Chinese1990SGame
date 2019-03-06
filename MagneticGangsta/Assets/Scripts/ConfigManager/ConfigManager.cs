@@ -7,7 +7,7 @@ namespace DaemonTools
     public class ConfigManager : Singleton<ConfigManager>
     {
         //声明配置表名
-        const string configExampleName = "configExample";
+        const string ConfigExampleName = "configExample";
         const string UIPanelConfigName = "UIPanel";
 
 
@@ -23,7 +23,7 @@ namespace DaemonTools
         //实例化配置表
         public void InitConfigManager()
         {
-            ConfigExampleData = ConfigFactory<ConfigExample>.InitConfigs(configExampleName);
+            ConfigExampleData = ConfigFactory<ConfigExample>.InitConfigs(ConfigExampleName);
         }
     }
 }

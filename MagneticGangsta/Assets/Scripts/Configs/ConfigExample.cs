@@ -19,7 +19,7 @@ public class ConfigExample : BaseConfig
     public int ContentInt = 0;
     public string ContentString = "zero";
     public bool ContentBool = false;
-    public configExamplenum contentEnum = configExamplenum.one;
+    public configExamplenum ContentEnum = configExamplenum.one;
     public float ContentFloat = 0.0f;
 
     /// <summary>
@@ -32,7 +32,7 @@ public class ConfigExample : BaseConfig
         int.TryParse(m_data[1], out ContentInt);
         ContentString = m_data[2];
         bool.TryParse(m_data[3], out ContentBool);
-        contentEnum = (configExamplenum)Enum.Parse(typeof(configExamplenum), m_data[4]);
+        ContentEnum = (configExamplenum)Enum.Parse(typeof(configExamplenum), m_data[4]);
         float.TryParse(m_data[5], out ContentFloat);
     }
 }
