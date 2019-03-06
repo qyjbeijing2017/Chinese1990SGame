@@ -192,6 +192,8 @@ public class MPlayerController : MonoBehaviour, MagneticItem
     {
         m_animator.SetFloat("MoveSpeed", Mathf.Abs(m_rigidbody.velocity.x));
         m_animator.SetFloat("jumpspeed", Mathf.Abs(m_rigidbody.velocity.y));
+        m_animator.SetBool("dizz", m_isDizz);
+        m_animator.SetBool("Defence", IsDefence);
         //if (m_polarity == Polarity.Sourth)
         //{
         //    m_animator.SetLayerWeight(1, 1);
@@ -286,7 +288,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
             float force2 = Vector3.Dot(collision.gameObject.GetComponent<MPlayerController>().LastFrameVelocity, -dir.normalized);
             float force1 = Vector3.Dot(LastFrameVelocity, dir.normalized);
             float force = force1 + force2;
-            if (force >= PlayerDizzForce)
+            if (force >= PlayerDizzForce||Input.GetKeyDown(KeyCode.H))
             {
                 OnDizzStart();
             }
@@ -296,7 +298,7 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         {
             Vector3 dir = collision.transform.position - transform.position;
             float force = Vector3.Dot(LastFrameVelocity, dir.normalized);
-            if (force >= DizzForce)
+            if (force >= DizzForce || Input.GetKeyDown(KeyCode.H))
             {
                 OnDizzStart();
             }
@@ -382,13 +384,16 @@ public class MPlayerController : MonoBehaviour, MagneticItem
         }
         if (IsDefence)
         {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.color = new Color(1, 0, 0, 1);
+            Debug.Log("defence");
+           // transform.Find("sheild").gameObject.SetActive(true);
+           // SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            //spriteRenderer.color = new Color(1, 0, 0, 1);
         }
         else
         {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.color = new Color(1, 1, 1, 1);
+           // transform.Find("sheild").gameObject.SetActive(false);
+            //SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            //spriteRenderer.color = new Color(1, 1, 1, 1);
         }
 
     }
