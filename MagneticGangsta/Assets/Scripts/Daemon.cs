@@ -32,17 +32,17 @@ public class Daemon : MonoSingleton<Daemon>
 
 
 
-        //遍历example
-        var enumerator = ConfigManager.Instance.ConfigExampleData.GetEnumerator();
-        while (enumerator.MoveNext())
-        {
-            Debug.Log("ID:" + enumerator.Current.Value.ID + " ");
-            Debug.Log("contentInt:" + enumerator.Current.Value.ContentInt + " ");
-            Debug.Log("contentString:" + enumerator.Current.Value.ContentString + " ");
-            Debug.Log("contentBool:" + enumerator.Current.Value.ContentBool + " ");
-            Debug.Log("contentEnum:" + enumerator.Current.Value.ContentEnum + " ");
-            Debug.Log("contentFloat:" + enumerator.Current.Value.ContentFloat + " ");
-        }
+        ////遍历example
+        //var enumerator = ConfigManager.Instance.ConfigExampleData.GetEnumerator();
+        //while (enumerator.MoveNext())
+        //{
+        //    Debug.Log("ID:" + enumerator.Current.Value.ID + " ");
+        //    Debug.Log("contentInt:" + enumerator.Current.Value.ContentInt + " ");
+        //    Debug.Log("contentString:" + enumerator.Current.Value.ContentString + " ");
+        //    Debug.Log("contentBool:" + enumerator.Current.Value.ContentBool + " ");
+        //    Debug.Log("contentEnum:" + enumerator.Current.Value.ContentEnum + " ");
+        //    Debug.Log("contentFloat:" + enumerator.Current.Value.ContentFloat + " ");
+        //}
     }
 
     private void Update()

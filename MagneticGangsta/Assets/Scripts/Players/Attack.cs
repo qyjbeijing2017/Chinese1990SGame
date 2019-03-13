@@ -5,6 +5,7 @@ using UnityEngine;
 public class Attack : PlayerFunctionBase
 {
 
+    public CDBase AttackCD;
 
 
 }
