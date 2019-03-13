@@ -14,7 +14,6 @@ public class ExamplePanel : UIBase
 
 
     [SerializeField] Button m_reload;
-
     public override void close()
     {
         print("close");
