@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using System;
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerBase : MonoBehaviour
 {
 
@@ -11,10 +12,14 @@ public class PlayerBase : MonoBehaviour
 
     #region Attribute
 
-    public bool IsMoving { get; set; }
-    public bool IsOnGround { get; set; }
-    public bool IsLockOption { get; set; }
+    public bool IsMoving;
+    public bool IsOnGround;
+    public bool IsLockOption;
+    public bool IsDefence;
 
+    public Rigidbody2D PlayerRigidbody2D;
+
+    public Polarity PlayerPolarity = Polarity.None;
     #endregion
 
     #region Events
@@ -29,15 +34,20 @@ public class PlayerBase : MonoBehaviour
 
     #endregion Events
 
-    List<PlayerFunctionBase> m_playerFunctionBases = new List<PlayerFunctionBase>();
+    Dictionary<string, PlayerFunctionBase> m_functionBases = new Dictionary<string, PlayerFunctionBase>();
 
+
+    public Dictionary<string, PlayerFunctionBase> FunctionBases { get { return m_functionBases; } }
+
+    PlayerBuffManager m_buffManager;
+    public PlayerBuffManager BuffManager { get { return m_buffManager; } }
     void PlayerFuncsLoop()
     {
 
-        var funcEnumerator = m_playerFunctionBases.GetEnumerator();
+        var funcEnumerator = m_functionBases.GetEnumerator();
         while (funcEnumerator.MoveNext())
         {
-            funcEnumerator.Current.PlayerLoop();
+            funcEnumerator.Current.Value.PlayerLoop();
         }
 
     }
@@ -49,14 +59,27 @@ public class PlayerBase : MonoBehaviour
         {
             playerFunctionBases[i].Player = this;
             playerFunctionBases[i].PlayerInit();
-            m_playerFunctionBases.Add(playerFunctionBases[i]);
+            Type t = playerFunctionBases[i].GetType();
+            if (!m_functionBases.ContainsKey(t.Name)) m_functionBases.Add(t.Name, playerFunctionBases[i]);
+        }
+    }
 
+    void InitBuffManager()
+    {
+        PlayerBuffManager playerBuffManager = GetComponent<PlayerBuffManager>();
+        if (playerBuffManager)
+        {
+            playerBuffManager.Player = this;
+            m_buffManager = playerBuffManager;
         }
     }
 
     private void Awake()
     {
+
+        PlayerRigidbody2D = GetComponent<Rigidbody2D>();
         InitPlayerFuncs();
+        InitBuffManager();
     }
     private void Update()
     {

@@ -6,6 +6,7 @@ using DaemonTools;
 using UnityEngine.UI;
 using System;
 using System.Reflection;
+using UnityEngine.Events;
 
 /// <summary>
 /// 在开始界面调用Daemon.Instance.Init();
@@ -13,6 +14,8 @@ using System.Reflection;
 
 public class Daemon : MonoSingleton<Daemon>
 {
+     public event UnityAction DaemonUpdate;
+    
 
     new void Awake()
     {
@@ -47,7 +50,10 @@ public class Daemon : MonoSingleton<Daemon>
 
     private void Update()
     {
-
+        if (DaemonUpdate != null)
+        {
+            DaemonUpdate.Invoke();
+        }
     }
 
 

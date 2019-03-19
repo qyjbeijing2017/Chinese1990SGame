@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerBase))]
 public abstract class PlayerFunctionBase : MonoBehaviour
 {
-    [HideInInspector]public PlayerBase Player;
-
+    [HideInInspector] public PlayerBase Player;
+    public Rigidbody2D PlayerRigidbody2D {get{ return Player.PlayerRigidbody2D; }}
     /// <summary>
     /// 用于初始化玩家功能，会在PlayerBase的Awake最后执行
     /// </summary>
