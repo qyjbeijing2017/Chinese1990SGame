@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_reload: {fileID: 2085006092549843775}
+  m_addPanel: {fileID: 0}
 --- !u!1 &2235067060260593911
 GameObject:
   m_ObjectHideFlags: 0
