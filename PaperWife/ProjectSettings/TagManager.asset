@@ -48,6 +48,9 @@ TagManager:
   - name: Background2
     uniqueID: 680533637
     locked: 0
+  - name: plane
+    uniqueID: 3691875445
+    locked: 0
   - name: backgroundstart
     uniqueID: 1819931921
     locked: 0
@@ -62,6 +65,9 @@ TagManager:
     locked: 0
   - name: front1
     uniqueID: 643196979
+    locked: 0
+  - name: floatmananim
+    uniqueID: 236537775
     locked: 0
   - name: platform
     uniqueID: 1101061429
