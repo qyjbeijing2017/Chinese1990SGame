@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BeHitBase : PlayerFunctionBase
 {
+
+
     public void OnBeHitBefore(DamageBase damage)
     {
         OnBeHit(damage);
@@ -35,7 +37,10 @@ public class BeHitBase : PlayerFunctionBase
             {
                 PlayerRigidbody2D.AddForce(-myPoistion2Target * damage.AttackForce);
             }
-
+            if (Player.OnBeHit != null)
+            {
+                Player.OnBeHit(damage.Attacker.Player);
+            }
         }
     }
 }

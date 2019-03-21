@@ -11,8 +11,6 @@ public class Power : PlayerFunctionBase
     public float RecoverySpeed = 20.0f;
     public CDBase RecoveryCD = new CDBase(3.0f);
 
-    public bool EnableEmptyEffect = true;
-
     private bool m_isEmptyRecovery = false;
 
     public bool IsEmptyRecovery { get { return m_isEmptyRecovery; } }
@@ -52,5 +50,12 @@ public class Power : PlayerFunctionBase
         {
             return false;
         }
+    }
+
+    public override void OnPlayerDie()
+    {
+        m_powerNow = MaxPower;
+        m_isEmptyRecovery = false;
+        RecoveryCD.Stop();
     }
 }

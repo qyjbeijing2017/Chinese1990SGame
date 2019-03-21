@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DefenceBase : PlayerFunctionBase
 {
-    public float DefenceCost = 5.0f;
+    public float DefenceCost = 20.0f;
     public override void PlayerLoop()
     {
         if (Input.GetButtonDown("Defence" + Player.ID)) Player.IsDefence = true;

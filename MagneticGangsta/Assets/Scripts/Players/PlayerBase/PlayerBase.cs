@@ -12,19 +12,21 @@ public class PlayerBase : MonoBehaviour
 
     #region Attribute
 
-    public bool IsMoving;
-    public bool IsOnGround;
-    public bool IsLockOption;
-    public bool IsDefence;
+    public bool IsMoving = false;
+    public bool IsOnGround = false;
+    public bool IsLockOption = false;
+    public bool IsDefence = false;
 
     public Rigidbody2D PlayerRigidbody2D;
 
     public Polarity PlayerPolarity = Polarity.None;
+    public CapsuleCollider2D MainCollider;
     #endregion
 
     #region Events
 
-    public UnityAction OnHit;
+    public UnityAction<PlayerBase> OnBeHit;
+    public UnityAction<PlayerBase> OnAttack;
     public UnityAction<int> OnJump;
     public UnityAction OnChangePolarity;
 
@@ -32,6 +34,7 @@ public class PlayerBase : MonoBehaviour
     public UnityAction OnGround;
     public UnityAction OnExitGround;
 
+    public UnityAction OnDie;
     #endregion Events
 
     Dictionary<string, PlayerFunctionBase> m_functionBases = new Dictionary<string, PlayerFunctionBase>();
@@ -59,6 +62,7 @@ public class PlayerBase : MonoBehaviour
         {
             playerFunctionBases[i].Player = this;
             playerFunctionBases[i].PlayerInit();
+            OnDie += playerFunctionBases[i].OnPlayerDie;
             Type t = playerFunctionBases[i].GetType();
             if (!m_functionBases.ContainsKey(t.Name)) m_functionBases.Add(t.Name, playerFunctionBases[i]);
         }
@@ -78,6 +82,8 @@ public class PlayerBase : MonoBehaviour
     {
 
         PlayerRigidbody2D = GetComponent<Rigidbody2D>();
+        MainCollider = !MainCollider ? GetComponent<CapsuleCollider2D>() : MainCollider;
+        OnDie += OnPlayerDie;
         InitPlayerFuncs();
         InitBuffManager();
     }
@@ -98,5 +104,21 @@ public class PlayerBase : MonoBehaviour
     }
 
 
+    private void OnPlayerDie()
+    {
+        IsMoving = false;
+        IsOnGround = false;
+        IsLockOption = true;
+        IsDefence = false;
+        gameObject.SetActive(false);
+    }
+
+
+    public void ReBorn(Vector2 position)
+    {
+        transform.position = position;
+        IsLockOption = false;
+        gameObject.SetActive(true);
+    }
 }
 

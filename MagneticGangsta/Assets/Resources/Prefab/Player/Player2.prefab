@@ -23,6 +23,9 @@ GameObject:
   - component: {fileID: 8531401802741508810}
   - component: {fileID: 8676753105187034468}
   - component: {fileID: 5594902851631493608}
+  - component: {fileID: 3256333588036744550}
+  - component: {fileID: 9047071531060760541}
+  - component: {fileID: 5123942290830908597}
   - component: {fileID: 3333121411291395301}
   m_Layer: 11
   m_Name: Player2
@@ -318,10 +321,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   MaxPower: 100
+  m_powerNow: 100
   RecoverySpeed: 20
   RecoveryCD:
     CDTime: 3
-  EnableEmptyEffect: 1
+--- !u!114 &3256333588036744550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3133123061491905797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14389ece1388c8c4ba5c6a7081b13cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  DefenceCost: 20
+--- !u!114 &9047071531060760541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3133123061491905797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d8e6afd760179409cb79822e788b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  m_platformEffector: {fileID: 0}
+--- !u!114 &5123942290830908597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3133123061491905797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aab2ad687979a6468ea2bd1b961c4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  m_attacker: {fileID: 0}
+  AttackerLoginTime:
+    CDTime: 3
 --- !u!58 &3333121411291395301
 CircleCollider2D:
   m_ObjectHideFlags: 0

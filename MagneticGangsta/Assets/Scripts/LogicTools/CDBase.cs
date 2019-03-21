@@ -6,13 +6,12 @@ using UnityEngine.Events;
 [System.Serializable]
 public class CDBase : System.Object
 {
-    [SerializeField] float m_cd = 1.0f;
+    float m_cd = 1.0f;
     public float CD { get { return m_cd; } }
 
     public float CDTime = 0.0f;
 
     public event UnityAction OnTimeOut;
-
 
     float m_timer = 0.0f;
     float NowTimer
@@ -46,23 +45,19 @@ public class CDBase : System.Object
         {
             m_cd = m_timer / CDTime;
             m_timer += UnityEngine.Time.deltaTime;
-
         }
         else
         {
             m_cd = 1.0f;
-            if (OnTimeOut != null)
-            {
-                OnTimeOut.Invoke();
-            }
+            if (OnTimeOut != null) OnTimeOut.Invoke();
+            Stop();
         }
 
     }
     public void Stop()
     {
         m_timer = CDTime;
+        m_cd = 1.0f;
         Daemon.Instance.DaemonUpdate -= CDNow;
     }
-
-
 }

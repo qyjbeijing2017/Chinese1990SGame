@@ -14,8 +14,10 @@ public class AttackBase : PlayerFunctionBase
 
     public override void PlayerInit()
     {
-        if (collider)
-            collider.enabled = false;
+        if (!collider)
+            collider = Player.gameObject.AddComponent<CircleCollider2D>();
+
+        collider.enabled = false;
 
         AttackTime.OnTimeOut += AttackEnd;
 
@@ -59,6 +61,10 @@ public class AttackBase : PlayerFunctionBase
                 AttackDamage.AttackPosition = transform.position;
                 beHit.OnBeHitBefore(AttackDamage.Copy());
                 ReactionForce(collision.GetComponent<PlayerBase>());
+                if (Player.OnAttack != null)
+                {
+                    Player.OnAttack.Invoke(beHit.Player);
+                }
             }
 
         }
@@ -85,4 +91,13 @@ public class AttackBase : PlayerFunctionBase
 
 
     }
+
+
+    public override void OnPlayerDie()
+    {
+        collider.enabled = false;
+        AttackTime.Stop();
+        AttackCD.Stop();
+    }
+
 }

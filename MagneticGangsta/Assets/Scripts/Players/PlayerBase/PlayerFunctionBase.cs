@@ -16,4 +16,9 @@ public abstract class PlayerFunctionBase : MonoBehaviour
     /// 适用于玩家的Update但是受控于操作锁（IsLockOption）;
     /// </summary>
     public virtual void PlayerLoop() { }
+
+    /// <summary>
+    /// 适用于玩家死亡
+    /// </summary>
+    public virtual void OnPlayerDie() { }
 }

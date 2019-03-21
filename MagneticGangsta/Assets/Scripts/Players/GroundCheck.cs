@@ -28,6 +28,11 @@ public class GroundCheck : PlayerFunctionBase
     }
 
 
+    public override void OnPlayerDie()
+    {
+        m_CheckOnGroundBefore = true;
+    }
+
     private void CheckOnGround()
     {
         Vector3 originPosition = transform.position + new Vector3(FootPosition.x, FootPosition.y, 0);
