@@ -8,14 +8,14 @@ public class AttackBase : PlayerFunctionBase
     public CDBase AttackTime = new CDBase(0.1f);
     public CDBase AttackCD = new CDBase(1.0f);
     [Range(0, 1)] public float ReactionCoefficient = 0.5f;
-    [SerializeField] Collider2D collider;
+    public Collider2D collider;
     public DamageBase AttackDamage = new DamageBase();
 
 
     public override void PlayerInit()
     {
         if (!collider)
-            collider = Player.gameObject.AddComponent<CircleCollider2D>();
+            collider = GetComponent<CircleCollider2D>() as Collider2D;
 
         collider.enabled = false;
 

@@ -12,6 +12,7 @@ public class CDBase : System.Object
     public float CDTime = 0.0f;
 
     public event UnityAction OnTimeOut;
+    public event UnityAction OnStart;
 
     float m_timer = 0.0f;
     float NowTimer
@@ -37,6 +38,7 @@ public class CDBase : System.Object
         m_timer = 0.0f;
         m_cd = 0.0f;
         Daemon.Instance.DaemonUpdate += CDNow;
+        OnStart?.Invoke();
     }
 
     void CDNow()
