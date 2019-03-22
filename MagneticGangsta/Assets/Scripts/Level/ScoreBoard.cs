@@ -40,6 +40,13 @@ public class ScoreBoard : MonoSingleton<ScoreBoard>
                     Scores.Add(attacker.ID, KillPoint);
                 }
                 GetScores?.Invoke(attacker);
+
+
+                var enumerator = Scores.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    print(enumerator.Current.Key + ":" + enumerator.Current.Value);
+                }
             }
         }
     }

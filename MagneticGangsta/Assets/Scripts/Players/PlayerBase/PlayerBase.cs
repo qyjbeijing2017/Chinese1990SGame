@@ -61,11 +61,18 @@ public class PlayerBase : MonoBehaviour
         for (int i = 0; i < playerFunctionBases.Length; i++)
         {
             playerFunctionBases[i].Player = this;
-            playerFunctionBases[i].PlayerInit();
             OnDie += playerFunctionBases[i].OnPlayerDie;
             Type t = playerFunctionBases[i].GetType();
             if (!m_functionBases.ContainsKey(t.Name)) m_functionBases.Add(t.Name, playerFunctionBases[i]);
         }
+
+        var enumerator = FunctionBases.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            enumerator.Current.Value.PlayerInit();
+
+        }
+
     }
 
     void InitBuffManager()
@@ -73,7 +80,7 @@ public class PlayerBase : MonoBehaviour
         PlayerBuffManager playerBuffManager = GetComponent<PlayerBuffManager>();
         if (playerBuffManager)
         {
-            playerBuffManager.Player = this;
+            playerBuffManager.Init(this);
             m_buffManager = playerBuffManager;
         }
     }

@@ -26,7 +26,7 @@ public class AttackBase : PlayerFunctionBase
 
     public override void PlayerLoop()
     {
-
+        if (Player.IsDefence) return;
         if (!collider) return;
         if (AttackTime.CD < 1 || AttackCD.CD < 1) return;
         if (Input.GetButtonDown(OptionButton + Player.ID))

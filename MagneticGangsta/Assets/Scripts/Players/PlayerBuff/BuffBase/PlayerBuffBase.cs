@@ -3,38 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class PlayerBuffBase : System.Object
+public class PlayerBuffBase : System.Object
 {
     public string Name = "buff";
 
-    public float MaxTime = 0.0f;
-
     [HideInInspector]public PlayerBuffManager BuffManager;
 
-    protected CDBase buffcd; 
+    public CDBase MaxTime = new CDBase(5.0f); 
 
     public PlayerBuffBase() { }
-    public PlayerBuffBase(string name, float maxTime) { Name = name; MaxTime = maxTime; }
+    public PlayerBuffBase(string name, float maxTime) { Name = name; MaxTime.CDTime = maxTime; }
 
-    public void StartBefore()
+    public void StartBefore(BuffAttributesData buffAttributes)
     {
-        buffcd = new CDBase(MaxTime);
-        buffcd.OnTimeOut += EndBefore;
-        BuffStart();
+        BuffStart(buffAttributes);
+        MaxTime.OnTimeOut += EndBefore;
+        MaxTime.Start();
     }
 
     private void EndBefore()
     {
         BuffManager.RemoveBuff(Name);
+        
     }
 
-    public virtual void BuffStart() { }
+    public virtual void BuffStart(BuffAttributesData buffAttributes) { }
 
-    public virtual void BuffEnd() { }
+    public virtual void BuffEnd(BuffAttributesData buffAttributes) { }
+
+
+
 
     public virtual void Update() { }
 
-    public abstract PlayerBuffBase Copy();
+    public virtual PlayerBuffBase Copy()
+    {
+        PlayerBuffBase copy = new PlayerBuffBase(Name,MaxTime.CDTime);
+        copy.BuffManager = BuffManager;
+        return copy;
+        
+    }
 
     public virtual void OnTriggerEnter2D(Collider2D collision) { }
     public virtual void OnTriggerExit2D(Collider2D collision) { }

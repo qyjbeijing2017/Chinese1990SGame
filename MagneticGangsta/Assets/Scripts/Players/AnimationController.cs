@@ -10,6 +10,9 @@ public class AnimationController : PlayerFunctionBase
 
     [SerializeField] Transform MagneticFieldGUI;
 
+
+    private bool m_isVertigo = false;
+
     public override void PlayerInit()
     {
         if (!m_animator) m_animator = GetComponent<Animator>();
@@ -25,17 +28,32 @@ public class AnimationController : PlayerFunctionBase
             MagneticFieldGUI.localScale = new Vector3(r, r, r);
         }
 
+
+        if (Player.FunctionBases.ContainsKey("VertigoAction"))
+        {
+            VertigoAction vertigoAction = Player.FunctionBases["VertigoAction"] as VertigoAction;
+            vertigoAction.VertigoAct += OnVertigo;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
         float inputDir = Input.GetAxis("Move" + Player.ID);
-        if (inputDir < 0) Player.transform.localScale = new Vector3(-1, 1, 1);
-        if (inputDir > 0) Player.transform.localScale = new Vector3(1, 1, 1);
+
+        if (m_isVertigo)
+        {
+            inputDir = 0.0f;
+        }
+        else
+        {
+            if (inputDir < 0) Player.transform.localScale = new Vector3(-1, 1, 1);
+            if (inputDir > 0) Player.transform.localScale = new Vector3(1, 1, 1);
+        }
 
         m_animator.SetFloat("MoveSpeed", Mathf.Abs(inputDir));
-        m_animator.SetBool("Defence",Player.IsDefence);
+        m_animator.SetBool("Defence", Player.IsDefence);
     }
 
     void OnJump(int jumpTime)
@@ -52,5 +70,5 @@ public class AnimationController : PlayerFunctionBase
     void OnAttackStop() { m_animator.SetBool("Attack", false); }
 
 
-
+    void OnVertigo(bool value) { m_isVertigo = value; m_animator.SetBool("Vertigo", value); }
 }

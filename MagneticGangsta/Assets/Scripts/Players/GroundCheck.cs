@@ -21,7 +21,7 @@ public class GroundCheck : PlayerFunctionBase
         Player.OnExitGround += InitCheckGorundBefore;
     }
 
-    public override void PlayerLoop()
+    private void Update()
     {
         CheckOnGround();
         CheckOnGroundBefore();
