@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Power : PlayerFunctionBase
 {
@@ -15,6 +16,9 @@ public class Power : PlayerFunctionBase
 
     public bool IsEmptyRecovery { get { return m_isEmptyRecovery; } }
 
+    public event UnityAction OnEmptyRecoveryStart;
+    public event UnityAction OnEmptyRecoveryEnd;
+
     public override void PlayerInit()
     {
         m_powerNow = MaxPower;
@@ -24,7 +28,7 @@ public class Power : PlayerFunctionBase
     {
         if (RecoveryCD.CD < 1 || m_powerNow >= MaxPower) return;
         m_powerNow += RecoverySpeed * Time.deltaTime;
-        if (m_powerNow >= MaxPower) m_isEmptyRecovery = false;
+        if (m_powerNow >= MaxPower) { m_isEmptyRecovery = false;  OnEmptyRecoveryEnd?.Invoke(); }
         if (m_powerNow > MaxPower) m_powerNow = MaxPower;
     }
 
@@ -42,6 +46,7 @@ public class Power : PlayerFunctionBase
             {
                 m_powerNow = 0;
                 m_isEmptyRecovery = true;
+                OnEmptyRecoveryStart?.Invoke();
             }
             RecoveryCD.Start();
             return true;

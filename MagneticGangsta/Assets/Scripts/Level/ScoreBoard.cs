@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 用于计分，该脚本应在LevelControl后执行
 /// </summary>
-public class ScoreBoard : MonoSingleton<ScoreBoard>
+public class ScoreBoard
 {
     Dictionary<int, int> Scores = new Dictionary<int, int>();
 
@@ -14,7 +14,7 @@ public class ScoreBoard : MonoSingleton<ScoreBoard>
 
     public event UnityAction<PlayerBase> GetScores;
 
-    private void Awake()
+    public void Init()
     {
         if (LevelControl.Instance.playerReborn)
         {
@@ -45,7 +45,7 @@ public class ScoreBoard : MonoSingleton<ScoreBoard>
                 var enumerator = Scores.GetEnumerator();
                 while (enumerator.MoveNext())
                 {
-                    print(enumerator.Current.Key + ":" + enumerator.Current.Value);
+                    Debug.Log(enumerator.Current.Key + ":" + enumerator.Current.Value);
                 }
             }
         }

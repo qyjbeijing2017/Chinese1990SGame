@@ -7,9 +7,11 @@ public class LevelControl : MonoSingleton<LevelControl>
 {
     public Dictionary<int, PlayerBase> Players = new Dictionary<int, PlayerBase>();
     public PlayerReborn playerReborn;
+    public ScoreBoard LevelScoreBoard = new ScoreBoard();
 
-    private void Awake()
+    new void Awake()
     {
+        base.Awake();
         PlayerBase[] players = FindObjectsOfType<PlayerBase>();
         for (int i = 0; i < players.Length; i++)
         {
@@ -21,6 +23,7 @@ public class LevelControl : MonoSingleton<LevelControl>
             playerReborn = FindObjectOfType<PlayerReborn>();
         }
 
+        LevelScoreBoard.Init();
     }
 
     // Start is called before the first frame update

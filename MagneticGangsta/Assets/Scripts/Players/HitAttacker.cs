@@ -5,7 +5,7 @@ using UnityEngine;
 public class HitAttacker : PlayerFunctionBase
 {
 
-    PlayerBase m_attacker = null;
+    [SerializeField]PlayerBase m_attacker = null;
 
     public PlayerBase Attacker { get { return m_attacker; } }
 
@@ -32,7 +32,6 @@ public class HitAttacker : PlayerFunctionBase
 
     public override void OnPlayerDie()
     {
-        OnSignOut();
-        AttackerLoginTime.Stop();
+
     }
 }

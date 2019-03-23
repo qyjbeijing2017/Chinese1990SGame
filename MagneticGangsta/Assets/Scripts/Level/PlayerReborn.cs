@@ -26,13 +26,12 @@ public class PlayerReborn : MonoBehaviour
     }
 
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerBase player = collision.GetComponent<PlayerBase>();
         if (player != null)
         {
-            if (player.MainCollider.IsTouching(Area)) return;
-            print(player.ID);
+            if (!player.MainCollider.IsTouching(Area)) return;
             player.OnDie?.Invoke();
             OnDie?.Invoke(player);
         }
@@ -49,9 +48,9 @@ public class PlayerReborn : MonoBehaviour
     {
         if (RebornWaitTime > 0)
         {
-            print("waiting");
+
             yield return new WaitForSeconds(RebornWaitTime);
-            print("waitend");
+
             player.ReBorn(m_rebornPoints[Random.Range(0, 4)].position);
         }
     }

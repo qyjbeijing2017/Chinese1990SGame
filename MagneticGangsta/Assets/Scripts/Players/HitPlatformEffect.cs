@@ -40,14 +40,15 @@ public class HitPlatformEffect : PlayerFunctionBase
         m_platformEffector.useColliderMask = false;
     }
 
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == m_platformEffector.colliderMask)
         {
             OnEffectEnd();
         }
     }
+
+
 
 
     public override void OnPlayerDie()
