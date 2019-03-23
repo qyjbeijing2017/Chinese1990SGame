@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906a1849b7980a446b43313d99a13e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerReborn: {fileID: 0}
+  playerReborn: {fileID: 1033902811}
 --- !u!4 &514530139
 Transform:
   m_ObjectHideFlags: 0
