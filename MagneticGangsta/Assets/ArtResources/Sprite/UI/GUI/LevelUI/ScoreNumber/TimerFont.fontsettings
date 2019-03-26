@@ -6,7 +6,7 @@ Font:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: testfont
+  m_Name: TimerFont
   serializedVersion: 5
   m_LineSpacing: 30
   m_DefaultMaterial: {fileID: 2100000, guid: 295a1f09e7da07648968bf18d8f2f5fc, type: 2}
@@ -29,8 +29,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -45,8 +45,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -61,8 +61,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -77,8 +77,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -93,8 +93,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -109,8 +109,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -125,8 +125,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -141,8 +141,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -157,8 +157,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -173,8 +173,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0
@@ -189,8 +189,8 @@ Font:
     vert:
       serializedVersion: 2
       x: 0
-      y: -15
-      width: 30
+      y: -30
+      width: 15
       height: 30
     advance: 30
     flipped: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -348,6 +348,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8469096677911051920, guid: 358902c9e54228d479a02dd71450bc52,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469096677911051920, guid: 358902c9e54228d479a02dd71450bc52,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469096677911051920, guid: 358902c9e54228d479a02dd71450bc52,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7958913084563645672, guid: 358902c9e54228d479a02dd71450bc52,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -434,20 +449,15 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f2ffe9eb4ba5b184f981c0481a6d8bee, type: 2}
-    - target: {fileID: 8469096677911051920, guid: 358902c9e54228d479a02dd71450bc52,
+    - target: {fileID: 3187744678593355107, guid: 358902c9e54228d479a02dd71450bc52,
         type: 3}
-      propertyPath: m_Size.x
-      value: 5
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8469096677911051920, guid: 358902c9e54228d479a02dd71450bc52,
+    - target: {fileID: 3187744678593355107, guid: 358902c9e54228d479a02dd71450bc52,
         type: 3}
-      propertyPath: m_Size.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8469096677911051920, guid: 358902c9e54228d479a02dd71450bc52,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 358902c9e54228d479a02dd71450bc52, type: 3}
@@ -904,6 +914,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5419926845624711829, guid: c6422a0f38ec7c744b558723afacb449,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5419926845624711829, guid: c6422a0f38ec7c744b558723afacb449,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6422a0f38ec7c744b558723afacb449, type: 3}
 --- !u!1 &647236453
@@ -995,7 +1015,7 @@ SpriteRenderer:
   m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5df7809f5ca4dee40a9f654db9ceba9f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4339623, g: 0.37459952, b: 0.37459952, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1299,6 +1319,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4786839973255617824, guid: 966548d675839d349a0e10c4667b9ff9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786839973255617824, guid: 966548d675839d349a0e10c4667b9ff9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 966548d675839d349a0e10c4667b9ff9, type: 3}
 --- !u!1 &1193120497
@@ -1481,6 +1511,16 @@ PrefabInstance:
     - target: {fileID: 6736811055104676210, guid: f2b3838996916474585dd8d2c1470fbb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3207470125103222336, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3207470125103222336, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1897,7 +1937,7 @@ SpriteRenderer:
   m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5df7809f5ca4dee40a9f654db9ceba9f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4339623, g: 0.37459952, b: 0.37459952, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
