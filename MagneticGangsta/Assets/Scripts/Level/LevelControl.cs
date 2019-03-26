@@ -24,6 +24,8 @@ public class LevelControl : MonoSingleton<LevelControl>
         }
 
         LevelScoreBoard.Init();
+        Daemon.Instance.Init();
+        UIManager.Instance.Open("GUIPanel");
     }
 
     // Start is called before the first frame update
