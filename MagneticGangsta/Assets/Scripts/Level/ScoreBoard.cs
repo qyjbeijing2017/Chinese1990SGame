@@ -8,7 +8,7 @@ using UnityEngine.Events;
 /// </summary>
 public class ScoreBoard
 {
-    Dictionary<int, int> Scores = new Dictionary<int, int>();
+    public Dictionary<int, int> Scores = new Dictionary<int, int>();
 
     public int KillPoint = 30;
 
@@ -41,12 +41,6 @@ public class ScoreBoard
                 }
                 GetScores?.Invoke(attacker);
 
-
-                var enumerator = Scores.GetEnumerator();
-                while (enumerator.MoveNext())
-                {
-                    Debug.Log(enumerator.Current.Key + ":" + enumerator.Current.Value);
-                }
             }
         }
     }

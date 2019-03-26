@@ -12,14 +12,14 @@ public class PlayerBase : MonoBehaviour
 
     #region Attribute
 
-    public bool IsMoving = false;
-    public bool IsOnGround = false;
-    public bool IsLockOption = false;
-    public bool IsDefence = false;
+    [HideInInspector] public bool IsMoving = false;
+    [HideInInspector] public bool IsOnGround = false;
+    [HideInInspector] public bool IsLockOption = false;
+    [HideInInspector] public bool IsDefence = false;
 
     public Rigidbody2D PlayerRigidbody2D;
 
-    public Polarity PlayerPolarity = Polarity.None;
+    public Polarity PlayerPolarity = Polarity.North;
     public CapsuleCollider2D MainCollider;
     #endregion
 
