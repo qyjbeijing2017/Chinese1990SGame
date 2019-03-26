@@ -31,11 +31,6 @@ namespace DaemonTools
                 }
 
                 Canvas can = GameObject.FindGameObjectWithTag("UICanvas").GetComponent<Canvas>();
-                if (can == null)
-                {
-                    Debug.LogError("Can't find the UICanvas!");
-                    return null;
-                }
                 m_canvas = can;
                 return m_canvas;
             }

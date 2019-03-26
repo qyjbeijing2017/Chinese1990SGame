@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPanelAll
       objectReference: {fileID: 0}
+    - target: {fileID: 4333467679768686114, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4333467679768686115, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,6 +183,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333467679564530061, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333467680366142277, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333467680946188899, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333467680482480142, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_Text
+      value: Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333467680697137948, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_Text
+      value: About
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333467681217141400, guid: 9e9c484ee0c0f06498f8eecb17d3f252,
+        type: 3}
+      propertyPath: m_Text
+      value: Quit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e9c484ee0c0f06498f8eecb17d3f252, type: 3}

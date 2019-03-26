@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DaemonTools;
 using UnityEngine.UI;
+using DaemonTools;
 
 public class StartLogic : MonoBehaviour
 {
@@ -36,15 +37,16 @@ public class StartLogic : MonoBehaviour
 
     public void OnStart()
     {
-        print("start");
+        Daemon.Instance.Init();
+        LoadSceneManager.Instance.LoadSceneAsync("Level1Scene");
     }
 
     public void OnAbout()
     {
-        print("about");
+
     }
     public void OnQuit()
     {
-        print("quit");
+        Application.Quit();
     }
 }

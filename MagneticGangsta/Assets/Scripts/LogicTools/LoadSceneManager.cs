@@ -49,9 +49,9 @@ namespace DaemonTools
         /// <param name="loadSceneMode">加载模式</param>
         public void LoadSceneAsync(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            
+
             SceneManager.LoadScene("LoadingScene");
-            UIManager.Instance.Open("LoadingPanel");
+
             Daemon.Instance.StartCoroutine(LoadScene(sceneName, callBack, loadBefore, loadSceneMode));
         }
 
@@ -64,13 +64,16 @@ namespace DaemonTools
         /// <param name="loadSceneMode">加载模式</param>
         public void LoadSceneAsync(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
+
             SceneManager.LoadScene("LoadingScene");
-            UIManager.Instance.Open("LoadingPanel");
+
             Daemon.Instance.StartCoroutine(LoadScene(sceneId, callBack, loadBefore, loadSceneMode));
         }
 
         IEnumerator LoadScene(int sceneId, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
-        {            
+        {
+            yield return null;
+            UIManager.Instance.Open("LoadingPanel");
             yield return Daemon.Instance.StartCoroutine(LoadSceneBefore(loadBefore));
             AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneId, loadSceneMode);
             while (!asyncOperationScene.isDone)
@@ -91,7 +94,9 @@ namespace DaemonTools
         }
 
         IEnumerator LoadScene(string sceneName, UnityAction callBack = null, UnityAction loadBefore = null, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
-        {            
+        {
+            yield return null;
+            UIManager.Instance.Open("LoadingPanel");
             yield return Daemon.Instance.StartCoroutine(LoadSceneBefore(loadBefore));
             AsyncOperation asyncOperationScene = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
             while (!asyncOperationScene.isDone)

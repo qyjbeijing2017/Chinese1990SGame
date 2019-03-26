@@ -8,7 +8,7 @@ using UnityEngine.Events;
 /// </summary>
 public class ScoreBoard
 {
-    Dictionary<int, int> Scores = new Dictionary<int, int>();
+    public Dictionary<int, int> Scores = new Dictionary<int, int>();
 
     public int KillPoint = 30;
 
