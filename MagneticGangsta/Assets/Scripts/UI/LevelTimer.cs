@@ -52,6 +52,17 @@ public class LevelTimer : MonoBehaviour
         float secondAll = LevelTime.CDTime * (1 - LevelTime.CD);
         float min = secondAll / 60.0f;
         float second = secondAll % 60.0f;
-        m_progressText.text = ((int)min).ToString() + ":" + ((int)second).ToString();
+
+        string s_second;
+        if (second < 10)
+        {
+            s_second = "0" + ((int)second).ToString();
+        }
+        else
+        {
+            s_second = ((int)second).ToString();
+        }
+
+        m_progressText.text = ((int)min).ToString() + ":" + s_second;
     }
 }
