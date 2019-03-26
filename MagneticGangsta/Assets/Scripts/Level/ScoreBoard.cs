@@ -41,12 +41,6 @@ public class ScoreBoard
                 }
                 GetScores?.Invoke(attacker);
 
-
-                var enumerator = Scores.GetEnumerator();
-                while (enumerator.MoveNext())
-                {
-                    Debug.Log(enumerator.Current.Key + ":" + enumerator.Current.Value);
-                }
             }
         }
     }
