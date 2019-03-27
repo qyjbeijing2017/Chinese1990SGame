@@ -70,5 +70,14 @@ public class AnimationController : PlayerFunctionBase
     void OnAttackStop() { m_animator.SetBool("Attack", false); }
 
 
-    void OnVertigo(bool value) { m_isVertigo = value; m_animator.SetBool("Vertigo", value); }
+    void OnVertigo(bool value)
+    {
+        m_isVertigo = value;
+        if (value)
+        {
+            m_animator.SetTrigger("VertigoTrigger");
+        }
+
+        m_animator.SetBool("Vertigo", value);
+    }
 }

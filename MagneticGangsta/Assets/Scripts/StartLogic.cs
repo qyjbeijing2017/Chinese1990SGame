@@ -19,7 +19,9 @@ public class StartLogic : MonoBehaviour
         quit.onClick.AddListener(OnQuit);
         start.onClick.AddListener(OnStart);
         about.onClick.AddListener(OnAbout);
-
+        start.gameObject.SetActive(false);
+        about.gameObject.SetActive(false);
+        quit.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class StartLogic : MonoBehaviour
     public void OnStart()
     {
         Daemon.Instance.Init();
-        LoadSceneManager.Instance.LoadSceneAsync("Level1Scene");
+        LoadSceneManager.Instance.LoadSceneAsync("ChooseLevelScene");
     }
 
     public void OnAbout()

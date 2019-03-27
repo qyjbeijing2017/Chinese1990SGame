@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelTime:
-    CDTime: 40
+    CDTime: 120
   ChangeColorTime: 30
   m_progress: {fileID: 476382803}
   m_progressText: {fileID: 777583658}
@@ -738,7 +738,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 05cbf71773ac131438f9c1e5ac13cb19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61f8c20dca2b5544280180b2a087660d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
