@@ -39,7 +39,7 @@ public class BeHitBase : PlayerFunctionBase
             }
             if (Player.OnBeHit != null)
             {
-                Player.OnBeHit(damage.Attacker.Player);
+                Player.OnBeHit(damage);
             }
         }
     }

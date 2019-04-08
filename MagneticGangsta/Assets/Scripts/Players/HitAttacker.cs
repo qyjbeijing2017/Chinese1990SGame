@@ -14,16 +14,23 @@ public class HitAttacker : PlayerFunctionBase
     public override void PlayerInit()
     {
         Player.OnBeHit += OnBeHit;
-        Player.OnAttack += OnBeHit;
+        Player.OnAttack += OnAttack;
         AttackerLoginTime.OnTimeOut += OnSignOut;
 
     }
 
-    void OnBeHit(PlayerBase attacker)
+    void OnBeHit(DamageBase damage)
     {
-        m_attacker = attacker;
+        m_attacker = damage.Attacker.Player;
         AttackerLoginTime.Start();
     }
+
+    void OnAttack(PlayerBase player)
+    {
+        m_attacker = player;
+        AttackerLoginTime.Start();
+    }
+
 
     void OnSignOut()
     {

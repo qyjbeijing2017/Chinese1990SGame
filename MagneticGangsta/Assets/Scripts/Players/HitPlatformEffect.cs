@@ -21,9 +21,9 @@ public class HitPlatformEffect : PlayerFunctionBase
     }
 
 
-    private void OnBeHit(PlayerBase attacker)
+    private void OnBeHit(DamageBase damage)
     {
-        Vector2 orgin2Attacker = attacker.transform.position - Player.transform.position;
+        Vector2 orgin2Attacker = damage.Attacker.Player.transform.position - Player.transform.position;
         float attackAngle = Vector2.Angle(orgin2Attacker, Vector2.up) * 2.0f;
         if (attackAngle > HitAngle) return;
 

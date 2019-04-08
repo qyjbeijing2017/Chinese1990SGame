@@ -14,10 +14,10 @@ public class PlayerBase : MonoBehaviour
 
     #region Attribute
 
-    [HideInInspector] public bool IsMoving = false;
-    [HideInInspector] public bool IsOnGround = false;
-    [HideInInspector] public bool IsLockOption = false;
-    [HideInInspector] public bool IsDefence = false;
+     public bool IsMoving = false;
+     public bool IsOnGround = false;
+     public bool IsLockOption = false;
+     public bool IsDefence = false;
 
     public Rigidbody2D PlayerRigidbody2D;
 
@@ -27,7 +27,7 @@ public class PlayerBase : MonoBehaviour
 
     #region Events
 
-    public UnityAction<PlayerBase> OnBeHit;
+    public UnityAction<DamageBase> OnBeHit;
     public UnityAction<PlayerBase> OnAttack;
     public UnityAction<int> OnJump;
     public UnityAction OnChangePolarity;

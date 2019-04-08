@@ -38,7 +38,7 @@ public class VertigoAction : PlayerFunctionBase
         Player.OnBeHit += OnAttack;
     }
 
-    void OnAttack(PlayerBase player)
+    void OnAttack(DamageBase damage)
     {
         VertigoEffectEnableTime.Start();
     }
