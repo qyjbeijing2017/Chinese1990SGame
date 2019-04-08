@@ -34,7 +34,7 @@ public class VertigoAction : PlayerFunctionBase
 
     public override void PlayerInit()
     {
-        Player.OnAttack += OnAttack;
+        //Player.OnAttack += OnAttack;
         Player.OnBeHit += OnAttack;
     }
 
