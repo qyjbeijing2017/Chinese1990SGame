@@ -801,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &519326803
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -921,7 +921,7 @@ MonoBehaviour:
   collider: {fileID: 0}
   AttackDamage:
     Attacker: {fileID: 0}
-    AttackForce: 300
+    AttackForce: 600
     AttackPolarity:
       Value: 0
     Buffes: []
