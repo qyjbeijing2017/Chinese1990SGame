@@ -29,7 +29,7 @@ public class PlayerReborn : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerBase player = collision.GetComponent<PlayerBase>();
-        if (player != null)
+        if (player != null && player.IsPlayer)
         {
             if (!player.MainCollider.IsTouching(Area)) return;
             player.OnDie?.Invoke();
@@ -40,7 +40,7 @@ public class PlayerReborn : MonoBehaviour
 
     private void OnPlayerDie(PlayerBase player)
     {
-        StartCoroutine("Reborn",player);
+        StartCoroutine("Reborn", player);
 
     }
 

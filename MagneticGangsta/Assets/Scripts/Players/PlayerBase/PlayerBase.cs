@@ -9,6 +9,8 @@ public class PlayerBase : MonoBehaviour
 
     public int ID;
 
+    virtual public bool IsPlayer { get { return true; } }
+
 
     #region Attribute
 

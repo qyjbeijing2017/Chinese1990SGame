@@ -15,7 +15,8 @@ public class LevelControl : MonoSingleton<LevelControl>
         PlayerBase[] players = FindObjectsOfType<PlayerBase>();
         for (int i = 0; i < players.Length; i++)
         {
-            Players.Add(players[i].ID, players[i]);
+            if (players[i].IsPlayer)
+                Players.Add(players[i].ID, players[i]);
         }
 
         if (!playerReborn)
