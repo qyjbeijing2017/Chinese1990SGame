@@ -12,7 +12,7 @@ public class CDBase : System.Object
     public float CDTime = 0.0f;
 
     public event UnityAction OnTimeOut;
-
+    public event UnityAction OnStart;
 
     float m_timer = 0.0f;
     float NowTimer
@@ -23,35 +23,43 @@ public class CDBase : System.Object
         }
     }
 
-    CDBase()
+    public CDBase()
     {
         CDTime = 0.0f;
     }
-    CDBase(float time)
+    public CDBase(float time)
     {
         CDTime = time;
     }
 
     public void Start()
     {
+        Stop();
         m_timer = 0.0f;
         m_cd = 0.0f;
-        Daemon.Instance.StopCoroutine("CDNow");
-        Daemon.Instance.StartCoroutine("CDNow");
+        Daemon.Instance.DaemonUpdate += CDNow;
+        OnStart?.Invoke();
     }
 
-    IEnumerator CDNow()
+    void CDNow()
     {
-        while (m_timer < CDTime)
+        if (m_timer < CDTime)
         {
             m_cd = m_timer / CDTime;
             m_timer += UnityEngine.Time.deltaTime;
-            yield return null;
         }
-        if (OnTimeOut != null)
+        else
         {
-            OnTimeOut.Invoke();
+            m_cd = 1.0f;
+            if (OnTimeOut != null) OnTimeOut.Invoke();
+            Stop();
         }
-    }
 
+    }
+    public void Stop()
+    {
+        m_timer = CDTime;
+        m_cd = 1.0f;
+        Daemon.Instance.DaemonUpdate -= CDNow;
+    }
 }

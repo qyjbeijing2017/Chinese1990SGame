@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DaemonTools;
 using UnityEngine.UI;
+using DaemonTools;
 
 public class StartLogic : MonoBehaviour
 {
@@ -18,7 +19,9 @@ public class StartLogic : MonoBehaviour
         quit.onClick.AddListener(OnQuit);
         start.onClick.AddListener(OnStart);
         about.onClick.AddListener(OnAbout);
-
+        start.gameObject.SetActive(false);
+        about.gameObject.SetActive(false);
+        quit.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,15 +39,16 @@ public class StartLogic : MonoBehaviour
 
     public void OnStart()
     {
-        print("start");
+        Daemon.Instance.Init();
+        LoadSceneManager.Instance.LoadSceneAsync("ChooseLevelScene");
     }
 
     public void OnAbout()
     {
-        print("about");
+
     }
     public void OnQuit()
     {
-        print("quit");
+        Application.Quit();
     }
 }
