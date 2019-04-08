@@ -18,7 +18,7 @@ public class PowerShow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_powerImage.SetActive(false);
+        //m_powerImage.SetActive(false);
         m_powerSlider.value = 1.0f;
         m_power.OnEmptyRecoveryStart += () => { StartCoroutine("PowerRecovery"); };
         m_power.OnEmptyRecoveryEnd += () =>
@@ -34,7 +34,7 @@ public class PowerShow : MonoBehaviour
     {
         if (m_power.PowerNow < m_power.MaxPower)
         {
-            StopCoroutine("PowerEndShow");
+            //StopCoroutine("PowerEndShow");
             m_powerImage.SetActive(true);
             m_bg.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             m_filled.color = m_bg.color;
@@ -42,7 +42,7 @@ public class PowerShow : MonoBehaviour
         }
         else
         {
-            StartCoroutine("PowerEndShow");
+            //StartCoroutine("PowerEndShow");
         }
 
         m_powerSlider.value = m_power.PowerNow / m_power.MaxPower;
