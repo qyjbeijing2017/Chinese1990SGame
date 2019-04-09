@@ -794,6 +794,7 @@ GameObject:
   - component: {fileID: 7261629672798447143}
   - component: {fileID: 1902937335536070198}
   - component: {fileID: 1518935208}
+  - component: {fileID: 5617439073490234246}
   m_Layer: 9
   m_Name: Player_Red
   m_TagString: Player
@@ -1208,6 +1209,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   DelayTime: 0.3
+--- !u!114 &5617439073490234246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716117706817560014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91f822d0932166499d8c86a9ab8c561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6933558259037679964
 GameObject:
   m_ObjectHideFlags: 0
