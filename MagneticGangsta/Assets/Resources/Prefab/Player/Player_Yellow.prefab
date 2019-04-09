@@ -894,6 +894,7 @@ MonoBehaviour:
   IsOnGround: 0
   IsLockOption: 0
   IsDefence: 0
+  IsDead: 0
   PlayerRigidbody2D: {fileID: 6815917861611752448}
   PlayerPolarity:
     Value: 1
