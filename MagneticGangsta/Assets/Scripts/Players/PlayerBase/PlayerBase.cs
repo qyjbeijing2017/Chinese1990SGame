@@ -14,10 +14,11 @@ public class PlayerBase : MonoBehaviour
 
     #region Attribute
 
-     public bool IsMoving = false;
-     public bool IsOnGround = false;
-     public bool IsLockOption = false;
-     public bool IsDefence = false;
+    public bool IsMoving = false;
+    public bool IsOnGround = false;
+    public bool IsLockOption = false;
+    public bool IsDefence = false;
+    public bool IsDead = false;
 
     public Rigidbody2D PlayerRigidbody2D;
 
@@ -37,6 +38,7 @@ public class PlayerBase : MonoBehaviour
     public UnityAction OnExitGround;
 
     public UnityAction OnDie;
+    public UnityAction OnReborn;
     #endregion Events
 
     Dictionary<string, PlayerFunctionBase> m_functionBases = new Dictionary<string, PlayerFunctionBase>();
@@ -119,6 +121,7 @@ public class PlayerBase : MonoBehaviour
         IsOnGround = false;
         IsLockOption = true;
         IsDefence = false;
+        IsDead = true;
         gameObject.SetActive(false);
     }
 
@@ -128,6 +131,7 @@ public class PlayerBase : MonoBehaviour
         transform.position = position;
         IsLockOption = false;
         gameObject.SetActive(true);
+        IsDead = false;
     }
 }
 

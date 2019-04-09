@@ -11,7 +11,7 @@ public class ChangeP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        player.OnDie += OnDie;
     }
 
     // Update is called once per frame
@@ -29,5 +29,19 @@ public class ChangeP : MonoBehaviour
             sourth.SetActive(true);
         }
 
+    }
+
+    void OnDie()
+    {
+        if (player.PlayerPolarity == Polarity.North)
+        {
+            north.SetActive(true);
+            sourth.SetActive(false);
+        }
+        if (player.PlayerPolarity == Polarity.Sourth)
+        {
+            north.SetActive(false);
+            sourth.SetActive(true);
+        }
     }
 }

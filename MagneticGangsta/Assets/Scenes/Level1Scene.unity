@@ -1561,7 +1561,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1033902810}
-  - component: {fileID: 1033902812}
   - component: {fileID: 1033902811}
   m_Layer: 0
   m_Name: PlayerReborn
@@ -1598,28 +1597,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RebornWaitTime: 3
-  Area: {fileID: 0}
---- !u!68 &1033902812
-EdgeCollider2D:
+  m_leftEdge: -15.9
+  m_rightEdge: 15.5
+  m_topEdge: 9.1
+  m_buttonEdge: -9.1
+--- !u!1 &1053955188 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1597397445722083930, guid: c6422a0f38ec7c744b558723afacb449,
+    type: 3}
+  m_PrefabInstance: {fileID: 638890318}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1053955210
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033902809}
+  m_GameObject: {fileID: 1053955188}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 20.081278, y: -9.899147}
-  - {x: 20.075073, y: 10.008527}
-  - {x: -20.017073, y: 9.96595}
-  - {x: -19.905188, y: -9.969501}
-  - {x: 19.962732, y: -9.955073}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc13f208dffb91c40a860f2e64e72c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  DelayTime: 0.3
 --- !u!1001 &1095722820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1990,6 +1991,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1176134306249604254, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176134306249604254, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1176134306249604254, guid: f2b3838996916474585dd8d2c1470fbb,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
 --- !u!1 &1435169001
@@ -2032,6 +2048,46 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 563275313}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1494213284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639821991439264011, guid: 966548d675839d349a0e10c4667b9ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1095722820}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494213306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494213284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc13f208dffb91c40a860f2e64e72c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  DelayTime: 0.3
+--- !u!1 &1518935186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6716117706817560014, guid: f2b3838996916474585dd8d2c1470fbb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1371145203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1518935208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518935186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc13f208dffb91c40a860f2e64e72c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  DelayTime: 0.3
 --- !u!1 &1704088164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2635,7 +2691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842d8b54453aeba4dafac17b742af6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cycloud: {fileID: 5145286548189228628, guid: d9c614997342532498431752bc7f5201, type: 3}
+  Cycloud: {fileID: 896720271457445065, guid: d9c614997342532498431752bc7f5201, type: 3}
   targetPositions:
   - StartTransform: {fileID: 324815727}
     EndTransform: {fileID: 876114505}
