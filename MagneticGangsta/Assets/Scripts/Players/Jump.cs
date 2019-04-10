@@ -11,6 +11,8 @@ public class Jump : PlayerFunctionBase
 
     public int JumpTimes { get { return m_jumpTimes; } }
 
+    public override string Name { get { return "Jump"; } }
+
     public override void PlayerInit()
     {
         m_rigidbody2d = GetComponent<Rigidbody2D>();

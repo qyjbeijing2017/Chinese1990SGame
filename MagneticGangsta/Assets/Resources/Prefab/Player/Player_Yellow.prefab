@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 159329180152812619}
   - component: {fileID: 3519629107842725500}
   - component: {fileID: 2953004972124559800}
-  - component: {fileID: 3331368894924067121}
+  - component: {fileID: 2894565424208371079}
   - component: {fileID: 8990793202058891121}
   - component: {fileID: 4921034289909576380}
   - component: {fileID: 8660759291876140736}
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   DefenceCost: 20
---- !u!114 &3331368894924067121
+--- !u!114 &2894565424208371079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3639821991439264011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d8e6afd760179409cb79822e788b8d, type: 3}
+  m_Script: {fileID: 11500000, guid: fa8004acad1e84e4ba7d48f924a5f280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}

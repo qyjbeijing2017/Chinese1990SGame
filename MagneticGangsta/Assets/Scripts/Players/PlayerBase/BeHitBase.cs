@@ -5,6 +5,7 @@ using UnityEngine;
 public class BeHitBase : PlayerFunctionBase
 {
 
+    public override string Name { get { return "BeHit"; } }
 
     public void OnBeHitBefore(DamageBase damage)
     {

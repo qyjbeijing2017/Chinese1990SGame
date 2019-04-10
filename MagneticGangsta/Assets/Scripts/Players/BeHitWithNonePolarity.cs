@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BeHitWithNonePolarity : BeHitWithCoefficient
 {
+
+
     protected override void OnBeHit(DamageBase damage)
     {
         base.OnBeHit(damage);

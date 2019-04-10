@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 2129216095696740855}
   - component: {fileID: 2190959250627225289}
   - component: {fileID: 8392989219317036955}
-  - component: {fileID: 4403082913650087504}
   - component: {fileID: 7165189966933561942}
+  - component: {fileID: 6355106414001263655}
   - component: {fileID: 941521079454332298}
   - component: {fileID: 7848314334877792679}
   - component: {fileID: 2685847089105497141}
@@ -349,23 +349,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   DefenceCost: 20
---- !u!114 &4403082913650087504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597397445722083930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d8e6afd760179409cb79822e788b8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  BeHitEffectTime:
-    CDTime: 0.3
-  HitAngle: 60
-  m_platformEffector: {fileID: 0}
 --- !u!114 &7165189966933561942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +365,23 @@ MonoBehaviour:
   m_attacker: {fileID: 0}
   AttackerLoginTime:
     CDTime: 3
+--- !u!114 &6355106414001263655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597397445722083930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8004acad1e84e4ba7d48f924a5f280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  BeHitEffectTime:
+    CDTime: 0.3
+  HitAngle: 60
+  m_platformEffector: {fileID: 0}
 --- !u!114 &941521079454332298
 MonoBehaviour:
   m_ObjectHideFlags: 0

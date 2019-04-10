@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeHitEffect : PlayerFunctionBase
 {
-
+    public override string Name { get { return "BeHitEffect"; } }
     public float DelayTime = 0.3f;
 
     public override void PlayerInit()

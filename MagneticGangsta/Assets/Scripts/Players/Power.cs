@@ -5,8 +5,10 @@ using UnityEngine.Events;
 
 public class Power : PlayerFunctionBase
 {
+    public override string Name { get { return "Power"; } }
+
     public float MaxPower = 100.0f;
-    [SerializeField]private float m_powerNow = 100.0f;
+    [SerializeField] private float m_powerNow = 100.0f;
     public float PowerNow { get { return m_powerNow; } }
 
     public float RecoverySpeed = 20.0f;
@@ -28,7 +30,7 @@ public class Power : PlayerFunctionBase
     {
         if (RecoveryCD.CD < 1 || m_powerNow >= MaxPower) return;
         m_powerNow += RecoverySpeed * Time.deltaTime;
-        if (m_powerNow >= MaxPower) { m_isEmptyRecovery = false;  OnEmptyRecoveryEnd?.Invoke(); }
+        if (m_powerNow >= MaxPower) { m_isEmptyRecovery = false; OnEmptyRecoveryEnd?.Invoke(); }
         if (m_powerNow > MaxPower) m_powerNow = MaxPower;
     }
 

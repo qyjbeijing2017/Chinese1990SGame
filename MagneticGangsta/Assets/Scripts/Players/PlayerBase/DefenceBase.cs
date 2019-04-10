@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DefenceBase : PlayerFunctionBase
 {
+    public override string Name { get { return "Defence"; } }
+
     public float DefenceCost = 20.0f;
     public override void PlayerLoop()
     {

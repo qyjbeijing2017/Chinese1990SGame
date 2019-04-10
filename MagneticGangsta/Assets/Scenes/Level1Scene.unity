@@ -903,7 +903,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 2582dec95f170c246b8216a08c0b9d5d,
         type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 7852029762664549478, guid: 358902c9e54228d479a02dd71450bc52,
+        type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
+    - target: {fileID: 7852029762664549478, guid: 358902c9e54228d479a02dd71450bc52,
+        type: 3}
+      propertyPath: m_UseColliderMask
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3331368894924067121, guid: 358902c9e54228d479a02dd71450bc52, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 358902c9e54228d479a02dd71450bc52, type: 3}
 --- !u!1001 &563275313
 PrefabInstance:
@@ -1191,6 +1202,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 35a76bfae59b2a846add9291fe6cf478,
         type: 3}
+    - target: {fileID: 5454244435824894835, guid: c6422a0f38ec7c744b558723afacb449,
+        type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454244435824894835, guid: c6422a0f38ec7c744b558723afacb449,
+        type: 3}
+      propertyPath: m_UseColliderMask
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7030744972970950031, guid: c6422a0f38ec7c744b558723afacb449,
         type: 3}
       propertyPath: m_Size.x
@@ -1206,7 +1227,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4403082913650087504, guid: c6422a0f38ec7c744b558723afacb449, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c6422a0f38ec7c744b558723afacb449, type: 3}
 --- !u!1 &865924766
 GameObject:
@@ -1711,7 +1733,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: a234cab2a651a7b40be774da85830663,
         type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 7852029762664549478, guid: 966548d675839d349a0e10c4667b9ff9,
+        type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
+    - target: {fileID: 7852029762664549478, guid: 966548d675839d349a0e10c4667b9ff9,
+        type: 3}
+      propertyPath: m_UseColliderMask
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3331368894924067121, guid: 966548d675839d349a0e10c4667b9ff9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 966548d675839d349a0e10c4667b9ff9, type: 3}
 --- !u!1 &1166349847
 GameObject:
@@ -2010,7 +2043,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 09e88e9482eb9d7459880dfa3667b08a,
         type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 1013101895, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 1536
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013101895, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
+      propertyPath: m_UseColliderMask
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7437110579424545691, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f2b3838996916474585dd8d2c1470fbb, type: 3}
 --- !u!1 &1435169001
 GameObject:
@@ -2734,7 +2776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2033848156
 MonoBehaviour:
   m_ObjectHideFlags: 0

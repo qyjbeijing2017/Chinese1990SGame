@@ -14,6 +14,8 @@ public class GroundCheck : PlayerFunctionBase
     public LayerMask GroundMask = 1 << 9 | 1 << 10;
 
 
+    public override string Name { get { return "GroundCheck"; } }
+
     public override void PlayerInit()
     {
         m_rigidbody2d = GetComponent<Rigidbody2D>();

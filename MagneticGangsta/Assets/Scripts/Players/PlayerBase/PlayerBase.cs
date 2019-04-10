@@ -12,6 +12,7 @@ public class PlayerBase : MonoBehaviour
     virtual public bool IsPlayer { get { return true; } }
 
 
+
     #region Attribute
 
     public bool IsMoving = false;
@@ -66,8 +67,7 @@ public class PlayerBase : MonoBehaviour
         {
             playerFunctionBases[i].Player = this;
             OnDie += playerFunctionBases[i].OnPlayerDie;
-            Type t = playerFunctionBases[i].GetType();
-            if (!m_functionBases.ContainsKey(t.Name)) m_functionBases.Add(t.Name, playerFunctionBases[i]);
+            if (!m_functionBases.ContainsKey(playerFunctionBases[i].Name)) m_functionBases.Add(playerFunctionBases[i].Name, playerFunctionBases[i]);
         }
 
         var enumerator = FunctionBases.GetEnumerator();

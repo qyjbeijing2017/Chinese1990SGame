@@ -14,11 +14,11 @@ public class AttackSimple : PlayerFunctionBase
 
     public override void PlayerInit()
     {
-        if (collider != null)
-        {
-            collider = GetComponent<Collider2D>();
-        }
-        
+        if (!collider)
+            collider = GetComponent<CircleCollider2D>() as Collider2D;
+
+        AttackDamage.Attacker = this;
+
     }
 
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HitAttacker : PlayerFunctionBase
 {
+    public override string Name { get { return "HitAttacker"; } }
+
 
     [SerializeField]PlayerBase m_attacker = null;
 
