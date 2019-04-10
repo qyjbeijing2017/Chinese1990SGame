@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 8167002999829825265}
   - component: {fileID: 5100897290944126247}
   - component: {fileID: 4560957508259680294}
-  - component: {fileID: 4980021560697502104}
+  - component: {fileID: 9175495632563446537}
   - component: {fileID: 159329180152812619}
   - component: {fileID: 3519629107842725500}
   - component: {fileID: 2953004972124559800}
@@ -808,7 +808,7 @@ MonoBehaviour:
     Buffes: []
     AttackPosition: {x: 0, y: 0}
   AttackCost: 30
---- !u!114 &4980021560697502104
+--- !u!114 &9175495632563446537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -817,7 +817,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3639821991439264011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33cde112aca4ac24a89ccebbf26ab350, type: 3}
+  m_Script: {fileID: 11500000, guid: a3f0cb8fb03eb5f49993fbd722b6349d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
