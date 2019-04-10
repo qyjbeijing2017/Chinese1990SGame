@@ -9,7 +9,6 @@ public class CycloudAttack : AttackBase
         if (!collider)
             collider = GetComponent<CircleCollider2D>() as Collider2D;
 
-
         AttackDamage.Attacker = this;
     }
 

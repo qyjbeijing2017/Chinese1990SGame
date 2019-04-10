@@ -35,7 +35,7 @@ public class PowerShow : MonoBehaviour
         if (m_power.PowerNow < m_power.MaxPower)
         {
             //StopCoroutine("PowerEndShow");
-            m_powerImage.SetActive(true);
+            //m_powerImage.SetActive(true);
             m_bg.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             m_filled.color = m_bg.color;
 
@@ -93,6 +93,6 @@ public class PowerShow : MonoBehaviour
             a -= m_disappearSpeed * Time.deltaTime;
             yield return null;
         }
-        m_powerImage.SetActive(false);
+        //m_powerImage.SetActive(false);
     }
 }

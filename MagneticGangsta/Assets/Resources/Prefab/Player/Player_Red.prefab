@@ -626,7 +626,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.5, y: 7.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -793,6 +793,8 @@ GameObject:
   - component: {fileID: 4416463435769550628}
   - component: {fileID: 7261629672798447143}
   - component: {fileID: 1902937335536070198}
+  - component: {fileID: 1518935208}
+  - component: {fileID: 5617439073490234246}
   m_Layer: 9
   m_Name: Player_Red
   m_TagString: Player
@@ -957,6 +959,7 @@ MonoBehaviour:
   IsOnGround: 0
   IsLockOption: 0
   IsDefence: 0
+  IsDead: 0
   PlayerRigidbody2D: {fileID: 9006169080334166748}
   PlayerPolarity:
     Value: 1
@@ -1192,6 +1195,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4
+--- !u!114 &1518935208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716117706817560014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc13f208dffb91c40a860f2e64e72c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  DelayTime: 0.3
+--- !u!114 &5617439073490234246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716117706817560014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91f822d0932166499d8c86a9ab8c561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6933558259037679964
 GameObject:
   m_ObjectHideFlags: 0
