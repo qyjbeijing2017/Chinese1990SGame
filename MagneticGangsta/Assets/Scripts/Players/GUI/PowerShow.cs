@@ -27,6 +27,13 @@ public class PowerShow : MonoBehaviour
             m_bg.color = m_normal;
             m_filled.color = m_normal;
         };
+
+        m_power.Player.OnDie += () =>
+        {
+            StopCoroutine("PowerRecovery");
+            m_bg.color = m_normal;
+            m_filled.color = m_normal;
+        };
     }
 
     // Update is called once per frame
