@@ -138,9 +138,10 @@ MonoBehaviour:
   IsOnGround: 0
   IsLockOption: 0
   IsDefence: 0
+  IsDead: 0
   PlayerRigidbody2D: {fileID: 0}
   PlayerPolarity:
-    Value: 1
+    Value: 2
   MainCollider: {fileID: 0}
 --- !u!114 &7755501414871339582
 MonoBehaviour:
@@ -155,13 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  OptionButton: Attack
-  AttackTime:
-    CDTime: 0.1
-  AttackCD:
-    CDTime: 1
-  ReactionCoefficient: 0.5
-  collider: {fileID: 0}
   AttackDamage:
     Attacker: {fileID: 0}
     AttackForce: 300
@@ -169,6 +163,9 @@ MonoBehaviour:
       Value: 0
     Buffes: []
     AttackPosition: {x: 0, y: 0}
+  IsAttack: 0
+  collider: {fileID: 115022342418595596}
+  centerForce: 0.134
 --- !u!114 &896720271457445065
 MonoBehaviour:
   m_ObjectHideFlags: 0
