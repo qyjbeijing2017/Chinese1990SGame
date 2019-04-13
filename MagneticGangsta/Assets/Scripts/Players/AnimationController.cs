@@ -48,8 +48,8 @@ public class AnimationController : PlayerFunctionBase
         }
         else
         {
-            if (inputDir < 0) Player.transform.localScale = new Vector3(-1, 1, 1);
-            if (inputDir > 0) Player.transform.localScale = new Vector3(1, 1, 1);
+            if (inputDir < -0.3) Player.transform.localScale = new Vector3(-1, 1, 1);
+            if (inputDir > 0.3) Player.transform.localScale = new Vector3(1, 1, 1);
         }
 
         m_animator.SetFloat("MoveSpeed", Mathf.Abs(inputDir));
