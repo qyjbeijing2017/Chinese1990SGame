@@ -12,13 +12,15 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     [Header("右边缘"), Range(0, 100)] public float RightEdge;
 
     [Space(20), Header("玩家最大距离屏占比"), Range(0, 1)] public float Dis2Size;
-    [Header("摄像机最小尺寸"), Range(0, 8)] public float SizeMin;
-    [Header("摄像机最大尺寸"), Range(8, 15)] public float SizeMax;
-    [Header("摄像机缩放速度"), Range(0, 5)] public float ScaleLowSpeed;
+    [Header("摄像机最小尺寸"), Range(0, 10)] public float SizeMin;
+    [Header("摄像机最大尺寸"), Range(3, 100)] public float SizeMax;
+    [Header("摄像机缩放速度"), Range(0, 10)] public float ScaleLowSpeed;
     [Header("摄像机拉伸速度"), Range(0, 100)] public float ScaleUpSpeed;
 
     [Space(20), Header("摄像机跟随速度"), Range(0, 10)] public float FollowSpeed;
     [Header("开始跟随中心点最大差值"), Range(0, 10)] public float StartFollowDis;
+
+    const int m_maxFollowItem = 1200;
 
     const float wh = 16.0f / 9.0f;
 
@@ -59,16 +61,16 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     {
         get
         {
-            if (Players == null)
+            if (FallowItem == null)
             {
                 return 0.0f;
             }
-            float a = Players[0].transform.position.x;
-            for (int i = 0; i < Players.Count; i++)
+            float a = FallowItem[0].transform.position.x;
+            for (int i = 0; i < FallowItem.Count; i++)
             {
-                if (Players[i].transform.position.x <= a)
+                if (FallowItem[i].transform.position.x <= a)
                 {
-                    a = Players[i].transform.position.x;
+                    a = FallowItem[i].transform.position.x;
                 }
             }
             return a;
@@ -78,16 +80,16 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     {
         get
         {
-            if (Players == null)
+            if (FallowItem == null)
             {
                 return 0.0f;
             }
-            float a = Players[0].transform.position.x;
-            for (int i = 0; i < Players.Count; i++)
+            float a = FallowItem[0].transform.position.x;
+            for (int i = 0; i < FallowItem.Count; i++)
             {
-                if (Players[i].transform.position.x >= a)
+                if (FallowItem[i].transform.position.x >= a)
                 {
-                    a = Players[i].transform.position.x;
+                    a = FallowItem[i].transform.position.x;
                 }
             }
             return a;
@@ -97,16 +99,16 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     {
         get
         {
-            if (Players == null)
+            if (FallowItem == null)
             {
                 return 0.0f;
             }
-            float a = Players[0].transform.position.y;
-            for (int i = 0; i < Players.Count; i++)
+            float a = FallowItem[0].transform.position.y;
+            for (int i = 0; i < FallowItem.Count; i++)
             {
-                if (Players[i].transform.position.y >= a)
+                if (FallowItem[i].transform.position.y >= a)
                 {
-                    a = Players[i].transform.position.y;
+                    a = FallowItem[i].transform.position.y;
                 }
             }
             return a;
@@ -117,56 +119,34 @@ public class CameraFollow : MonoSingleton<CameraFollow>
 
         get
         {
-            if (Players == null)
+            if (FallowItem == null)
             {
                 return 0.0f;
             }
-            float a = Players[0].transform.position.y;
-            for (int i = 0; i < Players.Count; i++)
+            float a = FallowItem[0].transform.position.y;
+            for (int i = 0; i < FallowItem.Count; i++)
             {
-                if (Players[i].transform.position.y <= a)
+                if (FallowItem[i].transform.position.y <= a)
                 {
-                    a = Players[i].transform.position.y;
+                    a = FallowItem[i].transform.position.y;
                 }
             }
             return a;
         }
     }
 
-    private List<MPlayerController> m_players;
-    public List<MPlayerController> Players
+    private Dictionary<int, GameObject> m_followItem = new Dictionary<int, GameObject>();
+    public List<GameObject> FallowItem
     {
         get
         {
-            if (m_players != null)
+            List<GameObject> followItem = new List<GameObject>();
+            var enumerator = m_followItem.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                for (int i = 0; i < m_players.Count; i++)
-                {
-                    if (null == m_players[i])
-                    {
-                        m_players.RemoveAt(i);
-                    }
-                }
-                return m_players;
+                followItem.Add(enumerator.Current.Value);                
             }
-
-            MPlayerController[] players = FindObjectsOfType<MPlayerController>();
-            if (players == null)
-            {
-                return null;
-            }
-            if (players.Length == 0)
-            {
-                return null;
-            }
-
-            m_players = new List<MPlayerController>();
-            for (int i = 0; i < players.Length; i++)
-            {
-                m_players.Add(players[i]);
-            }
-            return m_players;
-
+            return followItem;
         }
     }
 
@@ -175,15 +155,15 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     {
         get
         {
-            if (Players == null)
+            if (FallowItem == null || FallowItem .Count == 0)
             {
                 return Vector2.zero;
             }
-            List<MPlayerController> players = Players;
-            float top = Players[0].transform.position.y;
-            float button = Players[0].transform.position.y;
-            float left = Players[0].transform.position.x;
-            float right = Players[0].transform.position.x;
+            List<GameObject> players = FallowItem;
+            float top = FallowItem[0].transform.position.y;
+            float button = FallowItem[0].transform.position.y;
+            float left = FallowItem[0].transform.position.x;
+            float right = FallowItem[0].transform.position.x;
             for (int i = 1; i < players.Count; i++)
             {
                 if (players[i].transform.position.y >= top)
@@ -254,15 +234,15 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     {
         get
         {
-            if (Players == null)
+            if (FallowItem == null || FallowItem.Count == 0)
             {
                 return 0.0f;
             }
-            List<MPlayerController> players = Players;
-            float top = Players[0].transform.position.y;
-            float button = Players[0].transform.position.y;
-            float left = Players[0].transform.position.x;
-            float right = Players[0].transform.position.x;
+            List<GameObject> players = FallowItem;
+            float top = FallowItem[0].transform.position.y;
+            float button = FallowItem[0].transform.position.y;
+            float left = FallowItem[0].transform.position.x;
+            float right = FallowItem[0].transform.position.x;
             for (int i = 1; i < players.Count; i++)
             {
                 if (players[i].transform.position.y >= top)
@@ -327,4 +307,29 @@ public class CameraFollow : MonoSingleton<CameraFollow>
         CameraPositionFollow();
         CameraPositionLimit();
     }
+
+
+
+    public int AddFollowItem(GameObject obj)
+    {
+        int index = Random.Range(0, m_maxFollowItem);
+        while (m_followItem.ContainsKey(index))
+        {
+            index = Random.Range(0, m_maxFollowItem);
+        }
+        m_followItem.Add(index, obj);
+        return index;
+    }
+
+    public bool RemoveFollowItem(int index)
+    {
+        if (m_followItem.ContainsKey(index))
+        {
+            m_followItem.Remove(index);
+            return true;
+        }
+
+        return false;
+    }
+
 }

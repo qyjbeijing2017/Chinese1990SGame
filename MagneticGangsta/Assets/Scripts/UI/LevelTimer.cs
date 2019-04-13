@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LevelTimer : MonoBehaviour
 {
-    public CDBase LevelTime;
+    public CDBase LevelTime { get { return LevelControl.Instance.LevelTime; } }
     [SerializeField] public float ChangeColorTime;
     [SerializeField] private Image m_progress;
     [SerializeField] private Text m_progressText;
@@ -15,10 +15,6 @@ public class LevelTimer : MonoBehaviour
     [SerializeField] private Color m_textEndColor;
     [SerializeField] private Color m_imageEndColor;
 
-    private void Start()
-    {
-        LevelTime.Start();
-    }
 
     private void Update()
     {

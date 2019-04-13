@@ -24,6 +24,8 @@ public class LevelControl : MonoSingleton<LevelControl>
     public PlayerReborn playerReborn;
     public ScoreBoard LevelScoreBoard = new ScoreBoard();
 
+    public CDBase LevelTime = new CDBase(120.0f);
+
     new void Awake()
     {
         base.Awake();
@@ -41,6 +43,12 @@ public class LevelControl : MonoSingleton<LevelControl>
 
     // Start is called before the first frame update
     void Start()
+    {
+        LevelTime.OnTimeOut += OnLevelEnd;
+        LevelTime.Start();
+    }
+
+    void OnLevelEnd()
     {
 
     }
