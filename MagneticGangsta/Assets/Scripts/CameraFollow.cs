@@ -12,8 +12,8 @@ public class CameraFollow : MonoSingleton<CameraFollow>
     [Header("右边缘"), Range(0, 100)] public float RightEdge;
 
     [Space(20), Header("玩家最大距离屏占比"), Range(0, 1)] public float Dis2Size;
-    [Header("摄像机最小尺寸"), Range(0, 3)] public float SizeMin;
-    [Header("摄像机最大尺寸"), Range(3, 10)] public float SizeMax;
+    [Header("摄像机最小尺寸"), Range(0, 8)] public float SizeMin;
+    [Header("摄像机最大尺寸"), Range(8, 15)] public float SizeMax;
     [Header("摄像机缩放速度"), Range(0, 5)] public float ScaleLowSpeed;
     [Header("摄像机拉伸速度"), Range(0, 100)] public float ScaleUpSpeed;
 

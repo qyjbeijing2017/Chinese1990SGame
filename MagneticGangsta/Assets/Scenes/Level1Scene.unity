@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1461,7 +1461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &909862584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1741,10 +1741,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RebornWaitTime: 3
-  m_leftEdge: -15.9
-  m_rightEdge: 15.5
-  m_topEdge: 9.1
-  m_buttonEdge: -9.1
+  m_leftEdge: -18
+  m_rightEdge: 18
+  m_topEdge: 12
+  m_buttonEdge: -12
 --- !u!1001 &1095722820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2683,7 +2683,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.78
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2707,7 +2707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842617019}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 0.01, z: -1}
+  m_LocalPosition: {x: -0.37940687, y: 2.5248487, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2722,9 +2722,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1842617019}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc9f6eeff3d4e984d8528f9755ef6a5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 827e867ba731e04419a372dc06796914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TopEdge: 12
+  ButtonEdge: -12
+  LeftEdge: -18
+  RightEdge: 18
+  Dis2Size: 0.7
+  SizeMin: 8
+  SizeMax: 10
+  ScaleLowSpeed: 2
+  ScaleUpSpeed: 4
+  FollowSpeed: 4
+  StartFollowDis: 1.5
 --- !u!1 &1922536390
 GameObject:
   m_ObjectHideFlags: 0
