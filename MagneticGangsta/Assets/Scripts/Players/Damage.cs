@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class DamageBase : System.Object
 {
-    [HideInInspector] public AttackBase Attacker = null;
+    [HideInInspector] public PlayerFunctionBase Attacker = null;
     public float AttackForce = 300.0f;
-    [HideInInspector] public Polarity AttackPolarity = Polarity.None;
+    public Polarity AttackPolarity = Polarity.None;
     public List<PlayerBuffBase> Buffes = new List<PlayerBuffBase>();
     [HideInInspector] public Vector2 AttackPosition = Vector2.zero;
 

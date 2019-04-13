@@ -68,3 +68,11 @@ public struct Polarity
         return new Polarity(Value);
     }
 }
+
+public enum Charactor
+{
+    Red = 1,
+    Yellow = 2,
+    Blue = 3,
+    Green = 4
+}

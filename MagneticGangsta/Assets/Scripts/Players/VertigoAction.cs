@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class VertigoAction : PlayerFunctionBase
 {
+    public override string Name { get { return "VertigoAction"; } }
 
     public bool IsEffectEnable
     {
@@ -28,17 +29,19 @@ public class VertigoAction : PlayerFunctionBase
 
     public event UnityAction<bool> VertigoAct;
 
+    [SerializeField] protected Collider2D collider;
+
 
     private Vector2 m_lastVelocity;
     public Vector2 LastVelocity { get { return m_lastVelocity; } }
 
     public override void PlayerInit()
     {
-        Player.OnAttack += OnAttack;
+        //Player.OnAttack += OnAttack;
         Player.OnBeHit += OnAttack;
     }
 
-    void OnAttack(PlayerBase player)
+    void OnAttack(DamageBase damage)
     {
         VertigoEffectEnableTime.Start();
     }
@@ -49,8 +52,13 @@ public class VertigoAction : PlayerFunctionBase
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collider.IsTouching(collision))
+        {
+            return;
+        }
+
         if (IsEffectEnable && collision.gameObject.layer == 9 && !Player.IsDefence)
         {
             PlayerBase other = collision.gameObject.GetComponent<PlayerBase>();
@@ -83,9 +91,12 @@ public class VertigoAction : PlayerFunctionBase
                 VertigoAct?.Invoke(true);
             }
         }
+
     }
 
-    void OnVertigoEnd()
+
+
+    protected void OnVertigoEnd()
     {
         VertigoAct?.Invoke(false);
     }

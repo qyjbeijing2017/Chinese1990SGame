@@ -50,9 +50,9 @@ public class CDBase : System.Object
         }
         else
         {
-            m_cd = 1.0f;
-            if (OnTimeOut != null) OnTimeOut.Invoke();
+            m_cd = 1.0f;        
             Stop();
+            if (OnTimeOut != null) OnTimeOut.Invoke();
         }
 
     }

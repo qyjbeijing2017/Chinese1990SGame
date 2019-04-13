@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimationController : PlayerFunctionBase
 {
+    public override string Name { get { return "AnimationController"; } }
+
     [SerializeField] Animator m_animator;
 
     [SerializeField] Transform MagneticFieldGUI;
@@ -19,9 +21,9 @@ public class AnimationController : PlayerFunctionBase
         Player.OnJump += OnJump;
         Player.OnGround += OnGround;
 
-        if (Player.FunctionBases.ContainsKey("AttackWithCost"))
+        if (Player.FunctionBases.ContainsKey("Attack"))
         {
-            AttackBase attack = Player.FunctionBases["AttackWithCost"] as AttackBase;
+            AttackBase attack = Player.FunctionBases["Attack"] as AttackBase;
             attack.AttackTime.OnStart += OnAttackStart;
             attack.AttackTime.OnTimeOut += OnAttackStop;
             float r = (attack.collider as CircleCollider2D).radius;

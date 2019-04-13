@@ -5,13 +5,26 @@ using UnityEngine.Events;
 
 public class PlayerReborn : MonoBehaviour
 {
+
+    public Dictionary<int, PlayerBase> Players = null;
+
+
     public event UnityAction<PlayerBase> OnDie;
 
     public float RebornWaitTime = 3.0f;
 
     private List<Transform> m_rebornPoints = new List<Transform>();
 
-    public Collider2D Area;
+
+    [Range(-150,0), SerializeField] float m_leftEdge = -20.0f;
+    [Range(0, 150), SerializeField] float m_rightEdge = 20.0f;
+    [Range(0, 150), SerializeField] float m_topEdge = 20.0f;
+    [Range(-150, 0), SerializeField] float m_buttonEdge = -20.0f;
+
+    public float LeftEdge { get { return m_leftEdge; } }
+    public float RightEdge { get { return m_rightEdge; } }
+    public float TopEdge { get { return m_topEdge; } }
+    public float ButtonEdge { get { return m_buttonEdge; } }
 
     private void Awake()
     {
@@ -21,26 +34,36 @@ public class PlayerReborn : MonoBehaviour
             m_rebornPoints.Add(rebornpoints[i].transform);
         }
         OnDie += OnPlayerDie;
-        Area = !Area ? GetComponent<Collider2D>() : Area;
+        Players = LevelControl.Instance.Players;
 
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void Update()
     {
-        PlayerBase player = collision.GetComponent<PlayerBase>();
-        if (player != null)
+        var enumerator = Players.GetEnumerator();
+
+        while (enumerator.MoveNext())
         {
-            if (!player.MainCollider.IsTouching(Area)) return;
-            player.OnDie?.Invoke();
-            OnDie?.Invoke(player);
+            if (enumerator.Current.Value.IsDead)
+            {
+                continue;
+            }
+            Vector2 pos = enumerator.Current.Value.transform.position;
+            if(pos.x<m_leftEdge || pos.x>m_rightEdge || pos.y>m_topEdge || pos.y < m_buttonEdge)
+            {
+                OnDie?.Invoke(enumerator.Current.Value);
+                enumerator.Current.Value.OnDie?.Invoke();
+            }
+
         }
     }
 
 
     private void OnPlayerDie(PlayerBase player)
     {
-        StartCoroutine("Reborn",player);
+        StartCoroutine("Reborn", player);
 
     }
 
@@ -52,6 +75,10 @@ public class PlayerReborn : MonoBehaviour
             yield return new WaitForSeconds(RebornWaitTime);
 
             player.ReBorn(m_rebornPoints[Random.Range(0, 4)].position);
+            player.OnReborn?.Invoke();
         }
     }
+
+
+
 }

@@ -358,7 +358,7 @@ RectTransform:
   m_GameObject: {fileID: 2522009573700649985}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6374080263289453030}
   - {fileID: 7665048872031365320}
@@ -367,7 +367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5612584861734441536
@@ -639,7 +639,7 @@ RectTransform:
   m_GameObject: {fileID: 3299466705285811050}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4420548501030386886}
   - {fileID: 3003896491419757964}
@@ -648,7 +648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: 50, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4044350140441802291
@@ -720,15 +720,17 @@ GameObject:
   - component: {fileID: 8167002999829825265}
   - component: {fileID: 5100897290944126247}
   - component: {fileID: 4560957508259680294}
-  - component: {fileID: 4980021560697502104}
+  - component: {fileID: 211724026111505449}
   - component: {fileID: 159329180152812619}
   - component: {fileID: 3519629107842725500}
   - component: {fileID: 2953004972124559800}
-  - component: {fileID: 3331368894924067121}
+  - component: {fileID: 2894565424208371079}
   - component: {fileID: 8990793202058891121}
   - component: {fileID: 4921034289909576380}
   - component: {fileID: 8660759291876140736}
+  - component: {fileID: 7368125476835749558}
   - component: {fileID: 7607557362582368449}
+  - component: {fileID: 1211119000454768915}
   m_Layer: 9
   m_Name: Player_Yellow
   m_TagString: Player
@@ -893,6 +895,7 @@ MonoBehaviour:
   IsOnGround: 0
   IsLockOption: 0
   IsDefence: 0
+  IsDead: 0
   PlayerRigidbody2D: {fileID: 6815917861611752448}
   PlayerPolarity:
     Value: 1
@@ -987,7 +990,7 @@ MonoBehaviour:
     Buffes: []
     AttackPosition: {x: 0, y: 0}
   AttackCost: 30
---- !u!114 &4980021560697502104
+--- !u!114 &211724026111505449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -996,7 +999,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3639821991439264011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33cde112aca4ac24a89ccebbf26ab350, type: 3}
+  m_Script: {fileID: 11500000, guid: a3f0cb8fb03eb5f49993fbd722b6349d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
@@ -1046,7 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   DefenceCost: 20
---- !u!114 &3331368894924067121
+--- !u!114 &2894565424208371079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1055,7 +1058,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3639821991439264011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d8e6afd760179409cb79822e788b8d, type: 3}
+  m_Script: {fileID: 11500000, guid: fa8004acad1e84e4ba7d48f924a5f280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
@@ -1112,6 +1115,20 @@ MonoBehaviour:
   VertigoTime: 3
   MaxAttackPower: 5
   AttackForceCoefficientAdd: 1.5
+--- !u!114 &7368125476835749558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3639821991439264011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc13f208dffb91c40a860f2e64e72c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  DelayTime: 0.3
 --- !u!58 &7607557362582368449
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1128,6 +1145,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4
+--- !u!114 &1211119000454768915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3639821991439264011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91f822d0932166499d8c86a9ab8c561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5266695195956389894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,8 +1271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5560398311680728990}
-  north: {fileID: 6715799052290747830}
-  sourth: {fileID: 6345287806301278370}
+  north: {fileID: 2522009573700649985}
+  sourth: {fileID: 3299466705285811050}
 --- !u!1 &6345287806301278370
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,8 +32,8 @@ public class BuffAttributesData
     {
         IsLockOption = new BuffAttributeBase<bool>(m_player.IsLockOption);
 
-        if (m_player.FunctionBases.ContainsKey("BeHitWithCoefficient"))
-            AttackForceCoefficient = new BuffAttributeBase<float>((m_player.FunctionBases["BeHitWithCoefficient"] as BeHitWithCoefficient).AttackForceCoefficient);
+        if (m_player.FunctionBases.ContainsKey("BeHit"))
+            AttackForceCoefficient = new BuffAttributeBase<float>((m_player.FunctionBases["BeHit"] as BeHitWithCoefficient).AttackForceCoefficient);
     }
 
     /// <summary>
@@ -43,8 +43,8 @@ public class BuffAttributesData
     {
         m_player.IsLockOption = IsLockOption.Attribute;
 
-        if (m_player.FunctionBases.ContainsKey("BeHitWithCoefficient"))
-            (m_player.FunctionBases["BeHitWithCoefficient"] as BeHitWithCoefficient).AttackForceCoefficient = AttackForceCoefficient.Attribute;
+        if (m_player.FunctionBases.ContainsKey("BeHit"))
+            (m_player.FunctionBases["BeHit"] as BeHitWithCoefficient).AttackForceCoefficient = AttackForceCoefficient.Attribute;
 
     }
     #endregion

@@ -9,6 +9,9 @@ public class Move : PlayerFunctionBase
     [Range(0, 20)] public float MaxMoveSpeed = 10f;
     private Rigidbody2D m_rigidbody2d = null;
 
+    public override string Name { get { return "Move"; } }
+
+
     public override void PlayerInit()
     {
         m_rigidbody2d = GetComponent<Rigidbody2D>();

@@ -23,11 +23,12 @@ public class PlayerBuffManager : MonoBehaviour
     public void AddBuff(PlayerBuffBase buff)
     {
         buff.BuffManager = this;
-        buff.StartBefore(m_arrtibutes);
+
         if (m_buffes.ContainsKey(buff.Name))
         {
             RemoveBuff(buff.Name);
         }
+        buff.StartBefore(m_arrtibutes);
         m_buffes.Add(buff.Name, buff);
         m_arrtibutes.OutData();
     }

@@ -5,18 +5,31 @@ using DaemonTools;
 using UnityEngine.Events;
 public class LevelControl : MonoSingleton<LevelControl>
 {
-    public Dictionary<int, PlayerBase> Players = new Dictionary<int, PlayerBase>();
+    private Dictionary<int, PlayerBase> m_players = null;
+
+    public Dictionary<int, PlayerBase> Players
+    {
+        get
+        {
+            if (m_players != null)
+            {
+                return m_players;
+            }
+            else
+            {
+                return FindPlayers();
+            }
+        }
+    }
     public PlayerReborn playerReborn;
     public ScoreBoard LevelScoreBoard = new ScoreBoard();
+
+    public CDBase LevelTime = new CDBase(120.0f);
 
     new void Awake()
     {
         base.Awake();
-        PlayerBase[] players = FindObjectsOfType<PlayerBase>();
-        for (int i = 0; i < players.Length; i++)
-        {
-            Players.Add(players[i].ID, players[i]);
-        }
+
 
         if (!playerReborn)
         {
@@ -31,6 +44,12 @@ public class LevelControl : MonoSingleton<LevelControl>
     // Start is called before the first frame update
     void Start()
     {
+        LevelTime.OnTimeOut += OnLevelEnd;
+        LevelTime.Start();
+    }
+
+    void OnLevelEnd()
+    {
 
     }
 
@@ -38,5 +57,19 @@ public class LevelControl : MonoSingleton<LevelControl>
     void Update()
     {
 
+    }
+
+
+    public Dictionary<int, PlayerBase> FindPlayers()
+    {
+
+        m_players = new Dictionary<int, PlayerBase>();
+        PlayerBase[] players = FindObjectsOfType<PlayerBase>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].IsPlayer)
+                m_players.Add(players[i].ID, players[i]);
+        }
+        return m_players;
     }
 }
